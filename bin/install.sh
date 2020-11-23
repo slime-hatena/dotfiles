@@ -112,8 +112,8 @@ main() {
         info "$dotfilesDirectory を git pull --rebaseします。"
         (cd "$dotfilesDirectory" && git pull --rebase)
     else
-        info "https://github.com/Slime_hatena/.dotfiles を $dotfilesDirectory にcloneします。"
-        git clone git@github.com:Slime-hatena/dotfiles.git "$dotfilesDirectory"
+        info "https://github.com/Slime-hatena/dotfiles を $dotfilesDirectory にcloneします。"
+        git clone https://github.com/Slime-hatena/dotfiles.git "$dotfilesDirectory"
         cd "$dotfilesDirectory"
     fi
 
