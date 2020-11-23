@@ -119,7 +119,8 @@ main() {
 
     if [ $# -ge 1 ]; then
         info "$1が指定されました。$1ブランチで実行します。"
-        git switch $1
+        git checkout $1
+        git pull --rebase
     fi
 
     # create_symbolic "$dotfilesDirectory/.gitconfig" "$HOME/.gitconfig"
