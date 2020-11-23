@@ -131,8 +131,8 @@ main() {
     fi
 
     mkdir -p "$HOME/.config"
-    mkdir -p ~/Development/github.com/Slime-hatena
-    create_symbolic "$dotfilesDirectory" "~/Development/github.com/Slime-hatena/dotfiles"
+    mkdir -p "$HOME/Development/github.com/Slime-hatena"
+    create_symbolic "$dotfilesDirectory" "$HOME/Development/github.com/Slime-hatena/dotfiles"
 
     # homebrew
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
@@ -153,12 +153,12 @@ main() {
 
     #tmux / tpm
     create_symbolic "$dotfilesDirectory/tmux/.tmux.conf" "$HOME/.tmux.conf"
-    if [ -d "~/.tmux/plugins/tpm" ]; then
-        cd "~/.tmux/plugins/tpm"
+    if [ -d "$HOME/.tmux/plugins/tpm" ]; then
+        cd "$HOME/.tmux/plugins/tpm"
         git pull --rebase
         cd "$dotfilesDirectory"
     else
-        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+        git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
     fi
 }
 
