@@ -153,7 +153,13 @@ main() {
 
     #tmux / tpm
     create_symbolic "$dotfilesDirectory/tmux/.tmux.conf" "$HOME/.tmux.conf"
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    if [ -d "~/.tmux/plugins/tpm" ]; then
+        cd "~/.tmux/plugins/tpm"
+        git pull --rebase
+        cd "$dotfilesDirectory"
+    else
+        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    fi
 }
 
 main
