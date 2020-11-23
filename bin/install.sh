@@ -127,7 +127,11 @@ main() {
 
     # create_symbolic "$dotfilesDirectory/.gitconfig" "$HOME/.gitconfig"
     mkdir -p "$HOME/.config"
+
+    # fish / fisher
     create_symbolic "$dotfilesDirectory/fish" "$HOME/.config/fish"
+    fish -c "curl -sL git.io/fisher | source && fisher install jorgebucaran/fisher"
+
 }
 
 main
