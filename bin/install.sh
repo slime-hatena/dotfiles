@@ -127,4 +127,4 @@ main() {
     create_symbolic "$dotfilesDirectory/fish" "$HOME/.config/fish"
 }
 
-# main
+main
