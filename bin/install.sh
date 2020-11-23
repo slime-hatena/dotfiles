@@ -110,7 +110,9 @@ main() {
 
     if [ -d "$dotfilesDirectory" ]; then
         info "$dotfilesDirectory を git pull --rebaseします。"
-        (cd "$dotfilesDirectory" && git pull --rebase)
+        cd "$dotfilesDirectory"
+        git checkout master
+        git pull --rebase
     else
         info "https://github.com/Slime-hatena/dotfiles を $dotfilesDirectory にcloneします。"
         git clone https://github.com/Slime-hatena/dotfiles.git "$dotfilesDirectory"
