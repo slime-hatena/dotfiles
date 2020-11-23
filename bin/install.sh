@@ -137,6 +137,9 @@ main() {
     create_symbolic "$dotfilesDirectory/fish" "$HOME/.config/fish"
     fish -c "curl -sL git.io/fisher | source && fisher install jorgebucaran/fisher"
 
+    #tmux / tpm
+    create_symbolic "$dotfilesDirectory/tmux/.tmux.conf" "$HOME/.tmux.conf"
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 }
 
 main
