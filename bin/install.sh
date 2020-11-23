@@ -133,6 +133,7 @@ main() {
     mkdir -p "$HOME/.config"
 
     # git
+    mkdir -p ~/Development
     create_symbolic "$dotfilesDirectory/git/.gitconfig" "$HOME/.gitconfig"
     create_symbolic "$dotfilesDirectory/git/.gitconfig_users" "$HOME/.gitconfig_users"
 
