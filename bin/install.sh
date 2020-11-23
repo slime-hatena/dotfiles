@@ -131,6 +131,8 @@ main() {
     fi
 
     mkdir -p "$HOME/.config"
+    mkdir -p ~/Development
+    create_symbolic "$dotfilesDirectory" "~/Development/github.com/Slime-hatena/dotfiles"
 
     # homebrew
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
@@ -142,7 +144,6 @@ main() {
     brew bundle --file "$dotfilesDirectory/homebrew/Brewfiles"
 
     # git
-    mkdir -p ~/Development
     create_symbolic "$dotfilesDirectory/git/.gitconfig" "$HOME/.gitconfig"
     create_symbolic "$dotfilesDirectory/git/.gitconfig_users" "$HOME/.gitconfig_users"
 
