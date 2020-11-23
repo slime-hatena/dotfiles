@@ -137,10 +137,10 @@ main() {
     # homebrew
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     cat "$dotfilesDirectory/homebrew/Brewfiles_all" > "$dotfilesDirectory/homebrew/Brewfiles"
-    if [ $(uname -s) -eq "Darwin" ] {
+    if [ $(uname -s) -eq "Darwin" ]; then
         info "実行環境がMacのため、cask経由でアプリケーションをインストールします。"
         cat "$dotfilesDirectory/homebrew/Brewfiles_mac" >> "$dotfilesDirectory/homebrew/Brewfiles"
-    }
+    fi
     brew bundle --file "$dotfilesDirectory/homebrew/Brewfiles"
 
     # git
