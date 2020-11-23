@@ -132,11 +132,6 @@ main() {
 
     mkdir -p "$HOME/.config"
 
-    # git
-    mkdir -p ~/Development
-    create_symbolic "$dotfilesDirectory/git/.gitconfig" "$HOME/.gitconfig"
-    create_symbolic "$dotfilesDirectory/git/.gitconfig_users" "$HOME/.gitconfig_users"
-
     # homebrew
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     cat "$dotfilesDirectory/homebrew/Brewfiles_all" > "$dotfilesDirectory/homebrew/Brewfiles"
@@ -145,6 +140,11 @@ main() {
         cat "$dotfilesDirectory/homebrew/Brewfiles_mac" >> "$dotfilesDirectory/homebrew/Brewfiles"
     }
     brew bundle --file "$dotfilesDirectory/homebrew/Brewfiles"
+
+    # git
+    mkdir -p ~/Development
+    create_symbolic "$dotfilesDirectory/git/.gitconfig" "$HOME/.gitconfig"
+    create_symbolic "$dotfilesDirectory/git/.gitconfig_users" "$HOME/.gitconfig_users"
 
     # fish / fisher
     create_symbolic "$dotfilesDirectory/fish" "$HOME/.config/fish"
