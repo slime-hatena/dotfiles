@@ -133,6 +133,15 @@ main() {
     # create_symbolic "$dotfilesDirectory/.gitconfig" "$HOME/.gitconfig"
     mkdir -p "$HOME/.config"
 
+    # homebrew
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    cat "$dotfilesDirectory/homebrew/Brewfiles_all" > "$dotfilesDirectory/homebrew/Brewfiles"
+    if [ $(uname -s) -eq "Darwin" ] {
+        info "実行環境がMacのため、cask経由でアプリケーションをインストールします。"
+        cat "$dotfilesDirectory/homebrew/Brewfiles_mac" >> "$dotfilesDirectory/homebrew/Brewfiles"
+    }
+    brew bundle --file "$dotfilesDirectory/homebrew/Brewfiles"
+
     # fish / fisher
     create_symbolic "$dotfilesDirectory/fish" "$HOME/.config/fish"
     fish -c "curl -sL git.io/fisher | source && fisher install jorgebucaran/fisher"
