@@ -131,7 +131,7 @@ main() {
     fi
 
     mkdir -p "$HOME/.config"
-    mkdir -p ~/Development
+    mkdir -p ~/Development/github.com/Slime-hatena
     create_symbolic "$dotfilesDirectory" "~/Development/github.com/Slime-hatena/dotfiles"
 
     # homebrew
