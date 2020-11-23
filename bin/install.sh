@@ -95,7 +95,7 @@ main() {
         exit
     fi
 
-    warn "このスクリプトを実行すると、あなたの環境に破壊的な変更を行う可能性があります。"
+    warn "このスクリプトを実行すると、あなたの環境に破壊的な変更が行われる可能性があります。"
     warn "スクリプトの内容は以下から確認することができます。"
     warn "https://github.com/Slime-hatena/dotfiles/"
     echo ""
@@ -114,6 +114,12 @@ main() {
     else
         info "https://github.com/Slime_hatena/.dotfiles を $dotfilesDirectory にcloneします。"
         git clone git@github.com:Slime-hatena/dotfiles.git "$dotfilesDirectory"
+        cd "$dotfilesDirectory"
+    fi
+
+    if [ $# -ge 1 ]; then
+        info "$1が指定されました。$1ブランチで実行します。"
+        git switch $1
     fi
 
     # create_symbolic "$dotfilesDirectory/.gitconfig" "$HOME/.gitconfig"
@@ -121,4 +127,4 @@ main() {
     create_symbolic "$dotfilesDirectory/fish" "$HOME/.config/fish"
 }
 
-main
+# main
