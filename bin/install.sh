@@ -130,8 +130,11 @@ main() {
         git pull --rebase
     fi
 
-    # create_symbolic "$dotfilesDirectory/.gitconfig" "$HOME/.gitconfig"
     mkdir -p "$HOME/.config"
+
+    # git
+    create_symbolic "$dotfilesDirectory/git/.gitconfig" "$HOME/.gitconfig"
+    create_symbolic "$dotfilesDirectory/git/.gitconfig_users" "$HOME/.gitconfig_users"
 
     # homebrew
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
