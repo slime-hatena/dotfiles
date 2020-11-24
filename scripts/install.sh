@@ -99,7 +99,10 @@ install() {
     # git
     info ".gitconfigを追加します。"
     create_symbolic "$dotfilesDirectory/git/.gitconfig" "$HOME/.gitconfig"
-    create_symbolic "$dotfilesDirectory/git/.gitconfig_users" "$HOME/.gitconfig_users"
+    if [ -f $HOME/.gitconfig_users ]; then
+        info "$HOME/.gitconfig_users を作成しました。gitのユーザー情報を書き込んでください。"
+        cp "$dotfilesDirectory/git/.gitconfig_users.example" "$HOME/.gitconfig_users"
+    fi
 
     # fish / fisher
     if exists brew; then
