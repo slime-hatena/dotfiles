@@ -20,6 +20,7 @@ cask "slack"
 cask "google-drive-file-stream"
 cask "google-japanese-ime"
 cask "clipy"
+cask "github"
 
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "RunCat", id: 1429033973
