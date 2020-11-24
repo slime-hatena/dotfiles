@@ -104,6 +104,7 @@ install() {
     # fish / fisher
     info "fishの設定ファイルを追加します。"
     create_symbolic "$dotfilesDirectory/fish" "$HOME/.config/fish"
+    info "fisherをインストールします。"
     fish -c "curl -sL git.io/fisher | source && fisher install jorgebucaran/fisher"
 
     #tmux / tpm
