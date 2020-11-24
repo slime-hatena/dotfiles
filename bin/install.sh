@@ -123,8 +123,11 @@ main() {
 
     # homebrew
     if ! exists brew; then
+        info "homebrewをインストールします。"
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     fi
+
+    info "brewfileに記載されているパッケージを導入します。"
     cat "$dotfilesDirectory/homebrew/Brewfiles_all" > "$dotfilesDirectory/homebrew/Brewfiles"
     if [ "$(uname)" == 'Darwin' ]; then
         info "実行環境がMacのため、cask経由でアプリケーションをインストールします。"
@@ -133,22 +136,29 @@ main() {
     brew bundle --file "$dotfilesDirectory/homebrew/Brewfiles"
 
     # git
+    info ".gitconfigを追加します。"
     create_symbolic "$dotfilesDirectory/git/.gitconfig" "$HOME/.gitconfig"
     create_symbolic "$dotfilesDirectory/git/.gitconfig_users" "$HOME/.gitconfig_users"
 
     # fish / fisher
+    info "fishの設定ファイルを追加します。"
     create_symbolic "$dotfilesDirectory/fish" "$HOME/.config/fish"
     fish -c "curl -sL git.io/fisher | source && fisher install jorgebucaran/fisher"
 
     #tmux / tpm
+    info "tmuxの設定ファイルを追加します。"
     create_symbolic "$dotfilesDirectory/tmux/.tmux.conf" "$HOME/.tmux.conf"
     if [ -d "$HOME/.tmux/plugins/tpm" ]; then
+        info "tpmを更新します。"
         cd "$HOME/.tmux/plugins/tpm"
         git pull --rebase
         cd "$dotfilesDirectory"
     else
+        info "tpmが存在しないため、cloneします。"
         git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
     fi
+
+    info "インストールが完了しました！"
 }
 
 main
