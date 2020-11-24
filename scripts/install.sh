@@ -125,8 +125,16 @@ install() {
         git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
     fi
 
-    info "tmuximumをインストールします。"
-    curl -L https://raw.github.com/arks22/tmuximum/master/install.bash | bash
+    if [ -d "$HOME/tmuximum" ]; then
+        info "tmuximumを更新します。"
+        cd "$HOME/tmuximum"
+        git pull --rebase
+        cd "$dotfilesDirectory"
+    else
+        info "tmuximumが存在しないため、インストールします。"
+        curl -L https://raw.github.com/arks22/tmuximum/master/install.bash | bash
+        chmod 777 "$HOME/tmuximum/tmuximum"
+    fi
 
     info "インストールが完了しました！"
 }
