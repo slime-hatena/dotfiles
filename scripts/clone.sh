@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -u
 
 dotfilesDirectory=$HOME/.dotfiles
@@ -119,7 +119,7 @@ clone() {
         git pull --rebase
     fi
 
-    $dotfilesDirectory/scripts/install.sh
+    /bin/bash $dotfilesDirectory/scripts/install.sh
 
 }
 
