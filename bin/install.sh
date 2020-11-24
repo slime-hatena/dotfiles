@@ -74,8 +74,10 @@ error() {
 ###========================================================================================###
 
 main() {
-    echo " dotfiles by Slime-hatena"
-    echo "--------------------------"
+    echo ""
+    echo ""
+    echo "           dotfiles by Slime-hatena"
+    echo "          --------------------------"
     echo ""
 
     if [ "$UID" -eq "0" ]; then
