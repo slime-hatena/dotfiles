@@ -12,11 +12,13 @@ cask "powershell"
 cask "iterm2"
 cask "docker"
 cask "google-chrome"
-cask "firefox"
+cask "firefox-developer-edition"
 cask "google-cloud-sdk"
 cask "vagrant"
 cask "virtualbox"
 cask "virtualbox-extension-pack"
+cask "slack"
+cask "google-drive-file-stream"
 
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "RunCat", id: 1429033973
