@@ -31,3 +31,8 @@
 	clean-branch = !GIT_CLEAN_BRANCH_CURRENT=$(git pwd) && git switch master && git branch --merged | tr -d ' \\*' | grep -v 'master' | xargs git branch -d && git switch $GIT_CLEAN_BRANCH_CURRENT
 [ghq]
 	root = ~/Development/
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
