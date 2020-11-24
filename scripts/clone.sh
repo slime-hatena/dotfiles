@@ -106,6 +106,7 @@ clone() {
         info "$dotfilesDirectory をorigin/masterの内容で上書きします。"
         cd "$dotfilesDirectory"
         git fetch
+        git reset --hard origin/$(git symbolic-ref --short HEAD)
         git checkout master
         git reset --hard origin/master
         git pull --rebase
