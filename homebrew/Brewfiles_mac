@@ -19,6 +19,7 @@ cask "vagrant"
 cask "slack"
 cask "google-drive-file-stream"
 cask "google-japanese-ime"
+cask "clipy"
 
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "RunCat", id: 1429033973
