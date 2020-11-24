@@ -125,9 +125,11 @@ main() {
     create_symbolic "$dotfilesDirectory" "$HOME/Development/github.com/Slime-hatena/dotfiles"
 
     # homebrew
+    info "homebrewをインストールします。"
     if ! exists brew; then
-        info "homebrewをインストールします。"
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    else
+        info "homebrewはインストール済みのためスキップします。"
     fi
 
     info "brewfileに記載されているパッケージを導入します。"
