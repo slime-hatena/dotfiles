@@ -103,9 +103,11 @@ clone() {
     fi
 
     if [ -d "$dotfilesDirectory" ]; then
-        info "$dotfilesDirectory を git pull --rebaseします。"
+        info "$dotfilesDirectory をorigin/masterの内容で上書きします。"
         cd "$dotfilesDirectory"
+        git fetch
         git checkout master
+        git reset --hard origin/master
         git pull --rebase
     else
         info "https://github.com/Slime-hatena/dotfiles を $dotfilesDirectory にcloneします。"
@@ -115,8 +117,9 @@ clone() {
 
     if [ $# -ge 1 ]; then
         info "$1が指定されました。$1ブランチで実行します。"
+        git fetch
         git checkout $1
-        git pull --rebase
+        git reset --hard origin/$1
     fi
 
     /bin/bash $dotfilesDirectory/scripts/install.sh
