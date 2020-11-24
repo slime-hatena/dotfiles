@@ -44,7 +44,7 @@ ask_yes_or_no() {
         message=$1
     fi
 
-    printf '\033[1;30;46m%s\033[m ' "$message [y/N]:"
+    printf '\033[1;37;46m%s\033[m ' "$message [y/N]:"
     read -p "" yn
     case "$yn" in [yY]*) ;; *)
         return 1
