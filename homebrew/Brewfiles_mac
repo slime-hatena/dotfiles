@@ -16,8 +16,6 @@ cask "google-chrome"
 cask "firefox-developer-edition"
 cask "google-cloud-sdk"
 cask "vagrant"
-cask "virtualbox"
-cask "virtualbox-extension-pack"
 cask "slack"
 cask "google-drive-file-stream"
 
