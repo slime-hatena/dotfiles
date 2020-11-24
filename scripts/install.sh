@@ -102,10 +102,15 @@ install() {
     create_symbolic "$dotfilesDirectory/git/.gitconfig_users" "$HOME/.gitconfig_users"
 
     # fish / fisher
-    info "fishの設定ファイルを追加します。"
-    create_symbolic "$dotfilesDirectory/fish" "$HOME/.config/fish"
-    info "fisherをインストールします。"
-    fish -c "curl -sL git.io/fisher | source && fisher install jorgebucaran/fisher"
+    if exists brew; then
+        info "fishの設定ファイルを追加します。"
+        create_symbolic "$dotfilesDirectory/fish" "$HOME/.config/fish"
+        info "fisherをインストールします。"
+        $(which fish) -c "curl -sL git.io/fisher | source && fisher install jorgebucaran/fisher"
+    else
+        error "fishがインストールされていません。"
+    fi
+
 
     #tmux / tpm
     info "tmuxの設定ファイルを追加します。"
