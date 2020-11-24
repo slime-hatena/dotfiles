@@ -76,6 +76,7 @@ error() {
 main() {
     echo " dotfiles by Slime-hatena"
     echo "--------------------------"
+    echo ""
 
     if [ "$UID" -eq "0" ]; then
         error "このスクリプトは通常ユーザーで実行してください。"
