@@ -91,9 +91,9 @@ install() {
     info "homebrewにパスを通します。"
     touch ~/.bash_profile
     if [ "$(uname)" == 'Darwin' ]; then
-        echo 'export PATH=/usr/local/bin:$PATH' >>.bash_profile
+        echo 'export PATH=/usr/local/bin:$PATH' >>~/.bash_profile
     else
-        echo 'export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH' >>.bash_profile
+        echo 'export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH' >>~/.bash_profile
     fi
     source ~/.bash_profile
 
