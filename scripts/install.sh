@@ -88,6 +88,15 @@ install() {
         info "homebrewはインストール済みのためスキップします。"
     fi
 
+    info "homebrewにパスを通します。"
+    touch ~/.bash_profile
+    if [ "$(uname)" == 'Darwin' ]; then
+        echo 'export PATH=/usr/local/bin:$PATH' >>.bash_profile
+    else
+        echo 'export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH' >>.bash_profile
+    fi
+    source ~/.bash_profile
+
     info "brewfileに記載されているパッケージを導入します。"
     cat "$dotfilesDirectory/homebrew/Brewfiles_all" > "$dotfilesDirectory/homebrew/Brewfiles"
     if [ "$(uname)" == 'Darwin' ]; then
