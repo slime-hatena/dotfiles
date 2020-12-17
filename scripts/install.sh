@@ -105,9 +105,10 @@ install() {
     fi
 
     # fish / fisher
-    if exists brew; then
+    if exists fish; then
         info "fishの設定ファイルを追加します。"
         create_symbolic "$dotfilesDirectory/fish" "$HOME/.config/fish"
+
         info "fisherをインストールします。"
         $(which fish) -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher"
     else
