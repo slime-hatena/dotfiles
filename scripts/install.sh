@@ -98,10 +98,10 @@ install() {
     source ~/.bash_profile
 
     info "brewfileに記載されているパッケージを導入します。"
-    cat "$dotfilesDirectory/homebrew/Brewfiles_all" > "$dotfilesDirectory/homebrew/Brewfiles"
+    cat "$dotfilesDirectory/homebrew/Brewfiles_all" >"$dotfilesDirectory/homebrew/Brewfiles"
     if [ "$(uname)" == 'Darwin' ]; then
         info "実行環境がMacのため、cask経由でアプリケーションをインストールします。"
-        cat "$dotfilesDirectory/homebrew/Brewfiles_mac" >> "$dotfilesDirectory/homebrew/Brewfiles"
+        cat "$dotfilesDirectory/homebrew/Brewfiles_mac" >>"$dotfilesDirectory/homebrew/Brewfiles"
     fi
     brew bundle --file "$dotfilesDirectory/homebrew/Brewfiles"
 
@@ -123,7 +123,6 @@ install() {
     else
         error "fishがインストールされていません。"
     fi
-
 
     #tmux / tpm
     info "tmuxの設定ファイルを追加します。"
