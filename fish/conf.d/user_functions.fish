@@ -1,3 +1,7 @@
+function reload
+  exec fish
+end
+
 function updateDotfiles
   /bin/bash $HOME/.dotfiles/scripts/install.sh
 end
