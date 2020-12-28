@@ -3,7 +3,7 @@ function reload
 end
 
 function updateDotfiles
-  /bin/bash $HOME/.dotfiles/scripts/install.sh
+  /bin/bash $HOME/.dotfiles/scripts/update.sh $argv
 end
 
 function peco
