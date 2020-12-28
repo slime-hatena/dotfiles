@@ -1,3 +1,6 @@
+function updateDotfiles
+  /bin/bash $HOME/.dotfiles/scripts/install.sh
+end
 
 function peco
   command peco --layout=bottom-up --select-1 $argv
