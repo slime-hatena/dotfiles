@@ -44,3 +44,5 @@ update() {
     /bin/bash $dotfilesDirectory/scripts/install.sh
 
 }
+
+update
