@@ -76,6 +76,7 @@ error() {
 install() {
     mkdir -p "$HOME/.config"
     mkdir -p "$HOME/Development/github.com/Slime-hatena"
+    touch ~/.bash_profile
 
     info "ghqの管理ディレクトリにdotfilesのシンボリックリンクを作成します。"
     create_symbolic "$dotfilesDirectory" "$HOME/Development/github.com/Slime-hatena/dotfiles"
@@ -86,7 +87,6 @@ install() {
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
         info "homebrewにパスを通します。"
-        touch ~/.bash_profile
         echo 'export PATH=$(brew --prefix):$PATH' >>~/.bash_profile
         source ~/.bash_profile
     else
