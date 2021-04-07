@@ -87,7 +87,7 @@ install() {
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
         info "homebrewにパスを通します。"
-        echo 'export PATH=$(brew --prefix):$PATH' >>~/.bash_profile
+        echo "export PATH=$(brew --prefix):"'$PATH' >>~/.bash_profile
         source ~/.bash_profile
     else
         info "homebrewはインストール済みのためスキップします。"
