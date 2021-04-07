@@ -142,7 +142,7 @@ install() {
         info "tmuximumが存在しないため、インストールします。"
         curl -L https://raw.github.com/arks22/tmuximum/master/install.bash | bash
         chmod 777 "$HOME/tmuximum/tmuximum"
-        echo "export PATH=$HOME/tmuximum:" '$PATH' >>~/.bash_profile
+        echo "export PATH=$HOME/tmuximum:"'$PATH' >>~/.bash_profile
         source ~/.bash_profile
     fi
 
