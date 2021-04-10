@@ -77,7 +77,29 @@ error() {
 install() {
     mkdir -p "$HOME/.config"
     mkdir -p "$HOME/Development/github.com/Slime-hatena"
-    touch ~/.bash_profile
+    touch "$HOME/.bash_path"
+
+    if [ -f "$HOME/.bash_profile" ]; then
+        if ! ask_yes_or_no "$HOME/.bash_profile が存在すると正常に動作しない可能性があります。退避しますか？"; then
+            warn "キャンセルしました。正常に動作しない場合は手動で退避してください。"
+        else
+            backup "$HOME/.bash_profile"
+        fi
+    fi
+
+    if [ -f "$HOME/.bash_login" ]; then
+        if ! ask_yes_or_no "$HOME/.bash_login が存在すると正常に動作しない可能性があります。退避しますか？"; then
+            warn "キャンセルしました。正常に動作しない場合は手動で退避してください。"
+        else
+            backup "$HOME/.bash_login"
+        fi
+    fi
+
+    if [ -f "$HOME/.profile" ]; then
+        info "$HOME/.profile を ${dotfilesDirectory}/bash/.profile の内容で上書きします。"
+        backup "$HOME/.profile"
+        cp "${dotfilesDirectory}/bash/.profile" "${HOME}/.profile"
+    fi
 
     info "ghqの管理ディレクトリにdotfilesのシンボリックリンクを作成します。"
     create_symbolic "$dotfilesDirectory" "$HOME/Development/github.com/Slime-hatena/dotfiles"
