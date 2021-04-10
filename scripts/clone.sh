@@ -91,15 +91,16 @@ clone() {
     fi
 
     warn "このスクリプトを実行すると、あなたの環境に破壊的な変更が行われる可能性があります。"
+    warn "実行結果に関しましては無保証です。個人の責任において実行してください。"
     warn "スクリプトの内容は以下から確認することができます。"
     warn "https://github.com/Slime-hatena/dotfiles/"
     echo ""
 
-    sleep 2
+    sleep 5
 
     if ! ask_yes_or_no "本当に実行しますか？"; then
         info "キャンセルしました。"
-        exit;
+        exit
     fi
 
     if [ -d "$dotfilesDirectory" ]; then
