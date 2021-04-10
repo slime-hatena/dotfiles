@@ -105,15 +105,24 @@ install() {
     create_symbolic "$dotfilesDirectory" "$HOME/Development/github.com/Slime-hatena/dotfiles"
 
     # homebrew
-    info "homebrewをインストールします。"
     if ! exists brew; then
+        info "homebrewをインストールします。"
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
         info "homebrewにパスを通します。"
-        echo "export PATH=$(brew --prefix):"'$PATH' >>~/.bash_profile
-        source ~/.bash_profile
-    else
-        info "homebrewはインストール済みのためスキップします。"
+        if [ "$(uname)" == 'Darwin' ]; then
+            echo 'export PATH=/usr/local/bin:$PATH' >>$HOME/.bash_path
+        else
+            if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+                echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>$HOME/.bash_path
+                eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+            fi
+
+            if [ -f "$HOME-hatena/.linuxbrew/bin/brew" ]; then
+                echo 'eval "$(/home/slime-hatena/.linuxbrew/bin/brew shellenv)"' >>$HOME/.bash_path
+                eval "$($HOME/.linuxbrew/bin/brew shellenv)"
+            fi
+        fi
     fi
 
     info "brewfileに記載されているパッケージを導入します。"
