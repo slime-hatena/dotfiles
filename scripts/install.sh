@@ -182,3 +182,9 @@ install() {
 }
 
 install
+
+if ! exists brew; then
+    error "fishのインストールに失敗したため実行できませんでした。何らかの不具合が起きている可能性があります。"
+else
+    fish
+fi
