@@ -14,6 +14,14 @@ exists() {
     type "$1" >/dev/null 2>&1
 }
 
+### ファイルをバックアップフォルダに移動します。
+backup() {
+    filename=$(basename $1).$(date +%s)
+    mkdir -p "${dotfilesDirectory}/backup"
+    mv "$1" "${dotfilesDirectory}/backup/${filename}"
+    info "${1}を${filename}に移動しました。"
+}
+
 ### ファイルが存在する場合は待避し、シンボリックリンクを作成します。
 create_symbolic() {
     info "${1} → ${2} のシンボリックリンクを作成します。"
@@ -21,15 +29,8 @@ create_symbolic() {
         if [ -L "$2" ]; then
             warn "シンボリックリンクが存在します。削除します。"
             rm "$2"
-        elif [ -d $2 ]; then
-            filename=$(basename $2).$(date +%s)
-            info "ディレクトリが存在します。${dotfilesDirectory}/backup/${filename}に移動します。"
-            mkdir -p "${dotfilesDirectory}/backup/${filename}"
-            mv "$2" "${dotfilesDirectory}/backup/${filename}"
         else
-            filename=$(basename $2).$(date +%s)
-            info "ファイルが存在します。${dotfilesDirectory}/backup/${filename}に移動します。"
-            mv "$2" "${dotfilesDirectory}/backup/${filename}"
+            backup $2
         fi
     fi
     ln -s "$1" "$2"
