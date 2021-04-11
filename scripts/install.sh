@@ -148,6 +148,7 @@ install() {
 
         info "fishの設定ファイルを追加します。"
         create_symbolic "$dotfilesDirectory/fish" "$HOME/.config/fish"
+        git checkout $dotfilesDirectory/fish/fish_plugins
 
         info "fisherのプラグインを追加します。"
         $(which fish) -c "fisher update"
