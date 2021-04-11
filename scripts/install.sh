@@ -168,6 +168,7 @@ install() {
     if [ -d "$HOME/tmuximum" ]; then
         info "tmuximumを更新します。"
         cd "$HOME/tmuximum"
+        git checkout .
         git pull --rebase
         cd "$dotfilesDirectory"
     else
