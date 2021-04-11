@@ -4,6 +4,28 @@ set -u
 dotfilesDirectory=$HOME/.dotfiles
 
 ###========================================================================================###
+###    Utility                                                                             ###
+###========================================================================================###
+
+### Yes/Noを尋ねます。未指定の場合はNoになります。
+### @return yes: 0
+### @return no: 1
+ask_yes_or_no() {
+    message="Are you sure?"
+    if [ $# -eq 1 ]; then
+        message=$1
+    fi
+
+    printf '\033[1;37;46m%s\033[m ' "$message [y/N]:"
+    read -p "" yn
+    case "$yn" in [yY]*) ;; *)
+        return 1
+        ;;
+    esac
+    return 0
+}
+
+###========================================================================================###
 ###    Print                                                                               ###
 ###========================================================================================###
 
@@ -25,6 +47,18 @@ error() {
 
 update() {
 
+    cd $dotfilesDirectory
+
+    if test -n "$(git status --porcelain)"; then
+        git status
+        warn "$dotfilesDirectoryに変更が存在します。更新を行うとすべての変更が破棄されます。"
+
+        if ! ask_yes_or_no "本当に実行しますか？"; then
+            info "キャンセルしました。"
+            exit
+        fi
+    fi
+
     if [ "$UID" -eq "0" ]; then
         error "このスクリプトは通常ユーザーで実行してください。"
         exit 1
@@ -32,7 +66,6 @@ update() {
 
     info "dotfilesを更新します。"
     info "$dotfilesDirectory をorigin/masterの内容で上書きします。"
-    cd "$dotfilesDirectory"
     git fetch
     git reset --hard origin/$(git symbolic-ref --short HEAD)
     git checkout master
