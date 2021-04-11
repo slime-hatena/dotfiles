@@ -144,10 +144,14 @@ install() {
     # fish / fisher
     if exists fish; then
         info "fisherをインストールします。"
-        $(which fish) -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher"
+        $(which fish) -c "curl -sL https://git.io/fisher | source"
+        $(which fish) -c "fisher install jorgebucaran/fisher"
 
         info "fishの設定ファイルを追加します。"
         create_symbolic "$dotfilesDirectory/fish" "$HOME/.config/fish"
+
+        info "fisherのプラグインを追加します。"
+        $(which fish) -c "fisher update"
     else
         error "fishがインストールされていません。"
     fi
