@@ -103,6 +103,8 @@ clone() {
         exit
     fi
 
+    mkdir -p $dotfilesDirectory
+
     if [ -d "$dotfilesDirectory" ]; then
         info "$dotfilesDirectory をorigin/masterの内容で上書きします。"
         cd "$dotfilesDirectory"
@@ -113,7 +115,6 @@ clone() {
         git pull --rebase
     else
         info "https://github.com/Slime-hatena/dotfiles を $dotfilesDirectory にcloneします。"
-        mkdir -p $dotfilesDirectory
         git clone https://github.com/Slime-hatena/dotfiles.git "$dotfilesDirectory"
         cd "$dotfilesDirectory"
     fi
