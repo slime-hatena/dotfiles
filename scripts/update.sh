@@ -1,7 +1,7 @@
 #!/bin/bash
 set -u
 
-dotfilesDirectory=$HOME/.dotfiles
+dotfilesDirectory=$HOME/Development/github.com/Slime-hatena/dotfiles
 
 ###========================================================================================###
 ###    Utility                                                                             ###

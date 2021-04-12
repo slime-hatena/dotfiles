@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eu
 
-dotfilesDirectory=$HOME/.dotfiles
+dotfilesDirectory=$HOME/Development/github.com/Slime-hatena/dotfiles
 
 ###========================================================================================###
 ###    Utility                                                                             ###
@@ -102,6 +102,8 @@ clone() {
         info "キャンセルしました。"
         exit
     fi
+
+    mkdir -p $dotfilesDirectory
 
     if [ -d "$dotfilesDirectory" ]; then
         info "$dotfilesDirectory をorigin/masterの内容で上書きします。"
