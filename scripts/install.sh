@@ -1,7 +1,7 @@
 #!/bin/bash
 set -u
 
-dotfilesDirectory=$HOME/Development/github.com/Slime-hatena/dotfiles
+dotfilesDirectory=$HOME/.dotfiles
 
 ###========================================================================================###
 ###    Utility                                                                             ###
@@ -76,7 +76,7 @@ error() {
 
 install() {
     mkdir -p "$HOME/.config"
-    mkdir -p $dotfilesDirectory
+    mkdir -p "$HOME/Development/github.com/Slime-hatena"
     touch "$HOME/.bash_path"
 
     if [ -f "$HOME/.bash_profile" ]; then
@@ -100,6 +100,9 @@ install() {
         backup "$HOME/.profile"
         cp "${dotfilesDirectory}/bash/.profile" "${HOME}/.profile"
     fi
+
+    info "ghqの管理ディレクトリにdotfilesのシンボリックリンクを作成します。"
+    create_symbolic "$dotfilesDirectory" "$HOME/Development/github.com/Slime-hatena/dotfiles"
 
     # homebrew
     if ! exists brew; then
