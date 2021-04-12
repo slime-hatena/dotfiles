@@ -101,9 +101,6 @@ install() {
         cp "${dotfilesDirectory}/bash/.profile" "${HOME}/.profile"
     fi
 
-    info "ghqの管理ディレクトリにdotfilesのシンボリックリンクを作成します。"
-    create_symbolic "$dotfilesDirectory" "$HOME/Development/github.com/Slime-hatena/dotfiles"
-
     # homebrew
     if ! exists brew; then
         info "homebrewをインストールします。"
