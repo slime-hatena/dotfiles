@@ -98,8 +98,10 @@ install() {
     if [ -f "$HOME/.profile" ]; then
         info "$HOME/.profile を ${dotfilesDirectory}/bash/.profile の内容で上書きします。"
         backup "$HOME/.profile"
-        cp "${dotfilesDirectory}/bash/.profile" "${HOME}/.profile"
+    else
+        info "$HOME/.profile を作成します。"
     fi
+    cp "${dotfilesDirectory}/bash/.profile" "${HOME}/.profile"
 
     # homebrew
     if ! exists brew; then
