@@ -96,12 +96,16 @@ install() {
     fi
 
     if [ -f "$HOME/.profile" ]; then
-        info "$HOME/.profile を ${dotfilesDirectory}/bash/.profile の内容で上書きします。"
-        backup "$HOME/.profile"
+        diff "${dotfilesDirectory}/bash/.profile" "${HOME}/.profile" >/dev/null 2>&1
+        if [ $? -eq 1 ]; then
+            info "$HOME/.profile を ${dotfilesDirectory}/bash/.profile の内容で上書きします。"
+            backup "$HOME/.profile"
+            cp "${dotfilesDirectory}/bash/.profile" "${HOME}/.profile"
+        fi
     else
         info "$HOME/.profile を作成します。"
+        cp "${dotfilesDirectory}/bash/.profile" "${HOME}/.profile"
     fi
-    cp "${dotfilesDirectory}/bash/.profile" "${HOME}/.profile"
 
     if [ "$(grep $USER /etc/passwd | cut -d: -f7)" != "/bin/bash" ]; then
         info "ログインシェルを /bin/bash に変更します。"
