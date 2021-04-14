@@ -1,7 +1,6 @@
 tap "homebrew/bundle"
 tap "homebrew/core"
 
-brew "gcc"
 brew "fish"
 brew "colordiff"
 brew "composer"
@@ -25,3 +24,4 @@ brew "pv"
 brew "tig"
 brew "tmux"
 brew "yarn"
+brew "youtube-dl"
