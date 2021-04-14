@@ -103,8 +103,10 @@ install() {
     fi
     cp "${dotfilesDirectory}/bash/.profile" "${HOME}/.profile"
 
-    info "ログインシェルを /bin/bash に変更します。"
-    chsh -s /bin/bash
+    if [ "$(grep $USER /etc/passwd | cut -d: -f7)" != "/bin/bash" ]; then
+        info "ログインシェルを /bin/bash に変更します。"
+        chsh -s /bin/bash
+    fi
 
     # homebrew
     if ! exists brew; then
