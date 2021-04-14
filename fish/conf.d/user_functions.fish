@@ -77,3 +77,8 @@ end
 function calc
   echo "scale=4; $argv" | bc
 end
+
+function youtube-dl-fine
+  mkdir -p ~/Videos/youtube-dl
+  youtube-dl -f bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio --merge-output-format mkv -o "~/Videos/youtube-dl/%%(title)s.%%(ext)s" $argv
+end
