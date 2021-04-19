@@ -6,7 +6,7 @@ function fish_user_key_bindings
   bind \cg '__peco_ghq_cd'
   bind \co 'finder'
   bind \cp '__open_code'
-  bind \cb 'git-peco'
+  bind \cb '__git_branch_peco'
   bind \ct 'tmuximum'
   bind \cr 'reload'
   bind \cs 'tig status'
