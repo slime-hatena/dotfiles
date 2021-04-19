@@ -33,6 +33,14 @@ function __git_branch_peco
   git branch -a --sort=-authordate | grep -v -e '->' -e '*' | perl -pe 's/^\h+//g' | perl -pe 's#^remotes/origin/###' | perl -nle 'print if !$c{$_}++' | peco --prompt 'git switch > ' | xargs git switch | commandline ''
 end
 
+function __git_cd_peco
+  ghq list | peco --prompt 'git switch > ' | read dir
+    if [ $dir ]
+      cd (ghq root)/$dir
+    else
+      commandline ''
+    end
+end
 
 function __open_code
   code .
