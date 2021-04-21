@@ -31,3 +31,4 @@ if [ -f "$HOME/.bash_path" ]; then
 fi
 
 fish
+exit
