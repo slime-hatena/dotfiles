@@ -123,8 +123,8 @@ install() {
             cd ~/.cache/Homebrew
             wget https://github.com/Homebrew/homebrew-portable-ruby/releases/download/2.6.3/portable-ruby-2.6.3.aarch64_linux.bottle.tar.gz
 
-            cd /home/linuxbrew/.linuxbrew/Library/Homebrew/vendor
-            sudo mkdir -p /home/linuxbrew/.linuxbrew/Library/Homebrew/vendor
+            sudo mkdir -p ~/.linuxbrew/Library/Homebrew/vendor
+            cd ~/.linuxbrew/Library/Homebrew/vendor
             sudo tar -zxvf ~/.cache/Homebrew/portable-ruby-2.6.3.aarch64_linux.bottle.tar.gz
             cd portable-ruby
             sudo ln -sf 2.6.3 current
@@ -137,7 +137,7 @@ install() {
 
             which brew
             brew -v
-            sudo chown -R $(whoami) /home/linuxbrew/.linuxbrew/
+            sudo chown -R $(whoami) ~/.linuxbrew/
 
             cd $dotfilesDirectory
 
