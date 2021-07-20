@@ -115,7 +115,7 @@ install() {
     if [ "$(uname -m)" == 'aarch64' ]; then
         info "実行環境がARMのため、aptを使用してパッケージをインストールします。"
         sudo apt update
-        sudo apt install software-properties-common
+        sudo apt install -y software-properties-common
 
         # upgrade git
         sudo add-apt-repository ppa:git-core/ppa
