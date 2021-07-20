@@ -139,7 +139,6 @@ install() {
             which brew
             brew -v
             sudo chown -R $(whoami) /home/linuxbrew/.linuxbrew/
-            brew update --force
 
             cd $dotfilesDirectory
 
