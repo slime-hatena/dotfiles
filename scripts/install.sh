@@ -112,46 +112,38 @@ install() {
         chsh -s /bin/bash
     fi
 
-    if [ "$(uname -m)" == 'aarch64' ]; then
-        info "実行環境がARMのため、aptを使用してパッケージをインストールします。"
-        sudo apt update
-        sudo apt install -y software-properties-common
+    # homebrew
+    if ! exists brew; then
+        info "homebrewをインストールします。"
 
-        # upgrade git
-        sudo add-apt-repository -y ppa:git-core/ppa
-        sudo apt update
-        sudo apt upgrade
+        if [ "$(uname -m)" == 'aarch64' ]; then
+            info "実行環境がARMのため、直接導入します。"
 
-        # install docker
-        sudo apt install -y apt-transport-https
-        sudo apt install -y apt-transport-https
-        sudo apt install -y ca-certificates
-        sudo apt install -y curl
-        sudo apt install -y gnupg
-        sudo apt install -y lsb-release
-        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-        echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
+            mkdir -p ~/.cache/Homebrew
+            cd ~/.cache/Homebrew
+            wget https://github.com/Homebrew/homebrew-portable-ruby/releases/download/2.6.3/portable-ruby-2.6.3.aarch64_linux.bottle.tar.gz
 
-        # install gh
-        curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
-        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list >/dev/null
-        sudo apt update
-        sudo apt install -y gh
+            cd /home/linuxbrew/.linuxbrew/Library/Homebrew/vendor
+            sudo mkdir -p /home/linuxbrew/.linuxbrew/Library/Homebrew/vendor
+            sudo tar -zxvf ~/.cache/Homebrew/portable-ruby-2.6.3.aarch64_linux.bottle.tar.gz
+            cd portable-ruby
+            sudo ln -sf 2.6.3 current
 
-        sudo apt install -y fish
-        sudo apt install -y golang
-        sudo apt install -y peco
-        sudo apt install -y tmux
-        sudo apt install -y nodejs
-        sudo apt install -y npm
-        npm install --global yarn
+            cd /home/linuxbrew/.linuxbrew/
+            sudo git clone https://github.com/Homebrew/brew /home/linuxbrew/.linuxbrew/Homebrew
+            sudo mkdir /home/linuxbrew/.linuxbrew/bin
+            sudo ln -s /home/linuxbrew/.linuxbrew/Homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin
+            echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>$HOME/.bash_path
+            eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
-        go get github.com/x-motemen/ghq
+            which brew
+            brew -v
+            sudo chown -R $(whoami) /home/linuxbrew/.linuxbrew/
+            brew update --force
 
-    else
-        # homebrew
-        if ! exists brew; then
-            info "homebrewをインストールします。"
+            cd $dotfilesDirectory
+
+        else
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
             info "homebrewにパスを通します。"
@@ -163,21 +155,21 @@ install() {
                     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
                 fi
 
-                if [ -f "$HOME-hatena/.linuxbrew/bin/brew" ]; then
-                    echo 'eval "$(/home/slime-hatena/.linuxbrew/bin/brew shellenv)"' >>$HOME/.bash_path
+                if [ -f "$HOME/.linuxbrew/bin/brew" ]; then
+                    echo "eval \"$($HOME/.linuxbrew/bin/brew shellenv)\"" >>$HOME/.bash_path
                     eval "$($HOME/.linuxbrew/bin/brew shellenv)"
                 fi
             fi
         fi
-
-        info "brewfileに記載されているパッケージを導入します。"
-        cat "$dotfilesDirectory/homebrew/Brewfiles_all" >"$dotfilesDirectory/homebrew/Brewfiles"
-        if [ "$(uname)" == 'Darwin' ]; then
-            info "実行環境がMacのため、cask経由でアプリケーションをインストールします。"
-            cat "$dotfilesDirectory/homebrew/Brewfiles_mac" >>"$dotfilesDirectory/homebrew/Brewfiles"
-        fi
-        brew bundle --file "$dotfilesDirectory/homebrew/Brewfiles"
     fi
+
+    info "brewfileに記載されているパッケージを導入します。"
+    cat "$dotfilesDirectory/homebrew/Brewfiles_all" >"$dotfilesDirectory/homebrew/Brewfiles"
+    if [ "$(uname)" == 'Darwin' ]; then
+        info "実行環境がMacのため、cask経由でアプリケーションをインストールします。"
+        cat "$dotfilesDirectory/homebrew/Brewfiles_mac" >>"$dotfilesDirectory/homebrew/Brewfiles"
+    fi
+    brew bundle --file "$dotfilesDirectory/homebrew/Brewfiles"
 
     # git
     info ".gitconfigを追加します。"
@@ -233,6 +225,12 @@ install() {
 }
 
 install
+
+if ! exists brew; then
+    error "homebrewのインストールに失敗しました。何らかの不具合が起きている可能性があります。"
+else
+    brew doctor
+fi
 
 if ! exists fish; then
     error "fishのインストールに失敗しました。何らかの不具合が起きている可能性があります。"
