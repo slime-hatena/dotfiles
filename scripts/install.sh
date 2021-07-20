@@ -121,7 +121,7 @@ install() {
 
             sudo mkdir -p ~/.cache/Homebrew
             cd ~/.cache/Homebrew
-            wget https://github.com/Homebrew/homebrew-portable-ruby/releases/download/2.6.3/portable-ruby-2.6.3.aarch64_linux.bottle.tar.gz
+            sudo wget https://github.com/Homebrew/homebrew-portable-ruby/releases/download/2.6.3/portable-ruby-2.6.3.aarch64_linux.bottle.tar.gz
 
             sudo mkdir -p ~/.linuxbrew/Library/Homebrew/vendor
             cd ~/.linuxbrew/Library/Homebrew/vendor
