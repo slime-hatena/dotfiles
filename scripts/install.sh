@@ -129,12 +129,11 @@ install() {
             cd portable-ruby
             sudo ln -sf 2.6.3 current
 
-            cd /home/linuxbrew/.linuxbrew/
-            sudo git clone https://github.com/Homebrew/brew /home/linuxbrew/.linuxbrew/Homebrew
-            sudo mkdir /home/linuxbrew/.linuxbrew/bin
-            sudo ln -s /home/linuxbrew/.linuxbrew/Homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin
-            echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>$HOME/.bash_path
-            eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+            git clone https://github.com/Homebrew/brew ~/.linuxbrew/Homebrew
+            mkdir ~/.linuxbrew/bin
+            ln -s ~/.linuxbrew/Homebrew/bin/brew ~/.linuxbrew/bin
+            echo 'eval "$(~/.linuxbrew/bin/brew shellenv)"' >>$HOME/.bash_path
+            eval $(~/.linuxbrew/bin/brew shellenv)
 
             which brew
             brew -v
