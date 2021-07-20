@@ -128,6 +128,10 @@ install() {
             sudo tar -zxvf ~/.cache/Homebrew/portable-ruby-2.6.3.aarch64_linux.bottle.tar.gz
             cd portable-ruby
             sudo ln -sf 2.6.3 current
+            echo 'export PATH=/home/linuxbrew/.linuxbrew/Library/Homebrew/vendor/portable-ruby/current/bin:$PATH' >>$HOME/.bash_path
+            export PATH=/home/linuxbrew/.linuxbrew/Library/Homebrew/vendor/portable-ruby/current/bin:$PATH
+            which ruby
+            ruby -v
 
             sudo git clone https://github.com/Homebrew/brew ~/.linuxbrew/Homebrew
             sudo mkdir ~/.linuxbrew/bin
