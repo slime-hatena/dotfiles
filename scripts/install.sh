@@ -142,8 +142,8 @@ install() {
         sudo apt install -y golang
         sudo apt install -y peco
         sudo apt install -y tmux
+        sudo apt install -y nodejs
         sudo apt install -y npm
-        sudo chown -R $(whoami) $(npm config get prefix)/{lib/node_modules,bin,share}
         npm install --global yarn
 
         go get github.com/x-motemen/ghq
@@ -190,8 +190,8 @@ install() {
     # fish / fisher
     if exists fish; then
         info "fisherをインストールします。"
-        $(which fish) -c "curl -sL https://git.io/fisher | source"
-        $(which fish) -c "fisher install jorgebucaran/fisher"
+        $(which fish) -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher"
+
         info "fishの設定ファイルを追加します。"
         create_symbolic "$dotfilesDirectory/fish" "$HOME/.config/fish"
         git checkout $dotfilesDirectory/fish/fish_plugins
