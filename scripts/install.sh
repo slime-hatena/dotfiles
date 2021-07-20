@@ -139,7 +139,7 @@ install() {
             echo 'eval "$(~/.linuxbrew/bin/brew shellenv)"' >>$HOME/.bash_path
             eval $(~/.linuxbrew/bin/brew shellenv)
 
-            sudo chown -R $(whoami) ~/.linuxbrew/
+            sudo chown -R $(whoami):$(whoami) ~/.linuxbrew/
             which brew
             brew -v
 
