@@ -119,28 +119,28 @@ install() {
         if [ "$(uname -m)" == 'aarch64' ]; then
             info "実行環境がARMのため、直接導入します。"
 
-            sudo mkdir -p ~/.cache/Homebrew
+            mkdir -p ~/.cache/Homebrew
             cd ~/.cache/Homebrew
-            sudo wget https://github.com/Homebrew/homebrew-portable-ruby/releases/download/2.6.3/portable-ruby-2.6.3.aarch64_linux.bottle.tar.gz
+            wget https://github.com/Homebrew/homebrew-portable-ruby/releases/download/2.6.3/portable-ruby-2.6.3.aarch64_linux.bottle.tar.gz
 
-            sudo mkdir -p ~/.linuxbrew/Library/Homebrew/vendor
-            cd ~/.linuxbrew/Library/Homebrew/vendor
+            sudo mkdir -p /home/linuxbrew/.linuxbrew/Library/Homebrew/vendor
+            cd /home/linuxbrew/.linuxbrew/Library/Homebrew/vendor
             sudo tar -zxvf ~/.cache/Homebrew/portable-ruby-2.6.3.aarch64_linux.bottle.tar.gz
             cd portable-ruby
             sudo ln -sf 2.6.3 current
-            echo 'export PATH=~/.linuxbrew/Library/Homebrew/vendor/portable-ruby/current/bin:$PATH' >>$HOME/.bash_path
-            export PATH=~/.linuxbrew/Library/Homebrew/vendor/portable-ruby/current/bin:$PATH
+            echo 'export PATH=/home/linuxbrew/.linuxbrew/Library/Homebrew/vendor/portable-ruby/current/bin:$PATH' >>$HOME/.bash_path
+            export PATH=/home/linuxbrew/.linuxbrew/Library/Homebrew/vendor/portable-ruby/current/bin:$PATH
             which ruby
             ruby -v
 
-            sudo git clone https://github.com/Homebrew/brew ~/.linuxbrew/Homebrew
-            sudo mkdir ~/.linuxbrew/bin
-            sudo ln -s ~/.linuxbrew/Homebrew/bin/brew ~/.linuxbrew/bin
-            echo 'eval "$(~/.linuxbrew/bin/brew shellenv)"' >>$HOME/.bash_path
-            eval $(~/.linuxbrew/bin/brew shellenv)
+            sudo git clone https://github.com/Homebrew/brew /home/linuxbrew/.linuxbrew/Homebrew
+            sudo mkdir /home/linuxbrew/.linuxbrew/bin
+            sudo ln -s /home/linuxbrew/.linuxbrew/Homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin
+            echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>$HOME/.bash_path
+            eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
-            sudo chown -R $(whoami):$(whoami) ~/.cache/
-            sudo chown -R $(whoami):$(whoami) ~/.linuxbrew/
+            sudo chown -R $(whoami) /home/linuxbrew/.linuxbrew
+            sudo chmod -cR 777 /home/linuxbrew/.linuxbrew
             which brew
             brew -v
 
