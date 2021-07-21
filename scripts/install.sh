@@ -76,7 +76,7 @@ error() {
 
 install() {
     mkdir -p "$HOME/.config"
-    mkdir -p "$HOME/Development/github.com/Slime-hatena"
+    mkdir -p "$HOME/Development"
     touch "$HOME/.bash_path"
 
     if [ -f "$HOME/.bash_profile" ]; then
