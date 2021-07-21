@@ -119,6 +119,10 @@ install() {
         if [ "$(uname -m)" == 'aarch64' ]; then
             info "実行環境がARMのため、直接導入します。"
 
+            sudo apt update
+            sudo apt upgrade -y
+            sudo apt install -y build-essential procps curl file git gcc
+
             mkdir -p ~/.cache/Homebrew
             cd ~/.cache/Homebrew
             wget https://github.com/Homebrew/homebrew-portable-ruby/releases/download/2.6.3/portable-ruby-2.6.3.aarch64_linux.bottle.tar.gz
@@ -139,8 +143,7 @@ install() {
             echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>$HOME/.bash_path
             eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
-            sudo chown -R $(whoami) /home/linuxbrew/.linuxbrew
-            sudo chmod -cR 777 /home/linuxbrew/.linuxbrew
+            sudo chown -R $(whoami):$(whoami) /home/linuxbrew/.linuxbrew
             which brew
             brew -v
 
