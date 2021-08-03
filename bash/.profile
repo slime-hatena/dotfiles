@@ -31,4 +31,7 @@ if [ -f "$HOME/.bash_path" ]; then
 fi
 
 fish
-exit
+if [ $? -eq 0 ]; then
+    exit
+fi
+echo "fishの起動に失敗しました。インストールされているか、パスが通っているかを確認してください。"

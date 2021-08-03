@@ -76,7 +76,7 @@ error() {
 
 install() {
     mkdir -p "$HOME/.config"
-    mkdir -p "$HOME/Development/github.com/Slime-hatena"
+    mkdir -p "$HOME/Development"
     touch "$HOME/.bash_path"
 
     if [ -f "$HOME/.bash_profile" ]; then
@@ -115,20 +115,56 @@ install() {
     # homebrew
     if ! exists brew; then
         info "homebrewをインストールします。"
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
-        info "homebrewにパスを通します。"
-        if [ "$(uname)" == 'Darwin' ]; then
-            echo 'export PATH=/usr/local/bin:$PATH' >>$HOME/.bash_path
+        if [ "$(uname -m)" == 'aarch64' ]; then
+            info "実行環境がARMのため、直接導入します。"
+
+            sudo apt update
+            sudo apt upgrade -y
+            sudo apt install -y build-essential procps curl file git gcc
+
+            mkdir -p ~/.cache/Homebrew
+            cd ~/.cache/Homebrew
+            wget https://github.com/Homebrew/homebrew-portable-ruby/releases/download/2.6.3/portable-ruby-2.6.3.aarch64_linux.bottle.tar.gz
+
+            sudo mkdir -p /home/linuxbrew/.linuxbrew/Library/Homebrew/vendor
+            cd /home/linuxbrew/.linuxbrew/Library/Homebrew/vendor
+            sudo tar -zxvf ~/.cache/Homebrew/portable-ruby-2.6.3.aarch64_linux.bottle.tar.gz
+            cd portable-ruby
+            sudo ln -sf 2.6.3 current
+            echo 'export PATH=/home/linuxbrew/.linuxbrew/Library/Homebrew/vendor/portable-ruby/current/bin:$PATH' >>$HOME/.bash_path
+            export PATH=/home/linuxbrew/.linuxbrew/Library/Homebrew/vendor/portable-ruby/current/bin:$PATH
+            which ruby
+            ruby -v
+
+            sudo git clone https://github.com/Homebrew/brew /home/linuxbrew/.linuxbrew/Homebrew
+            sudo mkdir /home/linuxbrew/.linuxbrew/bin
+            sudo ln -s /home/linuxbrew/.linuxbrew/Homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin
+            echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>$HOME/.bash_path
+            eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
+            sudo chown -R $(whoami):$(whoami) /home/linuxbrew/.linuxbrew
+            which brew
+            brew -v
+
+            cd $dotfilesDirectory
+
         else
-            if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
-                echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>$HOME/.bash_path
-                eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-            fi
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
-            if [ -f "$HOME-hatena/.linuxbrew/bin/brew" ]; then
-                echo 'eval "$(/home/slime-hatena/.linuxbrew/bin/brew shellenv)"' >>$HOME/.bash_path
-                eval "$($HOME/.linuxbrew/bin/brew shellenv)"
+            info "homebrewにパスを通します。"
+            if [ "$(uname)" == 'Darwin' ]; then
+                echo 'export PATH=/usr/local/bin:$PATH' >>$HOME/.bash_path
+            else
+                if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+                    echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>$HOME/.bash_path
+                    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+                fi
+
+                if [ -f "$HOME/.linuxbrew/bin/brew" ]; then
+                    echo "eval \"$($HOME/.linuxbrew/bin/brew shellenv)\"" >>$HOME/.bash_path
+                    eval "$($HOME/.linuxbrew/bin/brew shellenv)"
+                fi
             fi
         fi
     fi
@@ -197,7 +233,13 @@ install() {
 install
 
 if ! exists brew; then
-    error "fishのインストールに失敗したため実行できませんでした。何らかの不具合が起きている可能性があります。"
+    error "homebrewのインストールに失敗しました。何らかの不具合が起きている可能性があります。"
+else
+    brew doctor
+fi
+
+if ! exists fish; then
+    error "fishのインストールに失敗しました。何らかの不具合が起きている可能性があります。"
 fi
 
 cd $HOME
