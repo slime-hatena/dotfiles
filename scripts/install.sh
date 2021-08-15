@@ -177,9 +177,6 @@ install() {
     fi
     brew bundle --file "$dotfilesDirectory/homebrew/Brewfiles"
 
-    info "yarnを導入します。"
-    npm install --global yarn
-
     # git
     info ".gitconfigを追加します。"
     create_symbolic "$dotfilesDirectory/git/.gitconfig" "$HOME/.gitconfig"
