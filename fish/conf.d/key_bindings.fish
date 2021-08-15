@@ -1,4 +1,6 @@
 function fish_user_key_bindings
+  bind --erase --preset \cd
+  bind \cd\cd\cd\cd\cd exit
   # oh-my-fish/plugin-peco
   bind \ch 'peco_select_history (commandline -b)'
   # tsu-nera/fish-peco_recentd
