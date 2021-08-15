@@ -30,7 +30,14 @@ if [ -f "$HOME/.bash_path" ]; then
     . "$HOME/.bash_path"
 fi
 
+if [ -n "$BASH_EXECUTION_STRING" ]; then
+    # echo "> fish -c \"$BASH_EXECUTION_STRING\""
+    fish -c "$BASH_EXECUTION_STRING"
+    exit $?
+fi
+
 fish
+
 if [ $? -eq 0 ]; then
     exit
 fi
