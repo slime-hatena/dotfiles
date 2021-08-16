@@ -25,11 +25,6 @@ if [ -d "$HOME/.local/bin" ]; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-# Set the path to the user-specified file, if it exists.
-if [ -f "$HOME/.bash_path" ]; then
-    . "$HOME/.bash_path"
-fi
-
 if [ -n "$BASH_EXECUTION_STRING" ]; then
     # echo "> fish -c \"$BASH_EXECUTION_STRING\""
     fish -c "$BASH_EXECUTION_STRING"

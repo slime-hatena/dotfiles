@@ -107,6 +107,18 @@ install() {
         cp "${dotfilesDirectory}/bash/.profile" "${HOME}/.profile"
     fi
 
+    if [ -f "$HOME/.bashrc" ]; then
+        diff "${dotfilesDirectory}/bash/.bashrc" "${HOME}/.bashrc" >/dev/null 2>&1
+        if [ $? -eq 1 ]; then
+            info "$HOME/.bashrc を ${dotfilesDirectory}/bash/.bashrc の内容で上書きします。"
+            backup "$HOME/.bashrc"
+            cp "${dotfilesDirectory}/bash/.bashrc" "${HOME}/.bashrc"
+        fi
+    else
+        info "$HOME/.bashrc を作成します。"
+        cp "${dotfilesDirectory}/bash/.bashrc" "${HOME}/.bashrc"
+    fi
+
     if [ "$(grep $USER /etc/passwd | cut -d: -f7)" != "/bin/bash" ]; then
         info "ログインシェルを /bin/bash に変更します。"
         chsh -s /bin/bash
