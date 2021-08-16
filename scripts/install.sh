@@ -101,8 +101,6 @@ install() {
             info "$HOME/.profile を ${dotfilesDirectory}/bash/.profile の内容で上書きします。"
             backup "$HOME/.profile"
             cp "${dotfilesDirectory}/bash/.profile" "${HOME}/.profile"
-            touch ${HOME}/.bash_path
-            export BASH_ENV=${HOME}/.bash_path
         fi
     else
         info "$HOME/.profile を作成します。"
