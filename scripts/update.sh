@@ -65,11 +65,11 @@ update() {
     fi
 
     info "dotfilesを更新します。"
-    info "$dotfilesDirectory をorigin/masterの内容で上書きします。"
+    info "$dotfilesDirectory をorigin/mainの内容で上書きします。"
     git fetch
     git reset --hard origin/$(git symbolic-ref --short HEAD)
-    git checkout master
-    git reset --hard origin/master
+    git checkout main
+    git reset --hard origin/main
     git pull --rebase
 
     if [ $# -ge 1 ]; then
