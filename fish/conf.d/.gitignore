@@ -1,0 +1,10 @@
+*
+!*/
+!.gitignore
+
+# Add your files
+!/disable/*
+!alias.fish
+!key_bindings.fish
+!theme_config.fish
+!user_functions.fish
