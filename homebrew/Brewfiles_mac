@@ -1,0 +1,31 @@
+cask_args appdir: "/Applications"
+
+tap "homebrew/cask"
+tap "homebrew/cask-versions"
+
+brew "mas"
+
+cask "visual-studio-code"
+cask "visual-studio-code-insiders"
+cask "android-platform-tools"
+cask "bitbar"
+cask "powershell"
+cask "iterm2"
+cask "docker"
+cask "google-chrome"
+cask "firefox-developer-edition"
+cask "google-cloud-sdk"
+cask "vagrant"
+cask "slack"
+cask "google-drive-file-stream"
+cask "google-japanese-ime"
+cask "clipy"
+cask "github"
+
+mas "Microsoft Remote Desktop", id: 1295203466
+mas "RunCat", id: 1429033973
+mas "Trello", id: 1278508951
+mas "FBX Review", id: 868956490
+mas "Pages", id: 409201541
+mas "Numbers", id: 409203825
+mas "Keynote", id: 409183694

@@ -1,0 +1,7 @@
+[user]
+	name =
+	email =
+
+# If you need to specify a specific user by directory.
+# [includeIf "gitdir:~/Development/github.com/**"]
+# 	path = ~/.gitconfig_private
