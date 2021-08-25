@@ -34,10 +34,7 @@
         "name": "Status: Abandoned",
         "color": "000000",
         "description": "The issue or Pull Request is wontfix",
-        "aliases": [
-            "wontfix",
-            "invalid"
-        ]
+        "aliases": ["wontfix", "invalid"]
     },
     {
         "name": "Status: Blocked",
@@ -83,25 +80,19 @@
         "name": "Type: Bug",
         "color": "ee0701",
         "description": "Bug or Bug fixes",
-        "aliases": [
-            "bug"
-        ]
+        "aliases": ["bug"]
     },
     {
         "name": "Type: Documentation",
         "color": "5319e7",
         "description": "Documentation only changes",
-        "aliases": [
-            "documentation"
-        ]
+        "aliases": ["documentation"]
     },
     {
         "name": "Type: Feature",
         "color": "1d76db",
         "description": "New Feature",
-        "aliases": [
-            "enhancement"
-        ]
+        "aliases": ["enhancement"]
     },
     {
         "name": "Type: Refactoring",
@@ -116,7 +107,8 @@
     {
         "name": "Type: Maintenance",
         "color": "abd406",
-        "description": "Repository Maintenance"
+        "description": "Repository Maintenance",
+        "aliases": ["dependencies"]
     },
     {
         "name": "Type: CI",
@@ -127,8 +119,11 @@
         "name": "Type: Question",
         "color": "cc317c",
         "description": "Further information is requested",
-        "aliases": [
-            "question"
-        ]
+        "aliases": ["question"]
+    },
+    {
+        "name": "Release",
+        "color": "137cb8",
+        "description": "Pull Requests for release"
     }
 ]

@@ -1,0 +1,21 @@
+name: 'Merge guard for main'
+on:
+  pull_request_target:
+    branches:
+      - main
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
+
+jobs:
+  merge_guard:
+    if: "(! contains(github.event.pull_request.title, '[release skip]')) && github.head_ref != 'develop' && github.head_ref != 'hotfix'"
+    runs-on: ubuntu-latest
+    steps:
+      - run: 'echo ${{ github.event.pull_request.title }}'
+      - uses: actions/checkout@v2
+      - uses: superbrothers/close-pull-request@v3
+        with:
+          comment: "The only branch allowed to merge into main is `develop` or `hotfix`.\nIf you need to merge non-release changes into main, include [release skip] in the title."

@@ -1,0 +1,137 @@
+name: 'Create release'
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  skip:
+    name: Check release skip
+    runs-on: ubuntu-latest
+    if: "(! contains(github.event.head_commit.message, '[release skip]')) && (! contains(github.event.head_commit.message, 'Initial commit'))"
+    steps:
+      - run: echo "${{ github.event.head_commit.message }}"
+
+  calc_version:
+    runs-on: ubuntu-latest
+    needs: [skip]
+    outputs:
+      version: ${{ steps.calc.outputs.version }}
+      changelog: ${{ steps.changelog.outputs.markdown }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: 'Get latest name'
+        uses: pozetroninc/github-action-get-latest-release@master
+        id: get-latest
+        continue-on-error: true
+        with:
+          repository: ${{ github.repository }}
+          excludes: 'prerelease, draft'
+      - name: 'Check first release'
+        id: check-latest
+        run: |
+          if [ -n "${{ steps.get-latest.outputs.release }}" ];then \
+            echo "::set-output name=version::${{ steps.get-latest.outputs.release }}"; \
+            echo "::set-output name=from::${{ steps.get-latest.outputs.release }}"; \
+            echo "::set-output name=skip::false"; \
+          else
+            echo "::set-output name=version::1.0.0"; \
+            echo "::set-output name=from::4b825dc642cb6eb9a060e54bf8d69288fbee4904"; \
+            echo "::set-output name=skip::true"; \
+          fi
+      - name: 'Generate changelog'
+        uses: 'slime-hatena/lerna-changelog-action@main'
+        id: changelog
+        with:
+          GITHUB_AUTH: '${{ secrets.GITHUB_TOKEN }}'
+          tag_from: '${{ steps.check-latest.outputs.from }}'
+          tag_to: 'origin/main'
+      - name: 'Judge the next version'
+        id: judge-next-version
+        run: |
+          echo "::set-output name=major::false";
+          echo "::set-output name=minor::false";
+          echo "::set-output name=patch::false";
+          if [ "${{ steps.check-latest.outputs.skip }}" = "false" ]; then
+            if [ -n "`echo "${{ steps.changelog.outputs.markdown }}" | grep 'Breaking Change';`" ] ; then
+              echo "::set-output name=major::true";
+            elif [ -n "`echo "${{ steps.changelog.outputs.markdown }}" | grep 'Feature'`" ] ; then
+              echo "::set-output name=minor::true";
+            else
+              echo "::set-output name=patch::true";
+            fi
+          fi
+      - name: 'Calc next version'
+        uses: 'slime-hatena/semantic-versioning-calculator-action@main'
+        id: calc
+        with:
+          version: '${{ steps.check-latest.outputs.version }}'
+          increment_major: '${{ steps.judge-next-version.outputs.major }}'
+          increment_minor: '${{ steps.judge-next-version.outputs.minor }}'
+          increment_patch: '${{ steps.judge-next-version.outputs.patch }}'
+      - name: 'Create tag test'
+        run: |
+          git tag ${{ steps.calc.outputs.version }}
+          git tag -d ${{ steps.calc.outputs.version }}
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [skip, calc_version]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - run: echo "none"
+
+  create_release:
+    runs-on: ubuntu-latest
+    needs: [skip, calc_version, build]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: 'Create release'
+        uses: softprops/action-gh-release@v1
+        with:
+          name: 'Release ${{ needs.calc_version.outputs.version }}'
+          tag_name: ${{ needs.calc_version.outputs.version }}
+          body: ${{ needs.calc_version.outputs.changelog }}
+
+  prepare_develop_branch:
+    runs-on: ubuntu-latest
+    needs: [skip, calc_version, build, create_release]
+    steps:
+      - uses: actions/checkout@master
+      - name: 'Set git config'
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+      - name: 'Create or Switch develop branch'
+        run: |
+          git fetch
+          if [ `git branch -a --list origin/develop` ]; then
+            echo '> git switch develop'
+            git switch develop
+          else
+            echo '> git switch --create develop'
+            git switch --create develop
+            git push --set-upstream origin develop
+          fi
+      - name: 'Create empty commit'
+        run: |
+          git pull --no-edit
+          git commit --allow-empty -m "Create Pull Request"
+          git push origin develop
+      - name: 'Create Pull Request'
+        uses: repo-sync/pull-request@v2
+        with:
+          source_branch: 'develop'
+          destination_branch: 'main'
+          pr_title: 'Next release'
+          pr_body: "This is a pull request for the next release.\nIf you approve it, the release will be created.\nPlease merge your changes into this branch.\n\n**Do not attach anything other than a release tag to this request.\nUnexpected versions and content may be released.**"
+          pr_label: 'Release'
+          pr_draft: true
+          pr_allow_empty: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,51 @@
+name: 'Repository initialize'
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  repository_initialize:
+    name: Repository initialize
+    runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'Initial commit')"
+    steps:
+      - uses: actions/checkout@master
+      - name: Get @azu/github-label-setup
+        run: yarn global add @azu/github-label-setup
+      - name: Run github-label-setup
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          `yarn global bin`/github-label-setup --token ${GITHUB_TOKEN} --labels ${GITHUB_WORKSPACE}/.github/labels.json
+      - name: 'Set git config'
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+      - name: 'Create or Switch develop branch'
+        run: |
+          git fetch
+          if [ `git branch -a --list origin/develop` ]; then
+            echo '> git switch develop'
+            git switch develop
+          else
+            echo '> git switch --create develop'
+            git switch --create develop
+            git push --set-upstream origin develop
+          fi
+      - name: 'Create empty commit'
+        run: |
+          git pull --no-edit
+          git commit --allow-empty -m "Create Pull Request"
+          git push origin develop
+      - name: 'Create Pull Request'
+        uses: repo-sync/pull-request@v2
+        with:
+          source_branch: 'develop'
+          destination_branch: 'main'
+          pr_title: 'Release'
+          pr_body: "This is a pull request for the next release.\nIf you approve it, the release will be created.\nPlease merge your changes into this branch.\n\n**Do not attach anything other than a release tag to this request.\nUnexpected versions and content may be released.**"
+          pr_label: 'Release'
+          pr_draft: true
+          pr_allow_empty: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
