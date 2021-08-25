@@ -1,9 +1,16 @@
-# dotfiles
-🍮 こんな環境でお仕事してます
+# slime-hatena/dotfiles
 
-⚠ このリポジトリは作成中です。 ⚠
+🍮こんな環境でお仕事しています
+
+[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/slime-hatena/dotfiles)
 
 ## Install
+
+### main
+
+```sh
+/bin/bash -c "$(curl -fsSL https://git.io/dot-slime-hatena)"
+```
 
 ### develop
 
