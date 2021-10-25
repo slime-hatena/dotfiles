@@ -230,6 +230,7 @@ install() {
         cd "$HOME/tmuximum"
         git checkout .
         git pull --rebase
+        chmod 777 "$HOME/tmuximum/tmuximum"
         cd "$dotfilesDirectory"
     else
         info "tmuximumが存在しないため、インストールします。"
