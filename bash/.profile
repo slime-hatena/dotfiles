@@ -31,7 +31,7 @@ if [ -n "$BASH_EXECUTION_STRING" ]; then
     exit $?
 fi
 
-fish
+$(brew --prefix)/bin/fish
 
 if [ $? -eq 0 ]; then
     exit
