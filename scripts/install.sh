@@ -212,6 +212,10 @@ install() {
         error "fishがインストールされていません。"
     fi
 
+    # git
+    info ".hyper.jsを追加します。"
+    create_symbolic "$dotfilesDirectory/hyper/.hyper.js" "$HOME/hyper/.hyper.js"
+
     #tmux / tpm
     info "tmuxの設定ファイルを追加します。"
     create_symbolic "$dotfilesDirectory/tmux/.tmux.conf" "$HOME/.tmux.conf"
