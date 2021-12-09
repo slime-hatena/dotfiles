@@ -95,3 +95,11 @@ function youtube-dl-fine-c
   mkdir -p ~/Videos/youtube-dl
   youtube-dl -f bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best --cookies ~/youtube_cookie.tsv --merge-output-format mkv -o "~/Videos/youtube-dl/%(title)s.%(ext)s" $argv
 end
+
+function parseKindleLibrary
+  if string match -q -- "*microsoft*" (uname -r)
+    xmllint --xpath "/response/add_update_list/meta_data/ASIN" "/mnt/c/Users/$USER/AppData/Local/Amazon/Kindle/Cache/KindleSyncMetadataCache.xml" | sed -e "s/<ASIN>//g" | sed -e "s/<\/ASIN>//g"
+  else
+    echo "Unsupported platform."
+  end
+end
