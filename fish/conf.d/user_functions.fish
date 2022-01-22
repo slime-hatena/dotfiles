@@ -86,14 +86,13 @@ function calc
   echo "scale=4; $argv" | bc
 end
 
-function youtube-dl-fine
+function ytdl
   mkdir -p ~/Videos/youtube-dl
-  youtube-dl -f bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best --merge-output-format mkv -o "~/Videos/youtube-dl/%(title)s.%(ext)s" $argv
+  yt-dlp -f bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best --trim-filenames 64 --merge-output-format mkv -o "~/Videos/youtube-dl/%(title)s.%(ext)s" $argv
 end
 
-function youtube-dl-fine-c
-  mkdir -p ~/Videos/youtube-dl
-  youtube-dl -f bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best --cookies ~/youtube_cookie.tsv --merge-output-format mkv -o "~/Videos/youtube-dl/%(title)s.%(ext)s" $argv
+function ytdl-c
+  ytdl --cookies ~/.youtube_cookie.tsv $argv
 end
 
 function parseKindleLibrary

@@ -1,5 +1,6 @@
 tap "homebrew/bundle"
 tap "homebrew/core"
+tap "yt-dlp/taps"
 
 brew "gcc"
 brew "go"
@@ -24,5 +25,6 @@ brew "tmux"
 brew "node"
 brew "yarn"
 brew "youtube-dl"
+brew "yt-dlp/taps/yt-dlp"
 brew "ffmpeg"
 brew "tree"
