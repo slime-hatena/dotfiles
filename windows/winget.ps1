@@ -4,6 +4,7 @@ winget install -e --id Microsoft.PowerToys;
 winget install -e --id Nvidia.GeForceExperience;
 winget install -e --id Google.Chrome;
 winget install -e --id Mozilla.Thunderbird;
+winget install -e --id Spotify.Spotify
 winget install -e --id SlackTechnologies.Slack;
 winget install -e --id Discord.Discord;
 winget install -e --id Docker.DockerDesktop;
