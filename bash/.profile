@@ -31,7 +31,8 @@ if [ -n "$BASH_EXECUTION_STRING" ]; then
     exit $?
 fi
 
-if [ type brew >/dev/null 2>&1 ]; then
+type brew >/dev/null 2>&1
+if [ $? -eq 0 ]; then
     $(brew --prefix)/bin/fish
     if [ $? -eq 0 ]; then
         exit
