@@ -31,9 +31,13 @@ if [ -n "$BASH_EXECUTION_STRING" ]; then
     exit $?
 fi
 
-$(brew --prefix)/bin/fish
-
-if [ $? -eq 0 ]; then
-    exit
+if [ type brew >/dev/null 2>&1 ]; then
+    $(brew --prefix)/bin/fish
+    if [ $? -eq 0 ]; then
+        exit
+    fi
+    echo "fishの起動に失敗しました。インストールされているか、パスが通っているかを確認してください。"
+else
+    # Ubuntu Desktopなどでは発生するかも
+    echo "fishの起動に失敗しました。brewが存在しませんでした。"
 fi
-echo "fishの起動に失敗しました。インストールされているか、パスが通っているかを確認してください。"
