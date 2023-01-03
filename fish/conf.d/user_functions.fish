@@ -118,3 +118,11 @@ function parseKindleLibrary
     echo "Unsupported platform."
   end
 end
+
+function exif.kenko
+  mkdir -p edited
+  cp * ./edited
+  cd ./edited
+  ls | xargs -I {} exiftool -Make="Kenko" -Model="DSC Pieni" -FNumber="2.8" -FocalLength="3.2" -ISO="100" -ExposureTime="1/100" -overwrite_original_in_place {}
+  cd ../
+end
