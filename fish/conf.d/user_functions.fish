@@ -95,6 +95,18 @@ function ytdl
   yt-dlp -f bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best --trim-filenames 64 --merge-output-format mkv -o "~/Videos/youtube-dl/%(title)s.%(ext)s" $argv
 end
 
+function ytdle
+  echo "Target: /mnt/x/32/download_yt"
+  if ! test -e /mnt/x/32/download_yt
+    echo 'The target directory does not exist.'
+    echo '> sudo mount -t drvfs X: /mnt/x'
+    sudo mount -t drvfs X: /mnt/x
+    echo '> mkdir -p /mnt/x/32/download_yt'
+    mkdir -p /mnt/x/32/download_yt
+  end
+  yt-dlp -f bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best --trim-filenames 64 --merge-output-format mkv -o "/mnt/x/32/download_yt/%(title)s.%(ext)s" $argv
+end
+
 function ytdl-c
   ytdl --cookies ~/.youtube_cookie.tsv $argv
 end
