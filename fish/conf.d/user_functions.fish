@@ -6,6 +6,10 @@ function updateDotfiles
   /bin/bash $HOME/.dotfiles/scripts/update.sh $argv
 end
 
+function private
+  fish --private
+end
+
 function peco
   command peco --layout=bottom-up --select-1 $argv
 end
