@@ -119,10 +119,10 @@ install() {
         cp "${dotfilesDirectory}/bash/.bashrc" "${HOME}/.bashrc"
     fi
 
-    if [ "$(grep $USER /etc/passwd | cut -d: -f7)" != "/bin/bash" ]; then
-        info "ログインシェルを /bin/bash に変更します。"
-        chsh -s /bin/bash
-    fi
+    # if [ "$(grep $USER /etc/passwd | cut -d: -f7)" != "/bin/bash" ]; then
+    #     info "ログインシェルを /bin/bash に変更します。"
+    #     chsh -s /bin/bash
+    # fi
 
     # homebrew
     if ! exists brew; then
