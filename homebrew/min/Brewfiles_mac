@@ -1,0 +1,11 @@
+cask_args appdir: "/Applications"
+tap "homebrew/cask"
+tap "homebrew/cask-versions"
+brew "mas"
+
+cask "visual-studio-code"
+cask "google-chrome"
+cask "slack"
+cask "google-drive-file-stream"
+cask "google-japanese-ime"
+cask "clipy"

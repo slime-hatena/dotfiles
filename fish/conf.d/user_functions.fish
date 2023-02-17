@@ -6,6 +6,50 @@ function updateDotfiles
   /bin/bash $HOME/.dotfiles/scripts/update.sh $argv
 end
 
+function brewInstallMin
+    echo "brewfileに記載されている追加パッケージを導入します。"
+    cat "$HOME/.dotfiles/homebrew/min/Brewfiles_all" >"$HOME/.dotfiles/homebrew/Brewfiles"
+    if test (uname) = 'Darwin'
+        echo "実行環境がMacのため、cask経由でアプリケーションをインストールします。"
+        cat "$HOME/.dotfiles/homebrew/min/Brewfiles_mac" >>"$HOME/.dotfiles/homebrew/Brewfiles"
+    end
+    brew bundle --file "$HOME/.dotfiles/homebrew/Brewfiles"
+end
+
+function brewInstallDev
+    echo "brewfileに記載されている開発者向けパッケージを導入します。"
+    cat "$HOME/.dotfiles/homebrew/dev/Brewfiles_all" >"$HOME/.dotfiles/homebrew/Brewfiles"
+    if test (uname) = 'Darwin'
+        echo "実行環境がMacのため、cask経由でアプリケーションをインストールします。"
+        cat "$HOME/.dotfiles/homebrew/dev/Brewfiles_mac" >>"$HOME/.dotfiles/homebrew/Brewfiles"
+    end
+    brew bundle --file "$HOME/.dotfiles/homebrew/Brewfiles"
+end
+
+function brewInstallExtra
+    echo "brewfileに記載されている追加パッケージを導入します。"
+    cat "$HOME/.dotfiles/homebrew/extra/Brewfiles_all" >"$HOME/.dotfiles/homebrew/Brewfiles"
+    if test (uname) = 'Darwin'
+        echo "実行環境がMacのため、cask経由でアプリケーションをインストールします。"
+        cat "$HOME/.dotfiles/homebrew/extra/Brewfiles_mac" >>"$HOME/.dotfiles/homebrew/Brewfiles"
+    end
+    brew bundle --file "$HOME/.dotfiles/homebrew/Brewfiles"
+end
+
+function brewInstallAll
+    echo "brewfileに記載されているすべてのパッケージを導入します。"
+    cat "$HOME/.dotfiles/homebrew/min/Brewfiles_all" >"$HOME/.dotfiles/homebrew/Brewfiles"
+    cat "$HOME/.dotfiles/homebrew/dev/Brewfiles_all" >"$HOME/.dotfiles/homebrew/Brewfiles"
+    cat "$HOME/.dotfiles/homebrew/extra/Brewfiles_all" >"$HOME/.dotfiles/homebrew/Brewfiles"
+    if test (uname) = 'Darwin'
+        echo "実行環境がMacのため、cask経由でアプリケーションをインストールします。"
+        cat "$HOME/.dotfiles/homebrew/min/Brewfiles_mac" >>"$HOME/.dotfiles/homebrew/Brewfiles"
+        cat "$HOME/.dotfiles/homebrew/dev/Brewfiles_mac" >>"$HOME/.dotfiles/homebrew/Brewfiles"
+        cat "$HOME/.dotfiles/homebrew/extra/Brewfiles_mac" >>"$HOME/.dotfiles/homebrew/Brewfiles"
+    end
+    brew bundle --file "$HOME/.dotfiles/homebrew/Brewfiles"
+end
+
 function private
   fish --private
 end
