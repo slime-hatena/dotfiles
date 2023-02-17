@@ -119,10 +119,10 @@ install() {
         cp "${dotfilesDirectory}/bash/.bashrc" "${HOME}/.bashrc"
     fi
 
-    if [ "$(grep $USER /etc/passwd | cut -d: -f7)" != "/bin/bash" ]; then
-        info "ログインシェルを /bin/bash に変更します。"
-        chsh -s /bin/bash
-    fi
+    # if [ "$(grep $USER /etc/passwd | cut -d: -f7)" != "/bin/bash" ]; then
+    #     info "ログインシェルを /bin/bash に変更します。"
+    #     chsh -s /bin/bash
+    # fi
 
     # homebrew
     if ! exists brew; then
@@ -182,10 +182,10 @@ install() {
     fi
 
     info "brewfileに記載されているパッケージを導入します。"
-    cat "$dotfilesDirectory/homebrew/Brewfiles_all" >"$dotfilesDirectory/homebrew/Brewfiles"
+    cat "$dotfilesDirectory/homebrew/min/Brewfiles_all" >"$dotfilesDirectory/homebrew/Brewfiles"
     if [ "$(uname)" == 'Darwin' ]; then
         info "実行環境がMacのため、cask経由でアプリケーションをインストールします。"
-        cat "$dotfilesDirectory/homebrew/Brewfiles_mac" >>"$dotfilesDirectory/homebrew/Brewfiles"
+        cat "$dotfilesDirectory/homebrew/min/Brewfiles_mac" >>"$dotfilesDirectory/homebrew/Brewfiles"
     fi
     brew bundle --file "$dotfilesDirectory/homebrew/Brewfiles"
 
@@ -212,9 +212,13 @@ install() {
         error "fishがインストールされていません。"
     fi
 
-    # git
+    # hyper
     info ".hyper.jsを追加します。"
     create_symbolic "$dotfilesDirectory/hyper/.hyper.js" "$HOME/.hyper.js"
+
+    # kitty
+    info "kitty.confを追加します。"
+    create_symbolic "$dotfilesDirectory/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf"
 
     #tmux / tpm
     info "tmuxの設定ファイルを追加します。"

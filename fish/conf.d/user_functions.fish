@@ -6,6 +6,54 @@ function updateDotfiles
   /bin/bash $HOME/.dotfiles/scripts/update.sh $argv
 end
 
+function brewInstallMin
+    echo "brewfileに記載されている追加パッケージを導入します。"
+    cat "$HOME/.dotfiles/homebrew/min/Brewfiles_all" >"$HOME/.dotfiles/homebrew/Brewfiles"
+    if test (uname) = 'Darwin'
+        echo "実行環境がMacのため、cask経由でアプリケーションをインストールします。"
+        cat "$HOME/.dotfiles/homebrew/min/Brewfiles_mac" >>"$HOME/.dotfiles/homebrew/Brewfiles"
+    end
+    brew bundle --file "$HOME/.dotfiles/homebrew/Brewfiles"
+end
+
+function brewInstallDev
+    echo "brewfileに記載されている開発者向けパッケージを導入します。"
+    cat "$HOME/.dotfiles/homebrew/dev/Brewfiles_all" >"$HOME/.dotfiles/homebrew/Brewfiles"
+    if test (uname) = 'Darwin'
+        echo "実行環境がMacのため、cask経由でアプリケーションをインストールします。"
+        cat "$HOME/.dotfiles/homebrew/dev/Brewfiles_mac" >>"$HOME/.dotfiles/homebrew/Brewfiles"
+    end
+    brew bundle --file "$HOME/.dotfiles/homebrew/Brewfiles"
+end
+
+function brewInstallExtra
+    echo "brewfileに記載されている追加パッケージを導入します。"
+    cat "$HOME/.dotfiles/homebrew/extra/Brewfiles_all" >"$HOME/.dotfiles/homebrew/Brewfiles"
+    if test (uname) = 'Darwin'
+        echo "実行環境がMacのため、cask経由でアプリケーションをインストールします。"
+        cat "$HOME/.dotfiles/homebrew/extra/Brewfiles_mac" >>"$HOME/.dotfiles/homebrew/Brewfiles"
+    end
+    brew bundle --file "$HOME/.dotfiles/homebrew/Brewfiles"
+end
+
+function brewInstallAll
+    echo "brewfileに記載されているすべてのパッケージを導入します。"
+    cat "$HOME/.dotfiles/homebrew/min/Brewfiles_all" >"$HOME/.dotfiles/homebrew/Brewfiles"
+    cat "$HOME/.dotfiles/homebrew/dev/Brewfiles_all" >"$HOME/.dotfiles/homebrew/Brewfiles"
+    cat "$HOME/.dotfiles/homebrew/extra/Brewfiles_all" >"$HOME/.dotfiles/homebrew/Brewfiles"
+    if test (uname) = 'Darwin'
+        echo "実行環境がMacのため、cask経由でアプリケーションをインストールします。"
+        cat "$HOME/.dotfiles/homebrew/min/Brewfiles_mac" >>"$HOME/.dotfiles/homebrew/Brewfiles"
+        cat "$HOME/.dotfiles/homebrew/dev/Brewfiles_mac" >>"$HOME/.dotfiles/homebrew/Brewfiles"
+        cat "$HOME/.dotfiles/homebrew/extra/Brewfiles_mac" >>"$HOME/.dotfiles/homebrew/Brewfiles"
+    end
+    brew bundle --file "$HOME/.dotfiles/homebrew/Brewfiles"
+end
+
+function private
+  fish --private
+end
+
 function peco
   command peco --layout=bottom-up --select-1 $argv
 end
@@ -91,6 +139,18 @@ function ytdl
   yt-dlp -f bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best --trim-filenames 64 --merge-output-format mkv -o "~/Videos/youtube-dl/%(title)s.%(ext)s" $argv
 end
 
+function ytdle
+  echo "Target: /mnt/x/32/download_yt"
+  if ! test -e /mnt/x/32/download_yt
+    echo 'The target directory does not exist.'
+    echo '> sudo mount -t drvfs X: /mnt/x'
+    sudo mount -t drvfs X: /mnt/x
+    echo '> mkdir -p /mnt/x/32/download_yt'
+    mkdir -p /mnt/x/32/download_yt
+  end
+  yt-dlp -f bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best --trim-filenames 64 --merge-output-format mkv -o "/mnt/x/32/download_yt/%(title)s.%(ext)s" $argv
+end
+
 function ytdl-c
   ytdl --cookies ~/.youtube_cookie.tsv $argv
 end
@@ -101,4 +161,12 @@ function parseKindleLibrary
   else
     echo "Unsupported platform."
   end
+end
+
+function exif.kenko
+  mkdir -p edited
+  cp * ./edited
+  cd ./edited
+  ls | xargs -I {} exiftool -Make="Kenko" -Model="DSC Pieni" -FNumber="2.8" -FocalLength="3.2" -ISO="100" -ExposureTime="1/100" -overwrite_original_in_place {}
+  cd ../
 end
