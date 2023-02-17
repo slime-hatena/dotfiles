@@ -25,5 +25,4 @@
 ```ps1
 Invoke-WebRequest "https://raw.githubusercontent.com/slime-hatena/dotfiles/develop/windows/winget.ps1" -OutFile "C:\Windows\Temp\winget.ps1"
 powershell -NoProfile -ExecutionPolicy Unrestricted "C:\Windows\Temp\winget.ps1"
-
 ```
