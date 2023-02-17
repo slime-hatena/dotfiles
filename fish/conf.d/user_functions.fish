@@ -39,8 +39,8 @@ end
 function brewInstallAll
     echo "brewfileに記載されているすべてのパッケージを導入します。"
     cat "$HOME/.dotfiles/homebrew/min/Brewfiles_all" >"$HOME/.dotfiles/homebrew/Brewfiles"
-    cat "$HOME/.dotfiles/homebrew/dev/Brewfiles_all" >"$HOME/.dotfiles/homebrew/Brewfiles"
-    cat "$HOME/.dotfiles/homebrew/extra/Brewfiles_all" >"$HOME/.dotfiles/homebrew/Brewfiles"
+    cat "$HOME/.dotfiles/homebrew/dev/Brewfiles_all" >>"$HOME/.dotfiles/homebrew/Brewfiles"
+    cat "$HOME/.dotfiles/homebrew/extra/Brewfiles_all" >>"$HOME/.dotfiles/homebrew/Brewfiles"
     if test (uname) = 'Darwin'
         echo "実行環境がMacのため、cask経由でアプリケーションをインストールします。"
         cat "$HOME/.dotfiles/homebrew/min/Brewfiles_mac" >>"$HOME/.dotfiles/homebrew/Brewfiles"
