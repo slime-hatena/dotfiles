@@ -1,0 +1,10 @@
+tap "homebrew/bundle"
+tap "homebrew/core"
+tap "yt-dlp/taps"
+
+brew "jq"
+brew "youtube-dl"
+brew "yt-dlp/taps/yt-dlp"
+brew "ffmpeg"
+brew "nkf"
+brew "nmap"

@@ -1,0 +1,9 @@
+cask_args appdir: "/Applications"
+tap "homebrew/cask"
+tap "homebrew/cask-versions"
+brew "mas"
+
+cask "bitbar"
+cask "powershell"
+
+mas "RunCat", id: 1429033973
