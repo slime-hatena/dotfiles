@@ -8,6 +8,8 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
+$DEFAULT_SHELL="$(brew --prefix)/bin/fish"
+
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
@@ -33,11 +35,11 @@ fi
 
 type brew >/dev/null 2>&1
 if [ $? -eq 0 ]; then
-    $(brew --prefix)/bin/fish
+    $DEFAULT_SHELL
     if [ $? -eq 0 ]; then
         exit
     fi
-    echo "fishの起動に失敗しました。インストールされているか、パスが通っているかを確認してください。"
+    echo "${DEFAULT_SHELL}の起動に失敗しました。インストールされているか、パスが通っているかを確認してください。"
 else
     # Ubuntu Desktopなどでは発生するかも
     echo "fishの起動に失敗しました。brewが存在しませんでした。"
