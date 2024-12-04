@@ -1,12 +1,18 @@
 local wezterm = require 'wezterm';
 
-local mux = wezterm.mux
-wezterm.on("gui-startup", function(cmd)
-    local tab, pane, window = mux.spawn_window(cmd or {})
-    window:gui_window():toggle_fullscreen()
-end)
+-- local mux = wezterm.mux
+-- wezterm.on("gui-startup", function(cmd)
+--     local tab, pane, window = mux.spawn_window(cmd or {})
+--     window:gui_window():toggle_fullscreen()
+-- end)
 
 return {
+  default_prog = { '/bin/bash', '--login' },
+  -- window fullscreen (alwayz fullsize window)
+  window_decorations = "RESIZE",
+  initial_rows = 240,
+  initial_cols = 800,
+
   -- theme list: https://wezfurlong.org/wezterm/colorschemes/index.html
   color_scheme = "nord",
   -- color_scheme = "Vs Code Dark+ (Gogh)",
@@ -19,7 +25,7 @@ return {
 
   -- common settings
   use_ime = true,
-  font_size = 14.0,
+  font_size = 16.0,
   hide_tab_bar_if_only_one_tab = true,
   adjust_window_size_when_changing_font_size = false,
   automatically_reload_config = true,
