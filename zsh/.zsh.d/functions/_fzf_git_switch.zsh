@@ -14,17 +14,16 @@ function _fzf_git_branch() {
       | fzf --height 99% --no-sort --no-hscroll --preview-window=down --ansi --exact --preview='git log --oneline --graph --decorate --color=always -50 {+1}' \
       | awk '{print $1}' \
     )
-    BUFFER="${LBUFFER}${selected_branch}${RBUFFER}"
-    CURSOR=$#LBUFFER+$#selected_branch
-    zle redisplay
+    if [ -n "${selected_branch}" ]; then
+      BUFFER="git switch ${selected_branch}"
+      zle accept-line
+    fi
+    zle reset-prompt
   else
     echo "Current directory is not a git repository."
     sleep 0.5
     zle reset-prompt
   fi
 }
-
-# zle accept-line
-# zle reset-prompt
 
 zle -N _fzf_git_branch

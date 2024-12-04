@@ -1,7 +1,15 @@
 ZSHHOME="${HOME}/.zsh.d"
 touch $ZSHHOME/.profile.zsh
 
+if [ -z "$TMUX" ]; then
+  export FZF_DEFAULT_OPTS='--height 40% --reverse --select-1'
+  exec tmuximum || true
+fi
+
 source <(fzf --zsh)
+
+# macOS: enable ^q ^s etc...
+setopt no_flow_control
 
 firstInitializeFiles=(
   # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -36,5 +44,3 @@ files=(${firstInitializeFiles[*]} ${initializeFiles[*]} ${finalInitializeFiles[*
 for i in $files; do
   source $i
 done
-
-echo
