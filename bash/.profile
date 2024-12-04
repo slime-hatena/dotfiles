@@ -1,3 +1,6 @@
+# WARNING: このファイルはシンボリックリンクでは管理されません。
+#          内容を更新する場合は元のファイルに変更を加える必要があります。
+
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
 # exists.
@@ -8,7 +11,7 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-$DEFAULT_SHELL="$(brew --prefix)/bin/fish"
+DEFAULT_SHELL="$(brew --prefix)/bin/zsh --login"
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
@@ -28,19 +31,21 @@ if [ -d "$HOME/.local/bin" ]; then
 fi
 
 if [ -n "$BASH_EXECUTION_STRING" ]; then
-    # echo "> fish -c \"$BASH_EXECUTION_STRING\""
-    fish -c "$BASH_EXECUTION_STRING"
+    # echo "> /bin/bash -c \"$BASH_EXECUTION_STRING\""
+    /bin/bash -c "$BASH_EXECUTION_STRING"
     exit $?
 fi
 
 type brew >/dev/null 2>&1
 if [ $? -eq 0 ]; then
+    # echo ">" "${DEFAULT_SHELL}"
     $DEFAULT_SHELL
     if [ $? -eq 0 ]; then
+        # 正常起動
         exit
     fi
     echo "${DEFAULT_SHELL}の起動に失敗しました。インストールされているか、パスが通っているかを確認してください。"
 else
     # Ubuntu Desktopなどでは発生するかも
-    echo "fishの起動に失敗しました。brewが存在しませんでした。"
+    echo "${DEFAULT_SHELL}の起動に失敗しました。brewが存在しませんでした。"
 fi
