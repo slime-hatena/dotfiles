@@ -14,6 +14,7 @@ return {
   initial_cols = 800,
 
   -- theme list: https://wezfurlong.org/wezterm/colorschemes/index.html
+  -- color_scheme = "Ayu Mirage",
   color_scheme = "nord",
   -- color_scheme = "Vs Code Dark+ (Gogh)",
   font = wezterm.font_with_fallback({
@@ -22,6 +23,7 @@ return {
   }),
   cell_width = 1.1,
 	line_height = 1.1,
+  default_cursor_style = 'SteadyBar',
 
   -- common settings
   use_ime = true,
