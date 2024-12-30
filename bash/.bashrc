@@ -121,4 +121,5 @@ if [ -f "$HOME/.bash_path" ]; then
   . "$HOME/.bash_path"
 fi
 
-export DOCKER_CONTENT_TRUST=1
+# I actually want to enable it. Even containers made by large companies are not supported. Very stupid.
+export DOCKER_CONTENT_TRUST=0
