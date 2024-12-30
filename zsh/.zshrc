@@ -1,15 +1,17 @@
 ZSHHOME="${HOME}/.zsh.d"
 touch $ZSHHOME/.profile.zsh
 
+if [ -f "$HOME/.bash_path" ]; then
+  . "$HOME/.bash_path"
+fi
+
 if [ -z "$TMUX" ]; then
   export FZF_DEFAULT_OPTS='--height 40% --reverse --select-1'
-  exec tmuximum || true
+  tmux new-session -A -s "default"
+  # tmuximum
 fi
 
 source <(fzf --zsh)
-
-# macOS: enable ^q ^s etc...
-setopt no_flow_control
 
 firstInitializeFiles=(
   # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -27,6 +29,7 @@ firstInitializeFiles=(
 finalInitializeFiles=(
   "$ZSHHOME/.bindkey.zsh"
   # To customize prompt, run `p10k configure` or edit .p10k.zsh
+  "$ZSHHOME/.p10k-functions.zsh"
   "$ZSHHOME/.p10k.zsh"
 )
 

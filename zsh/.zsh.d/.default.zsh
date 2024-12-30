@@ -1,5 +1,17 @@
 INTERACTIVE_FILTER="fzf-tmux"
 
+# macOS: enable ^q ^s etc...
+setopt no_flow_control
+
+setopt GLOB_SUBST
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt INC_APPEND_HISTORY
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt SHARE_HISTORY
+
+DISABLE_AUTO_TITLE="true"
+
 export LSCOLORS=cxfxcxdxbxegedabagacad
 alias ls='ls -GF'
 alias rm='trash'
