@@ -162,7 +162,7 @@ install() {
             cd $dotfilesDirectory
 
         else
-            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+            NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
             info "homebrewにパスを通します。"
             if [ "$(uname)" == 'Darwin' ]; then
