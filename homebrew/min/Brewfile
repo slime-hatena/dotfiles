@@ -1,0 +1,47 @@
+# ########################
+# min/Brewfile
+# ########################
+tap "homebrew/bundle"
+tap "homebrew/core"
+tap "homebrew/services"
+
+# Security updates
+brew "git"
+brew "openssl"
+brew "rsync"
+
+# zsh plugins
+brew "zsh"
+brew "powerlevel10k"
+tap "olets/tap"
+brew "olets/tap/zsh-abbr"
+brew "zsh-autosuggestions"
+brew "zsh-syntax-highlighting"
+
+
+# tmux plugins
+brew "tmux"
+brew "tpm"
+brew "tmux-mem-cpu-load"
+
+# git tools
+brew "gh"
+brew "ghq"
+brew "gitui"
+brew "lazygit"
+brew "tig"
+
+# commandline tools
+brew "colordiff"
+brew "coreutils"
+brew "fzf"
+brew "gnu-sed"
+brew "jq"
+brew "make"
+brew "neovim"
+brew "pv"
+brew "ripgrep"
+brew "runme"
+brew "trash", link: true
+brew "tree"
+brew "watch"

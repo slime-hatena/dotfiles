@@ -1,2 +1,4 @@
-Brewfiles
-Brewfiles.lock.json
+/Brewfile
+Brewfile.lock.json
+Brewfile.local
+Brewfile.untracked
