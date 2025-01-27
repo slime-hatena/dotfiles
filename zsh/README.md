@@ -5,6 +5,7 @@
 ## install
 
 ```sh { name=zsh-install }
-ln -s ~/.dotfiles/zsh/.zshrc ~/.zshrc
-ln -s ~/.dotfiles/zsh/.zsh.d ~/.zsh.d
+ln -nfs ~/.dotfiles/zsh/.zshrc ~/.zshrc
+ln -nfs ~/.dotfiles/zsh/.zsh.d ~/.zsh.d
+touch ./.zsh.d/functions/___local_functions.zsh
 ```
