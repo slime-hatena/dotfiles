@@ -1,42 +1,42 @@
 [include]
-    path = .gitconfig_users
+  path = .gitconfig_users
 [core]
-	editor = code --wait
+  editor = code --wait
 [diff]
-    tool = vscode
+  tool = vscode
 [difftool]
-	prompt = false
+  prompt = false
 [difftool "vscode"]
-    cmd = code --wait --diff $LOCAL $REMOTE
+  cmd = code --wait --diff $LOCAL $REMOTE
 [merge]
-	tool = vscode
+  tool = vscode
 [mergetool]
-	prompt = false
-	keepBackup = false
+  prompt = false
+  keepBackup = false
 [mergetool "vscode"]
-	cmd = code \"$MERGED\"
-	trustExitCode = false
+  cmd = code \"$MERGED\"
+  trustExitCode = false
 [merge]
-	conflictStyle = diff3
-	ff = true
+  conflictStyle = diff3
+  ff = true
 [color]
-	ui = auto
+  ui = auto
 [alias]
-	me = !git config --get user.name && git config --get user.email
-	pwd = rev-parse --abbrev-ref @
-	ref = reflog -n 10
-    mfe = merge --no-ff --no-edit
-    mfeo = "!f () { git fetch && git merge --no-ff --no-edit origin/$1;};f"
-	fpull = "!sh -c 'git fetch; git status; echo \"\n > git reset --hard origin/$(git symbolic-ref --short HEAD)\"; read -p \"Are you sure? [y/N]: \" yn; case \"$yn\" in [yY]*) ;; *) echo \"abort.\"; exit ;; esac; git reset --hard origin/$(git symbolic-ref --short HEAD);'"
-	clean-branch = !GIT_CLEAN_BRANCH_CURRENT=$(git pwd) && git switch master && git branch --merged | tr -d ' \\*' | grep -v 'master' | xargs git branch -d && git switch $GIT_CLEAN_BRANCH_CURRENT
+  me = !git config --get user.name && git config --get user.email
+  pwd = rev-parse --abbrev-ref @
+  ref = reflog -n 10
+  mfe = merge --no-ff --no-edit
+  mfeo = "!f () { git fetch && git merge --no-ff --no-edit origin/$1;};f"
+  fpull = "!sh -c 'git fetch; git status; echo \"\n > git reset --hard origin/$(git symbolic-ref --short HEAD)\"; read -p \"Are you sure? [y/N]: \" yn; case \"$yn\" in [yY]*) ;; *) echo \"abort.\"; exit ;; esac; git reset --hard origin/$(git symbolic-ref --short HEAD);'"
+  clean-branch = !GIT_CLEAN_BRANCH_CURRENT=$(git pwd) && git switch master && git branch --merged | tr -d ' \\*' | grep -v 'master' | xargs git branch -d && git switch $GIT_CLEAN_BRANCH_CURRENT
 [ghq]
-	root = ~/Development/
+  root = ~/Development/
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
 [init]
-	defaultBranch = main
+  defaultBranch = main
 [pull]
-	rebase = false
+  rebase = false
