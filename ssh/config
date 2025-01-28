@@ -1,0 +1,16 @@
+# 接続先の設定は以下のディレクトリに分割して配置する
+Include ~/.ssh/conf.d/*
+
+Host *
+  StrictHostKeyChecking ask
+  AddKeysToAgent yes
+  UseKeychain yes
+  Compression yes
+  ForwardAgent yes
+  ServerAliveInterval 60
+  ServerAliveCountMax 60
+  TCPKeepAlive yes
+  IdentitiesOnly yes
+
+# このPCでのみ有効にしたい設定はこのファイルに記載する
+Include ~/.ssh/local_settings
