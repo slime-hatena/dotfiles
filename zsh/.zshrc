@@ -5,6 +5,14 @@ if [ -f "$HOME/.bash_path" ]; then
   . "$HOME/.bash_path"
 fi
 
+# brew completions
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
+
 if [ -z "$TMUX" ]; then
   export FZF_DEFAULT_OPTS='--height 40% --reverse --select-1'
   tmux new-session -A -s "default"

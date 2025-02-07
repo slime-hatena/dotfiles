@@ -16,6 +16,7 @@ brew "powerlevel10k"
 tap "olets/tap"
 brew "olets/tap/zsh-abbr"
 brew "zsh-autosuggestions"
+brew "zsh-completions"
 brew "zsh-syntax-highlighting"
 
 
