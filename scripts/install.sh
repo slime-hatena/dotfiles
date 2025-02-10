@@ -91,36 +91,11 @@ install() {
         info "Homebrewはインストール済みのためスキップします。"
     fi
 
-    info "brewfileに記載されているパッケージを導入します。"
-    cat "$dotfilesDirectory/homebrew/min/Brewfiles_all" >"$dotfilesDirectory/homebrew/Brewfiles"
-    if [ "$(uname)" == 'Darwin' ]; then
-        info "実行環境がMacのため、cask経由でアプリケーションをインストールします。"
-        cat "$dotfilesDirectory/homebrew/min/Brewfiles_mac" >>"$dotfilesDirectory/homebrew/Brewfiles"
-    fi
-    brew bundle --file "$dotfilesDirectory/homebrew/Brewfiles"
-
-    # git
-    info ".gitconfigを追加します。"
-    create_symbolic "$dotfilesDirectory/git/.gitconfig" "$HOME/.gitconfig"
-    if [ ! -f $HOME/.gitconfig_users ]; then
-        info "$HOME/.gitconfig_users を作成しました。gitのユーザー情報を書き込んでください。"
-        cp "$dotfilesDirectory/git/.gitconfig_users.example" "$HOME/.gitconfig_users"
     if ! exists brew; then
         error "Homebrewが存在しません。何らかの不具合が起きている可能性があります。"
         exit 1
     fi
 
-    # fish / fisher
-    if exists fish; then
-        info "fisherをインストールします。"
-        $(which fish) -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher"
-
-        info "fishの設定ファイルを追加します。"
-        create_symbolic "$dotfilesDirectory/fish" "$HOME/.config/fish"
-        git checkout $dotfilesDirectory/fish/fish_plugins
-
-        info "fisherのプラグインを追加します。"
-        $(which fish) -c "fisher update"
     # ログインシェルの変更
     if isMac; then
         if [ "$(dscl localhost -read Local/Default/Users/${userName} UserShell | cut -d' ' -f2)" != "${defaultShell}" ]; then
@@ -128,63 +103,19 @@ install() {
             sudo chsh -s ${defaultShell} ${userName}
         fi
     else
-        error "fishがインストールされていません。"
         if [ "$(grep ${userName} /etc/passwd | cut -d: -f7)" != "${defaultShell}" ]; then
             info "ログインシェルを ${defaultShell} に変更します。"
             chsh -s ${defaultShell}
         fi
     fi
 
-    # hyper
-    info ".hyper.jsを追加します。"
-    create_symbolic "$dotfilesDirectory/hyper/.hyper.js" "$HOME/.hyper.js"
-
-    # kitty
-    info "kitty.confを追加します。"
-    create_symbolic "$dotfilesDirectory/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf"
-
-    #tmux / tpm
-    info "tmuxの設定ファイルを追加します。"
-    create_symbolic "$dotfilesDirectory/tmux/.tmux.conf" "$HOME/.tmux.conf"
-    if [ -d "$HOME/.tmux/plugins/tpm" ]; then
-        info "tpmを更新します。"
-        cd "$HOME/.tmux/plugins/tpm"
-        git pull --rebase
-        cd "$dotfilesDirectory"
-    else
-        info "tpmが存在しないため、cloneします。"
-        git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
-    fi
-
-    if [ -d "$HOME/tmuximum" ]; then
-        info "tmuximumを更新します。"
-        cd "$HOME/tmuximum"
-        git checkout .
-        git pull --rebase
-        chmod 777 "$HOME/tmuximum/tmuximum"
-        cd "$dotfilesDirectory"
-    else
-        info "tmuximumが存在しないため、インストールします。"
-        curl -L https://raw.github.com/arks22/tmuximum/master/install.bash | bash
-        chmod 777 "$HOME/tmuximum/tmuximum"
-        echo "export PATH=$HOME/tmuximum:"'$PATH' >>~/.bash_path
-        export PATH=$HOME/tmuximum:$PATH
-    fi
+    # 各README.mdに記載されている内容を実行
+    . "$dotfilesDirectory/scripts/_runme.sh"
 
     info "インストールが完了しました！"
 }
 
 install
-
-if ! exists brew; then
-    error "homebrewのインストールに失敗しました。何らかの不具合が起きている可能性があります。"
-else
-    brew doctor
-fi
-
-if ! exists fish; then
-    error "fishのインストールに失敗しました。何らかの不具合が起きている可能性があります。"
-fi
 
 cd $HOME
 exec /bin/bash -l
