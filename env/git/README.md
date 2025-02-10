@@ -5,7 +5,7 @@
 ## install
 
 ```sh { name=git-install }
-ln -nfs ~/.dotfiles/git/.gitconfig ~/.gitconfig
+ln -nfs ~/.dotfiles/env/git/.gitconfig ~/.gitconfig
 cp ~/.dotfiles/git/.gitconfig_users.example ~/.gitconfig_users
 code ~/.gitconfig_users
 ```

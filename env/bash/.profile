@@ -1,6 +1,3 @@
-# WARNING: このファイルはシンボリックリンクでは管理されません。
-#          内容を更新する場合は元のファイルに変更を加える必要があります。
-
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
 # exists.
@@ -43,8 +40,9 @@ if [ $? -eq 0 ]; then
     if [ $? -eq 0 ]; then
         # 正常起動
         exit
+    else
+        echo "${DEFAULT_SHELL}の起動に失敗しました。インストールされているか、パスが通っているかを確認してください。"
     fi
-    echo "${DEFAULT_SHELL}の起動に失敗しました。インストールされているか、パスが通っているかを確認してください。"
 else
     # Ubuntu Desktopなどでは発生するかも
     echo "${DEFAULT_SHELL}の起動に失敗しました。brewが存在しませんでした。"
