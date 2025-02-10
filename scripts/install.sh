@@ -54,66 +54,35 @@ install() {
         cp "${dotfilesDirectory}/bash/.bashrc" "${HOME}/.bashrc"
     fi
 
-    # if [ "$(grep $USER /etc/passwd | cut -d: -f7)" != "/bin/bash" ]; then
-    #     info "ログインシェルを /bin/bash に変更します。"
-    #     chsh -s /bin/bash
-    # fi
-
-    # homebrew
+    # Homebrewのインストール
     if ! exists brew; then
-        info "homebrewをインストールします。"
+        info "Homebrewをインストールします。"
 
-        if [ "$(uname -m)" == 'aarch64' ]; then
-            info "実行環境がARMのため、直接導入します。"
-
-            sudo apt update
-            sudo apt upgrade -y
-            sudo apt install -y build-essential procps curl file git gcc
-
-            mkdir -p ~/.cache/Homebrew
-            cd ~/.cache/Homebrew
-            wget https://github.com/Homebrew/homebrew-portable-ruby/releases/download/2.6.3/portable-ruby-2.6.3.aarch64_linux.bottle.tar.gz
-
-            sudo mkdir -p /home/linuxbrew/.linuxbrew/Library/Homebrew/vendor
-            cd /home/linuxbrew/.linuxbrew/Library/Homebrew/vendor
-            sudo tar -zxvf ~/.cache/Homebrew/portable-ruby-2.6.3.aarch64_linux.bottle.tar.gz
-            cd portable-ruby
-            sudo ln -sf 2.6.3 current
-            echo 'export PATH=/home/linuxbrew/.linuxbrew/Library/Homebrew/vendor/portable-ruby/current/bin:$PATH' >>$HOME/.bash_path
-            export PATH=/home/linuxbrew/.linuxbrew/Library/Homebrew/vendor/portable-ruby/current/bin:$PATH
-            which ruby
-            ruby -v
-
-            sudo git clone https://github.com/Homebrew/brew /home/linuxbrew/.linuxbrew/Homebrew
-            sudo mkdir /home/linuxbrew/.linuxbrew/bin
-            sudo ln -s /home/linuxbrew/.linuxbrew/Homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin
-            echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>$HOME/.bash_path
-            eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-
-            sudo chown -R $(whoami):$(whoami) /home/linuxbrew/.linuxbrew
-            which brew
-            brew -v
-
-            cd $dotfilesDirectory
-
-        else
-            NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-            info "homebrewにパスを通します。"
-            if [ "$(uname)" == 'Darwin' ]; then
-                echo 'export PATH=/usr/local/bin:$PATH' >>$HOME/.bash_path
-            else
-                if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
-                    echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>$HOME/.bash_path
-                    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-                fi
-
-                if [ -f "$HOME/.linuxbrew/bin/brew" ]; then
-                    echo "eval \"$($HOME/.linuxbrew/bin/brew shellenv)\"" >>$HOME/.bash_path
-                    eval "$($HOME/.linuxbrew/bin/brew shellenv)"
-                fi
-            fi
+        info "sudoセッションを作成します。"
+        sudo echo "create" >/dev/null
+        if [ $? -ne 0 ] ; then
+            error "作成に失敗しました。"
+            exit 1
         fi
+
+        info "作成に成功しました！"
+        sleep 1
+
+        NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+        info "Homebrewにパスを通します。"
+        if isMac; then
+            echo 'export PATH="/opt/homebrew/bin:$PATH"' >>$HOME/.bash_path
+        else # Linux
+            echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>$HOME/.bash_path
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+            info "必要なパッケージをapt経由でインストールします。"
+            sudo apt update
+            sudo apt install -y build-essential
+        fi
+    else
+        info "Homebrewはインストール済みのためスキップします。"
     fi
 
     info "brewfileに記載されているパッケージを導入します。"
@@ -130,6 +99,9 @@ install() {
     if [ ! -f $HOME/.gitconfig_users ]; then
         info "$HOME/.gitconfig_users を作成しました。gitのユーザー情報を書き込んでください。"
         cp "$dotfilesDirectory/git/.gitconfig_users.example" "$HOME/.gitconfig_users"
+    if ! exists brew; then
+        error "Homebrewが存在しません。何らかの不具合が起きている可能性があります。"
+        exit 1
     fi
 
     # fish / fisher
@@ -143,8 +115,18 @@ install() {
 
         info "fisherのプラグインを追加します。"
         $(which fish) -c "fisher update"
+    # ログインシェルの変更
+    if isMac; then
+        if [ "$(dscl localhost -read Local/Default/Users/${userName} UserShell | cut -d' ' -f2)" != "${defaultShell}" ]; then
+            info "ログインシェルを ${defaultShell} に変更します。"
+            sudo chsh -s ${defaultShell} ${userName}
+        fi
     else
         error "fishがインストールされていません。"
+        if [ "$(grep ${userName} /etc/passwd | cut -d: -f7)" != "${defaultShell}" ]; then
+            info "ログインシェルを ${defaultShell} に変更します。"
+            chsh -s ${defaultShell}
+        fi
     fi
 
     # hyper
