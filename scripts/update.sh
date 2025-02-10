@@ -10,7 +10,6 @@ dotfilesDirectory=$HOME/.dotfiles
 ###========================================================================================###
 
 update() {
-
     cd $dotfilesDirectory
 
     if test -n "$(git status --porcelain)"; then
@@ -44,7 +43,6 @@ update() {
     fi
 
     /bin/bash $dotfilesDirectory/scripts/install.sh
-
 }
 
 update
