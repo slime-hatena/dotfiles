@@ -7,15 +7,6 @@
 ## install
 
 ```sh { name=tmux-install }
-if [ -d "$HOME/.tmux/plugins/tpm" ]; then
-  cd "$HOME/.tmux/plugins/tpm"
-  git reset --hard origin/$(git symbolic-ref --short HEAD)
-  cd ~/.dotfiles
-else
-  info "tpmが存在しないため、cloneします。"
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-fi
-
 if [ -d "$HOME/tmuximum" ]; then
   cd "$HOME/tmuximum"
   git reset --hard origin/$(git symbolic-ref --short HEAD)
