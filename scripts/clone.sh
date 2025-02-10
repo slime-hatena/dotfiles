@@ -103,8 +103,15 @@ clone() {
         git reset --hard origin/$1
     fi
 
-    /bin/bash $dotfilesDirectory/scripts/install.sh
-
+    # 正常にcloneできているかを確認する
+    if [ -d "$dotfilesDirectory" ]; then
+        info "cloneに成功しました。"
+        info "インストールスクリプトを実行します。"
+        /bin/bash $dotfilesDirectory/scripts/install.sh
+    else
+        error "cloneに失敗しました。"
+        exit 1
+    fi
 }
 
 clone
