@@ -2,6 +2,8 @@
 set -u
 
 dotfilesDirectory=$HOME/.dotfiles
+defaultShell="/bin/bash"
+userName=$(whoami)
 
 . "$dotfilesDirectory/scripts/_functions.sh"
 
@@ -10,10 +12,12 @@ dotfilesDirectory=$HOME/.dotfiles
 ###========================================================================================###
 
 install() {
+    # 必要なディレクトリ類の作成
     mkdir -p "$HOME/.config"
     mkdir -p "$HOME/Development"
     touch "$HOME/.bash_path"
 
+    # 既存ファイルの退避
     if [ -f "$HOME/.bash_profile" ]; then
         if ! ask_yes_or_no "$HOME/.bash_profile が存在すると正常に動作しない可能性があります。退避しますか？"; then
             warn "キャンセルしました。正常に動作しない場合は手動で退避してください。"
@@ -30,6 +34,7 @@ install() {
         fi
     fi
 
+    # .profileが存在しなければ作成 / 存在すれば退避して上書き
     if [ -f "$HOME/.profile" ]; then
         diff "${dotfilesDirectory}/bash/.profile" "${HOME}/.profile" >/dev/null 2>&1
         if [ $? -eq 1 ]; then
@@ -42,6 +47,7 @@ install() {
         cp "${dotfilesDirectory}/bash/.profile" "${HOME}/.profile"
     fi
 
+    # .bashrcが存在しなければ作成 / 存在すれば退避して上書き
     if [ -f "$HOME/.bashrc" ]; then
         diff "${dotfilesDirectory}/bash/.bashrc" "${HOME}/.bashrc" >/dev/null 2>&1
         if [ $? -eq 1 ]; then
