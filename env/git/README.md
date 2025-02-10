@@ -6,6 +6,6 @@
 
 ```sh { name=git-install }
 ln -nfs ~/.dotfiles/env/git/.gitconfig ~/.gitconfig
-cp ~/.dotfiles/git/.gitconfig_users.example ~/.gitconfig_users
-code ~/.gitconfig_users
+cp ~/.dotfiles/env/git/.gitconfig_users.example ~/.gitconfig_users
+echo "Next you should edit ~/.gitconfig_users."
 ```
