@@ -5,78 +5,62 @@
 ## install
 
 Brewfileに記載されているパッケージをインストールします。
-先に下の`brew-install-min`などを実行して、Brewfileを作成しておく必要があります。
+先に下の`brew-init-all`などを実行して、Brewfileを作成しておく必要があります。
 
-```sh { name=brew-install-bundle }
-brew bundle --file="./Brewfile"
+```bash { name=brew-install }
+brew bundle --file="./Brewfile" -v
 ```
 
-### all
+## init bundle
 
-min, dev, extraの全てのアプリケーションをインストールします。
+Brewfileを作成します。  
+実行前に `./Brewfile` を削除してください。
 
-```sh { name=brew-prepare-all }
-echo "> runme run brew-install-min"
-runme run brew-prepare-min
-echo "" >>"./Brewfile"
-cat "./Brewfile" >"./Brewfile.tmp"
-
-echo "> runme run brew-install-dev"
-runme run brew-prepare-dev
-echo "" >>"./Brewfile"
-cat "./Brewfile" >>"./Brewfile.tmp"
-
-echo "> runme run brew-install-extra"
-runme run brew-prepare-extra
-cat "./Brewfile" >>"./Brewfile.tmp"
-
-mv ./Brewfile.tmp ./Brewfile
-
-echo ""
-echo "Next, run 'runme run brew-install-bundle' command."
+```bash { name=brew-init }
+rm -f ./Brewfile
 ```
 
 ### min
 
-このdotfiles環境を動かす最低限のアプリケーションをBrewfileに記載します。
+```bash { name=brew-add-min }
+cat "./min/Brewfile" >>"./Brewfile"
+```
 
-```sh { name=brew-prepare-min }
-cat "./min/Brewfile" >"./Brewfile"
-if [ "$(uname)" == 'Darwin' ]; then
-    echo "" >>"./Brewfile"
-    cat "./min/Brewfile.mac" >>"./Brewfile"
-fi
+### min mac applications
+
+```bash { name=brew-add-min-mac }
+cat "./min/Brewfile.mac" >>"./Brewfile"
 ```
 
 ### dev
 
-開発に必要なアプリケーションをBrewfileに記載します。
+```bash { name=brew-add-dev }
+cat "./dev/Brewfile" >>"./Brewfile"
+```
 
-```sh { name=brew-prepare-dev }
-cat "./dev/Brewfile" >"./Brewfile"
-if [ "$(uname)" == 'Darwin' ]; then
-    echo "" >>"./Brewfile"
-    cat "./dev/Brewfile.mac" >>"./Brewfile"
-fi
+### dev mac applications
+
+```bash { name=brew-add-extra-mac }
+cat "./dev/Brewfile.mac" >>"./Brewfile"
 ```
 
 ### extra
 
-遊びや趣味に関連するアプリケーションをBrewfileに記載します。
+```bash { name=brew-add-extra }
+cat "./extra/Brewfile" >>"./Brewfile"
+```
 
-```sh { name=brew-prepare-extra }
-cat "./extra/Brewfile" >"./Brewfile"
-if [ "$(uname)" == 'Darwin' ]; then
-    echo "" >>"./Brewfile"
-    cat "./extra/Brewfile.mac" >>"./Brewfile"
-fi
+### extra mac applications
+
+```bash { name=brew-add-extra-mac }
+cat "./extra/Brewfile.mac" >>"./Brewfile"
 ```
 
 ## update
 
 ローカルにインストールされているBrewパッケージからこのdotfilesに含まれていないものを列挙します。
 
-```sh  { name=brew-listup-untracked-packages }
+```bash  { name=brew-listup-untracked-packages }
 brew bundle dump --force
 mv Brewfile Brewfile.local
 sed -i '' '/^vscode /d' Brewfile.local

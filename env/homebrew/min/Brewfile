@@ -2,7 +2,6 @@
 # min/Brewfile
 # ########################
 tap "homebrew/bundle"
-tap "homebrew/core"
 tap "homebrew/services"
 
 # Developer tools (brew required)
