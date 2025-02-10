@@ -14,14 +14,34 @@ main() {
 
   info "各README.mdに記載されているインストールスクリプトを実行します。"
 
-  runme run brew-prepare-min
+  info "Homebrew経由で最低限のパッケージをインストールします。"
+  runme run brew-init
+  runme run brew-add-min
+  if isMac; then
+    runme brew-add-min-mac
+  fi
   runme run brew-install
+
+  info "bashの設定ファイルを配置します。"
   runme run bash-install
+
+  info "gitの設定ファイルを配置します。"
   runme run git-install
+
+  info "nvimの設定ファイルを配置します。"
   runme run nvim-install
+
+  info "sshの設定ファイルを配置します。"
   runme run ssh-install
+
+  info "tmuxの設定ファイルを配置します。"
   runme run tmux-install
+
+  info "weztermの設定ファイルを配置します。"
   runme run wezterm-install
+
+  info "zshの設定ファイルを配置します。"
+  runme run zsh-install
 }
 
 main
