@@ -3,7 +3,6 @@
 # ########################
 
 brew "composer"
-brew "gcc"
 brew "go"
 brew "hugo"
 brew "node"
