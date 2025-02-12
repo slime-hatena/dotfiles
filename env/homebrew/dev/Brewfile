@@ -1,0 +1,11 @@
+# ########################
+# dev/Brewfile
+# ########################
+
+brew "composer"
+brew "go"
+brew "hugo"
+brew "node"
+brew "php"
+brew "pnpm"
+brew "yarn"
