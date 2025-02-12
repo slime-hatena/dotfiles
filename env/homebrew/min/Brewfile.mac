@@ -1,0 +1,18 @@
+# ########################
+# min/Brewfile.mac
+# ########################
+cask_args appdir: "/Applications"
+
+brew "mas"
+
+cask "clipy", args: { appdir: "/Applications" }
+cask "google-chrome", args: { appdir: "/Applications" }
+cask "google-drive-file-stream", args: { appdir: "/Applications" }
+cask "google-japanese-ime", args: { appdir: "/Applications" }
+cask "karabiner-elements"
+cask "keyboardcleantool"
+tap "ryota2357/pleck-jp"
+cask "pleck-jp"
+cask "slack"
+cask "visual-studio-code", args: { appdir: "/Applications" }
+cask "wezterm"

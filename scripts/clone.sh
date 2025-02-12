@@ -14,27 +14,6 @@ exists() {
     type "$1" >/dev/null 2>&1
 }
 
-### ファイルが存在する場合は待避し、シンボリックリンクを作成します。
-create_symbolic() {
-    info "${1} → ${2} のシンボリックリンクを作成します。"
-    if [ -e "$2" ]; then
-        if [ -L "$2" ]; then
-            warn "シンボリックリンクが存在します。削除します。"
-            rm "$2"
-        elif [ -d $2 ]; then
-            filename=$(basename $2).$(date +%s)
-            info "ディレクトリが存在します。${dotfilesDirectory}/backup/${filename}に移動します。"
-            mkdir -p "${dotfilesDirectory}/backup/${filename}"
-            mv "$2" "${dotfilesDirectory}/backup/${filename}"
-        else
-            filename=$(basename $2).$(date +%s)
-            info "ファイルが存在します。${dotfilesDirectory}/backup/${filename}に移動します。"
-            mv "$2" "${dotfilesDirectory}/backup/${filename}"
-        fi
-    fi
-    ln -s "$1" "$2"
-}
-
 ### Yes/Noを尋ねます。未指定の場合はNoになります。
 ### @return yes: 0
 ### @return no: 1
@@ -124,8 +103,15 @@ clone() {
         git reset --hard origin/$1
     fi
 
-    /bin/bash $dotfilesDirectory/scripts/install.sh
-
+    # 正常にcloneできているかを確認する
+    if [ -d "$dotfilesDirectory" ]; then
+        info "cloneに成功しました。"
+        info "インストールスクリプトを実行します。"
+        /bin/bash $dotfilesDirectory/scripts/install.sh
+    else
+        error "cloneに失敗しました。"
+        exit 1
+    fi
 }
 
 clone
