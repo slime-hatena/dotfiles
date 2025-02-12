@@ -4,8 +4,12 @@ set -u
 . "$dotfilesDirectory/scripts/_functions.sh"
 
 main() {
-  info "brew経由でrunmeをインストールします。"
-  brew install runme
+  if ! exists runme; then
+    info "brew経由でrunmeをインストールします。"
+    brew install runme
+  else
+    info "runmeはインストール済みのためスキップします。"
+  fi
 
   if ! exists runme; then
     error "runmeが存在しません。何らかの不具合が起きている可能性があります。"
