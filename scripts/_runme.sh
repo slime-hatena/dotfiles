@@ -18,7 +18,7 @@ main() {
   runme run brew-init
   runme run brew-add-min
   if isMac; then
-    runme brew-add-min-mac
+    runme run brew-add-min-mac
   fi
   runme run brew-install
 
