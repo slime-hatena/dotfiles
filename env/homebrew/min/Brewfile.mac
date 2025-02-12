@@ -2,8 +2,6 @@
 # min/Brewfile.mac
 # ########################
 cask_args appdir: "/Applications"
-tap "homebrew/cask"
-tap "homebrew/cask-versions"
 
 brew "mas"
 
