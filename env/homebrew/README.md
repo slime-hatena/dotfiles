@@ -40,7 +40,7 @@ cat "./dev/Brewfile" >>"./Brewfile"
 
 ### dev mac applications
 
-```bash { name=brew-add-extra-mac }
+```bash { name=brew-add-dev-mac }
 cat "./dev/Brewfile.mac" >>"./Brewfile"
 ```
 

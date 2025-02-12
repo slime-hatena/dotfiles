@@ -24,6 +24,21 @@ main() {
   if isMac; then
     runme run brew-add-min-mac
   fi
+
+  if ask_yes_or_no "開発環境などで使用されるアプリケーションをインストールしますか？"; then
+    runme run brew-add-dev
+    if isMac; then
+      runme run brew-add-dev-mac
+    fi
+  fi
+
+  if ask_yes_or_no "その他の趣味や遊びで使用するアプリケーションをインストールしますか？"; then
+    runme run brew-add-extra
+    if isMac; then
+      runme run brew-add-extra-mac
+    fi
+  fi
+
   runme run brew-install
 
   info "bashの設定ファイルを配置します。"
