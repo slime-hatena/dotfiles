@@ -88,7 +88,8 @@ install() {
             sudo apt install -y build-essential
         fi
     else
-        info "Homebrewはインストール済みのためスキップします。"
+        info "Homebrewはインストール済みのためupdateを実行します。"
+        brew update
     fi
 
     if ! exists brew; then
