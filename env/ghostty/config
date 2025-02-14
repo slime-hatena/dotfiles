@@ -1,0 +1,10 @@
+font-family = "PleckJP"
+font-size = 16
+
+# light theme
+# theme = ayu_light
+
+# dark theme
+theme = Ayu Mirage
+# theme = Snazzy
+# theme = Snazzy Soft
