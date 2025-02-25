@@ -16,9 +16,10 @@ return {
   initial_cols = 800,
 
   -- theme list: https://wezfurlong.org/wezterm/colorschemes/index.html
+  color_scheme = 'Ayu Light (Gogh)',
   -- color_scheme = "Ayu Mirage",
   -- color_scheme = "nord",
-  color_scheme = 'ayu',
+  -- color_scheme = 'ayu',
   -- color_scheme = "Vs Code Dark+ (Gogh)",
   font = wezterm.font_with_fallback({
     { family = "PleckJP" },
@@ -36,7 +37,7 @@ return {
   automatically_reload_config = true,
   use_fancy_tab_bar = false,
   tab_bar_at_bottom = true,
-  window_background_opacity = 0.75,
+  window_background_opacity = 0.9,
 
   window_padding = {
     left = 0,

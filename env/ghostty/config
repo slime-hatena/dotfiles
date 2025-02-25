@@ -3,15 +3,22 @@ font-family = "PleckJP"
 font-size = 16
 
 # Themes
-# theme = ayu_light
-theme = Ayu Mirage
+theme = ayu_light
+# theme = Ayu Mirage
 # theme = Snazzy
 # theme = Snazzy Soft
 
 # Options
+window-padding-balance = true
+window-padding-x = 0
+window-padding-y = 0
 macos-titlebar-style = tabs
 cursor-style = bar
 cursor-style-blink = false
+window-theme = ghostty
+background-opacity = 0.85
+background-blur-radius = 10
+macos-titlebar-style = transparent
 
 # Keybinds
 keybind = clear
