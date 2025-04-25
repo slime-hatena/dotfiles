@@ -13,13 +13,7 @@ if type brew &>/dev/null; then
   compinit
 fi
 
-if [ -z "$TMUX" ]; then
-  export FZF_DEFAULT_OPTS='--height 40% --reverse --select-1'
-  # tmux new-session -A -s "default"
-  tmux new-session -A -s "${TERM}"
-  # tmuximum
-fi
-
+export FZF_DEFAULT_OPTS='--height 40% --reverse --select-1'
 source <(fzf --zsh)
 
 firstInitializeFiles=(
