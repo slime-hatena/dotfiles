@@ -1,6 +1,9 @@
 # Fonts
 font-family = "PleckJP"
 font-size = 16
+font-feature = "-calt"
+font-feature = "-dlig"
+font-feature = "-liga"
 
 # Themes
 theme = catppuccin-latte.conf
