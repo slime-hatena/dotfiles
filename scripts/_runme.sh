@@ -50,9 +50,6 @@ main() {
   info "gitの設定ファイルを配置します。"
   runme run git-install
 
-  info "nvimの設定ファイルを配置します。"
-  runme run nvim-install
-
   info "sshの設定ファイルを配置します。"
   runme run ssh-install
 
