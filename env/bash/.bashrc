@@ -1,113 +1,57 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
-
-# If not running interactively, don't do anything
+# 現在のシェルが「インタラクティブモード」で動作しているかどうかを判定するための構文です。
+# インタラクティブモードでない場合、return コマンドでこのスクリプトの実行を即座に終了します。
 case $- in
 *i*) ;;
 *) return ;;
 esac
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
+# ignoreboth は ignoredups と ignorespace の両方を有効にする設定です。
+# ignoredups: 直前に実行したコマンドと全く同じコマンドは、履歴に保存しません。同じコマンドを何度も連続で実行しても、履歴には1つしか残らなくなります。
+# ignorespace: 行頭がスペースで始まるコマンドは、履歴に保存しません。パスワードを含むコマンドなど、履歴に残したくない一時的なコマンドを実行する際に便利です。
 HISTCONTROL=ignoreboth
 
-# append to the history file, don't overwrite it
+# シェルを終了する際に、そのセッションで実行したコマンド履歴を履歴ファイル (~/.bash_history) に上書きするのではなく、追記するようになります。
+# これにより、複数のターミナルを同時に開いていても、それぞれの履歴が失われることなく、すべてファイルに蓄積されます。
 shopt -s histappend
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+# シェルがメモリ上に記憶しておくコマンド履歴の最大行数を設定します。
 HISTSIZE=1000
-HISTFILESIZE=2000
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
+# 履歴ファイル (~/.bash_history) に保存されるコマンド履歴の最大行数を設定します。
+# これを超えた場合は、古いものから削除されます。
+HISTFILESIZE=10000
+
+# コマンドを実行するたびに、ターミナルウィンドウのサイズが変更されていないかを確認します。
+# もし変更されていれば、ウィンドウの行数 (LINES) と桁数 (COLUMNS) を保持する変数を自動的に更新します。
+# これにより、ls などのコマンドが、常に現在のウィンドウサイズに合わせた適切なレイアウトで表示されるようになります。
 shopt -s checkwinsize
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
-
-# make less more friendly for non-text input files, see lesspipe(1)
+# lesspipe は、less が様々な種類のファイル（例: gzipで圧縮されたファイル、tarアーカイブ、manページなど）を直接閲覧できるようにするためのフィルタースクリプトです。
+# このコマンドは lesspipe を実行し、そのが出力するシェルコマンド（環境変数の設定など）を eval を使って現在のシェルで実行します。
+# これにより、less archive.tar.gz のように入力するだけで、lessが自動的に中身を展開して表示してくれるようになります。
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-  debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-xterm-color | *-256color) color_prompt=yes ;;
-esac
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-  if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-    # We have color support; assume it's compliant with Ecma-48
-    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-    # a case would tend to support setf rather than setaf.)
-    color_prompt=yes
-  else
-    color_prompt=
-  fi
-fi
-
-if [ "$color_prompt" = yes ]; then
-  PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-  PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
+# ターミナルエミュレータを使用している場合に、ウィンドウのタイトルを自動的に「ユーザー名@ホスト名: 現在のディレクトリ」という形式で表示するための設定です。
 case "$TERM" in
 xterm* | rxvt*)
   PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
   ;;
 *) ;;
-
 esac
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-  alias ls='ls --color=auto'
-  #alias dir='dir --color=auto'
-  #alias vdir='vdir --color=auto'
-
-  alias grep='grep --color=auto'
-  alias fgrep='fgrep --color=auto'
-  alias egrep='egrep --color=auto'
-fi
-
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# some more ls aliases
+# ls コマンドをより便利に使うためのショートカット（エイリアス）を定義します。
+# - ll: ls -alF のエイリアス。すべてのファイル（隠しファイル含む）を詳細なリスト形式で表示し、ファイルの種類を示す記号（/、*など）を末尾に付けます。非常によく使われる便利なコマンドです。
+# - la: ls -A のエイリアス。. と .. を除くすべてのファイル（隠しファイル含む）を表示します。
+# - l: ls -CF のエイリアス。ファイルをカラム（列）形式で表示します。
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
+# 時間のかかる処理の最後に alert を付けて実行すると、処理が完了したときにデスクトップ通知を送るためのエイリアスです。
+# 使用例: sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-  . ~/.bash_aliases
-fi
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
+# Tabキーを押したときにコマンドの引数やファイル名を自動で補完してくれる「コマンド補完機能」を有効にします。
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
@@ -116,10 +60,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Set the path to the user-specified file, if it exists.
+# PATH 環境変数の設定を ~/.bash_path という外部ファイルに記述できるようにするための設定です。
 if [ -f "$HOME/.bash_path" ]; then
   . "$HOME/.bash_path"
 fi
-
-# I actually want to enable it. Even containers made by large companies are not supported. Very stupid.
-export DOCKER_CONTENT_TRUST=0
