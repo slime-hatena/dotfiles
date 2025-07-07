@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -u
 
 . "$dotfilesDirectory/scripts/_functions.sh"
