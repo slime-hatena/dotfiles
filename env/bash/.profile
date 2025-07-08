@@ -1,49 +1,39 @@
-# ~/.profile: executed by the command interpreter for login shells.
-# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
-# exists.
-# see /usr/share/doc/bash/examples/startup-files for examples.
-# the files are located in the bash-doc package.
+# bashをデフォルトシェルとし、ログインシェルとして起動する前提です。
+# .bashrcを読み込み、zshがインストールされていれば起動します。
+# （設定やパスをzsh/bashで共有する目的があります）
 
-# the default umask is set in /etc/profile; for setting the umask
-# for ssh logins, install and configure the libpam-umask package.
-#umask 022
+# brewでインストールされたzshが存在すればそれを、なければbashをデフォルトシェルに設定
+DEFAULT_SHELL="/usr/bin/env bash"
+# brewが存在し、かつbrewでインストールされたzshが存在する場合はそれをデフォルトシェルに設定
+if command -v brew >/dev/null 2>&1; then
+    BREW_ZSH="$(brew --prefix)/bin/zsh"
+    if [ -x "$BREW_ZSH" ]; then
+        DEFAULT_SHELL="$BREW_ZSH"
+    fi
+fi
 
-DEFAULT_SHELL="$(brew --prefix)/bin/zsh --login"
+# XDG Base Directoryの設定
+XDG_CONFIG_HOME=$HOME/.config
+XDG_DATA_HOME=$HOME/.local/share
+XDG_STATE_HOME=$HOME/.local/state
+XDG_CACHE_HOME=$HOME/.cache
 
-# if running bash
+# bashなら.bashrcを読み込む
 if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
     if [ -f "$HOME/.bashrc" ]; then
         . "$HOME/.bashrc"
     fi
 fi
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ]; then
-    PATH="$HOME/bin:$PATH"
-fi
-
-if [ -d "$HOME/.local/bin" ]; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
-
+# コマンドが指定されている場合は実行して終了
 if [ -n "$BASH_EXECUTION_STRING" ]; then
     # echo "> /bin/bash -c \"$BASH_EXECUTION_STRING\""
     /bin/bash -c "$BASH_EXECUTION_STRING"
     exit $?
 fi
 
-type brew >/dev/null 2>&1
-if [ $? -eq 0 ]; then
-    # echo ">" "${DEFAULT_SHELL}"
-    $DEFAULT_SHELL
-    if [ $? -eq 0 ]; then
-        # 正常起動
-        exit
-    else
-        echo "${DEFAULT_SHELL}の起動に失敗しました。インストールされているか、パスが通っているかを確認してください。"
-    fi
-else
-    # Ubuntu Desktopなどでは発生するかも
-    echo "${DEFAULT_SHELL}の起動に失敗しました。brewが存在しませんでした。"
+$DEFAULT_SHELL
+if [ $? -eq 10 ]; then
+    exit 0
 fi
+echo "${DEFAULT_SHELL}の起動に失敗しました。インストールされているか、パスが通っているかを確認してください。"

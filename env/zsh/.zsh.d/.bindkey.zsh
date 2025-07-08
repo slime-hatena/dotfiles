@@ -6,7 +6,7 @@ bindkey "^s" _fzf_ssh
 bindkey '^h' _fzf_history
 
 bindkey "^r" _reload
-bindkey "^t" _tmuximum
+bindkey "^t" _tmuximum_or_open
 
 # disable default ^d
 setopt IGNORE_EOF

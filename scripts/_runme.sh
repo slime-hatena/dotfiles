@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -u
 
 . "$dotfilesDirectory/scripts/_functions.sh"
@@ -50,9 +50,6 @@ main() {
   info "gitの設定ファイルを配置します。"
   runme run git-install
 
-  info "nvimの設定ファイルを配置します。"
-  runme run nvim-install
-
   info "sshの設定ファイルを配置します。"
   runme run ssh-install
 
@@ -64,6 +61,11 @@ main() {
 
   info "zshの設定ファイルを配置します。"
   runme run zsh-install
+
+  if isMac; then
+    info "Macの設定を行います。"
+    runme run darwin-install
+  fi
 }
 
 main
