@@ -2,10 +2,8 @@
 # dev/Brewfile
 # ########################
 
+brew "php"
 brew "composer"
 brew "go"
 brew "hugo"
-brew "node"
-brew "php"
-brew "pnpm"
-brew "yarn"
+brew "volta"
