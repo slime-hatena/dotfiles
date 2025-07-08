@@ -61,6 +61,11 @@ main() {
 
   info "zshの設定ファイルを配置します。"
   runme run zsh-install
+
+  if isMac; then
+    info "Macの設定を行います。"
+    runme run darwin-install
+  fi
 }
 
 main
