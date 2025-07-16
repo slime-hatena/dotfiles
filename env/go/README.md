@@ -11,4 +11,8 @@ if [[ ":$PATH:" != *":$GOPATH/bin:"* ]]; then
   echo "export PATH=\"\$PATH:\$GOPATH/bin\"" >> "$HOME/.bash_path"
   export PATH="$PATH:$GOPATH/bin"
 fi
+
+go install github.com/pocke/get@latest
+mkdir -p ~/.config/get
+ln -nfs ~/.dotfiles/env/go/get/args ~/.config/get/args
 ```
