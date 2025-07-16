@@ -15,8 +15,11 @@ if [ -d "$HOME/tmuximum" ]; then
 else
   curl -L https://raw.github.com/arks22/tmuximum/master/install.bash | bash
   chmod 777 "$HOME/tmuximum/tmuximum"
-  echo "export PATH=$HOME/tmuximum:"'$PATH' >>~/.bash_path
-  export PATH=$HOME/tmuximum:$PATH
+fi
+
+if [[ ":$PATH:" != *":$HOME/tmuximum:"* ]]; then
+  echo "export PATH=\"\$PATH:\$HOME/tmuximum\"" >> "$HOME/.bash_path"
+  export PATH="$PATH:$HOME/tmuximum"
 fi
 
 ln -nfs ~/.dotfiles/env/tmux/.tmux.conf ~/.tmux.conf
