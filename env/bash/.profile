@@ -33,7 +33,7 @@ if [ -n "$BASH_EXECUTION_STRING" ]; then
 fi
 
 $DEFAULT_SHELL
-if [ $? -eq 10 ]; then
+if [ $? -eq 0 ]; then
     exit 0
 fi
 echo "${DEFAULT_SHELL}の起動に失敗しました。インストールされているか、パスが通っているかを確認してください。"
