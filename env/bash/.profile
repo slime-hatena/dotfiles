@@ -13,13 +13,13 @@ if command -v brew >/dev/null 2>&1; then
 fi
 
 # XDG Base Directoryの設定
-XDG_CONFIG_HOME=$HOME/.config
-XDG_DATA_HOME=$HOME/.local/share
-XDG_STATE_HOME=$HOME/.local/state
-XDG_CACHE_HOME=$HOME/.cache
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_DATA_HOME=$HOME/.local/share
+export XDG_STATE_HOME=$HOME/.local/state
+export XDG_CACHE_HOME=$HOME/.cache
 
 # その他言語系の設定
-GOPATH=$HOME/go
+export  GOPATH=$HOME/go
 
 # bashなら.bashrcを読み込む
 if [ -n "$BASH_VERSION" ]; then
