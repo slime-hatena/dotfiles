@@ -1,9 +1,13 @@
 # slime-hatena/dotfiles/darwin
 
-[xnu](https://github.com/apple-oss-distributions/xnu)
+[xnu](https://github.com/apple-oss-distributions/xnu)  
+[xbar](https://xbarapp.com/)
 
 ## install
 
 ```sh { name=darwin-install }
-. ./install.sh
+. ./setting.sh
+
+mkdir -p ~/Library/Application\ Support/xbar
+ln -nfs ~/.dotfiles/env/darwin/xbar/plugins ~/Library/Application\ Support/xbar/plugins
 ```

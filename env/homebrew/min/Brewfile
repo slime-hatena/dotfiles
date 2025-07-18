@@ -4,8 +4,10 @@
 tap "homebrew/bundle"
 tap "homebrew/services"
 
-# Developer tools (brew required)
+# Developer tools
 brew "gcc"
+brew "go"
+
 
 # Security updates
 brew "git"

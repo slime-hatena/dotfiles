@@ -4,6 +4,7 @@
 cask_args appdir: "/Applications"
 
 brew "mas"
+brew "switchaudio-osx"
 
 cask "clipy", args: { appdir: "/Applications" }
 cask "google-chrome", args: { appdir: "/Applications" }
@@ -18,3 +19,4 @@ cask "visual-studio-code", args: { appdir: "/Applications" }
 cask "wezterm"
 cask "ghostty"
 cask "obsidian"
+cask "xbar"
