@@ -4,6 +4,5 @@
 
 brew "php"
 brew "composer"
-brew "go"
 brew "hugo"
 brew "volta"
