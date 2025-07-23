@@ -2,8 +2,7 @@
 # dev/Brewfile.mac
 # ########################
 
-cask "docker"
-cask "firefox-developer-edition", args: { appdir: "/Applications" }
-cask "github", args: { appdir: "/Applications" }
-cask "google-cloud-sdk"
-cask "visual-studio-code-insiders", args: { appdir: "/Applications" }
+cask "firefox@developer-edition"
+cask "github"
+cask "google-chrome@beta"
+cask "visual-studio-code@insiders"

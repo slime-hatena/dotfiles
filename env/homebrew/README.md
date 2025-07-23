@@ -62,19 +62,21 @@ cat "./extra/Brewfile.mac" >>"./Brewfile"
 
 ```bash  { name=brew-listup-untracked-packages }
 brew bundle dump --force
-mv Brewfile Brewfile.local
-sed -i '' '/^vscode /d' Brewfile.local
+sed -i '' '/^vscode /d' Brewfile
+sort Brewfile > Brewfile.local
+rm Brewfile
 
-cat "./Brewfile.local" >"./Brewfile.all"
-cat "./min/Brewfile" >>"./Brewfile.all"
-cat "./min/Brewfile.mac" >>"./Brewfile.all"
-cat "./dev/Brewfile" >>"./Brewfile.all"
-cat "./dev/Brewfile.mac" >>"./Brewfile.all"
-cat "./extra/Brewfile" >>"./Brewfile.all"
-cat "./extra/Brewfile.mac" >>"./Brewfile.all"
-sed -i '' '/^\# /d' ./Brewfile.all
+echo "" > ./tmp
+cat "./min/Brewfile" >>"./tmp"
+cat "./min/Brewfile.mac" >>"./tmp"
+cat "./dev/Brewfile" >>"./tmp"
+cat "./dev/Brewfile.mac" >>"./tmp"
+cat "./extra/Brewfile" >>"./tmp"
+cat "./extra/Brewfile.mac" >>"./tmp"
+sed -i '' '/^\# /d' ./tmp
+sed -i '' '/^$/d' ./tmp
+sort tmp > ./Brewfile.all
+rm tmp
 
-sort ./Brewfile.all | uniq -u >./Brewfile.untracked
-rm ./Brewfile.all
-code ./Brewfile.untracked
+code --diff ./Brewfile.all ./Brewfile.local
 ```
