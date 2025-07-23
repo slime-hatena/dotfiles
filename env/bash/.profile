@@ -19,7 +19,9 @@ export XDG_STATE_HOME=$HOME/.local/state
 export XDG_CACHE_HOME=$HOME/.cache
 
 # その他言語系の設定
-export  GOPATH=$HOME/go
+export GOPATH=$HOME/go
+export VOLTA_HOME=$HOME/.volta
+export PATH="$VOLTA_HOME/bin:$PATH"
 
 # bashなら.bashrcを読み込む
 if [ -n "$BASH_VERSION" ]; then
