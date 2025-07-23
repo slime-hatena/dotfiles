@@ -6,6 +6,8 @@
 DEFAULT_SHELL="/usr/bin/env bash"
 # brewが存在し、かつbrewでインストールされたzshが存在する場合はそれをデフォルトシェルに設定
 if command -v brew >/dev/null 2>&1; then
+    eval "$($(brew --prefix)/bin/brew shellenv)"
+
     BREW_ZSH="$(brew --prefix)/bin/zsh"
     if [ -x "$BREW_ZSH" ]; then
         DEFAULT_SHELL="$BREW_ZSH"
