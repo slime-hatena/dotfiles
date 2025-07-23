@@ -1,22 +1,21 @@
 # ########################
 # min/Brewfile.mac
 # ########################
-cask_args appdir: "/Applications"
+
+tap "ryota2357/pleck-jp"
 
 brew "mas"
 brew "switchaudio-osx"
 
-cask "clipy", args: { appdir: "/Applications" }
-cask "google-chrome", args: { appdir: "/Applications" }
-cask "google-drive-file-stream", args: { appdir: "/Applications" }
-cask "google-japanese-ime", args: { appdir: "/Applications" }
+cask "clipy"
+cask "ghostty"
+cask "google-chrome"
+cask "google-drive"
+cask "google-japanese-ime"
 cask "karabiner-elements"
 cask "keyboardcleantool"
-tap "ryota2357/pleck-jp"
+cask "obsidian"
 cask "pleck-jp"
 cask "slack"
-cask "visual-studio-code", args: { appdir: "/Applications" }
-cask "wezterm"
-cask "ghostty"
-cask "obsidian"
+cask "visual-studio-code"
 cask "xbar"

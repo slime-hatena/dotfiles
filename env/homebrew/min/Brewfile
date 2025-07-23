@@ -1,8 +1,6 @@
 # ########################
 # min/Brewfile
 # ########################
-tap "homebrew/bundle"
-tap "homebrew/services"
 
 # Developer tools
 brew "gcc"
@@ -11,7 +9,7 @@ brew "go"
 
 # Security updates
 brew "git"
-brew "openssl"
+brew "openssl@3"
 brew "rsync"
 
 # zsh plugins
@@ -22,7 +20,6 @@ brew "olets/tap/zsh-abbr"
 brew "zsh-autosuggestions"
 brew "zsh-completions"
 brew "zsh-syntax-highlighting"
-
 
 # tmux plugins
 brew "tmux"

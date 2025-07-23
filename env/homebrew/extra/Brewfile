@@ -3,7 +3,5 @@
 # ########################
 
 brew "ffmpeg"
-brew "nkf"
-brew "nmap"
 tap "yt-dlp/taps"
 brew "yt-dlp/taps/yt-dlp"
