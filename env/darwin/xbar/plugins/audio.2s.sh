@@ -29,10 +29,10 @@ echo "---"
 
 echo "Output Devices"
 while IFS= read -r line; do
-  echo "-- $line | bash='/opt/homebrew/bin/SwitchAudioSource' param1='-s' param2='$line' terminal=false"
+  echo "-- $line | bash='/opt/homebrew/bin/SwitchAudioSource' param1='-t' param2='output' param3='-s' param4='$line' terminal=false"
 done <<< "$allOutputDevices"
 
 echo "Input Devices"
 while IFS= read -r line; do
-  echo "-- $line | bash='/opt/homebrew/bin/SwitchAudioSource' param1='-s' param2='$line' terminal=false"
+  echo "-- $line | bash='/opt/homebrew/bin/SwitchAudioSource' param1='-t' param2='input' param3='-s' param4='$line' terminal=false"
 done <<< "$allInputDevices"
