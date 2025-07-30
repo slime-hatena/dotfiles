@@ -29,6 +29,9 @@ export PATH="$PATH:$GOPATH/bin"
 export PROTO_HOME="$XDG_DATA_HOME/proto";
 export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH";
 
+# その他の設定
+export HOMEBREW_NO_ENV_HINTS=1
+
 # bashなら.bashrcを読み込む
 if [ -n "$BASH_VERSION" ]; then
     if [ -f "$HOME/.bashrc" ]; then
