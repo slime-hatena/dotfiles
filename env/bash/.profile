@@ -23,10 +23,11 @@ export XDG_CACHE_HOME=$HOME/.cache
 export XDG_DATA_HOME=$HOME/.local/share
 export XDG_STATE_HOME=$HOME/.local/state
 
-export VOLTA_HOME=$HOME/.volta
-export PATH="$VOLTA_HOME/bin:$PATH"
+# パスの設定
 export GOPATH="$HOME/go"
 export PATH="$PATH:$GOPATH/bin"
+export PROTO_HOME="$XDG_DATA_HOME/proto";
+export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH";
 
 # bashなら.bashrcを読み込む
 if [ -n "$BASH_VERSION" ]; then
