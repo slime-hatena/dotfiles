@@ -5,10 +5,11 @@
 ## install
 
 ```sh { name=git-install }
-ln -nfs ~/.dotfiles/env/git/.gitconfig ~/.gitconfig
+mkdir -p ${XDG_CONFIG_HOME}/git
+ln -nfs ~/.dotfiles/env/git/.gitconfig ${XDG_CONFIG_HOME}/git/config
 
 if [ ! -e ~/.gitconfig_users ]; then
-  cp ~/.dotfiles/env/git/.gitconfig_users.example ~/.gitconfig_users
-  echo "Next you should edit ~/.gitconfig_users."
+  cp ~/.dotfiles/env/git/.gitconfig_users.example ${XDG_CONFIG_HOME}/git/.gitconfig_users
+  echo "Next you should edit ${XDG_CONFIG_HOME}/git/.gitconfig_users."
 fi
 ```
