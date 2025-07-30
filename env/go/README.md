@@ -7,6 +7,6 @@
 ```sh { name=go-install }
 
 go install github.com/pocke/get@latest
-mkdir -p ~/.config/get
-ln -nfs ~/.dotfiles/env/go/get/args ~/.config/get/args
+mkdir -p ${XDG_CONFIG_HOME}/get
+ln -nfs ~/.dotfiles/env/go/get/args ${XDG_CONFIG_HOME}/get/args
 ```

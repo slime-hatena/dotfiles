@@ -5,7 +5,7 @@
 ## install
 
 ```sh { name=ghostty-install }
-mkdir -p ~/.config/ghostty
-ln -nfs ~/.dotfiles/env/ghostty/config ~/.config/ghostty/config
-ln -nfs ~/.dotfiles/env/ghostty/themes ~/.config/ghostty/themes
+mkdir -p ${XDG_CONFIG_HOME}/ghostty
+ln -nfs ~/.dotfiles/env/ghostty/config ${XDG_CONFIG_HOME}/ghostty/config
+ln -nfs ~/.dotfiles/env/ghostty/themes ${XDG_CONFIG_HOME}/ghostty/themes
 ```
