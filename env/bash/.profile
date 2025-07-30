@@ -1,6 +1,8 @@
 # bashをデフォルトシェルとし、ログインシェルとして起動する前提です。
 # .bashrcを読み込み、zshがインストールされていれば起動します。
 # （設定やパスをzsh/bashで共有する目的があります）
+# もしbashを使用したい場合はzshからbashを起動します。
+# （非ログインインタラクティブシェルとして起動されます）
 
 # brewでインストールされたzshが存在すればそれを、なければbashをデフォルトシェルに設定
 DEFAULT_SHELL="/usr/bin/env bash"
@@ -15,15 +17,16 @@ if command -v brew >/dev/null 2>&1; then
 fi
 
 # XDG Base Directoryの設定
+# https://wiki.archlinux.jp/index.php/XDG_Base_Directory
 export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
 export XDG_DATA_HOME=$HOME/.local/share
 export XDG_STATE_HOME=$HOME/.local/state
-export XDG_CACHE_HOME=$HOME/.cache
 
 # その他言語系の設定
 export GOPATH=$HOME/go
-export VOLTA_HOME=$HOME/.volta
-export PATH="$VOLTA_HOME/bin:$PATH"
+export PROTO_HOME="$XDG_DATA_HOME/proto";
+export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH";
 
 # bashなら.bashrcを読み込む
 if [ -n "$BASH_VERSION" ]; then
