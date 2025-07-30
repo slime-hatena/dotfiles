@@ -25,8 +25,8 @@ export XDG_STATE_HOME=$HOME/.local/state
 
 # その他言語系の設定
 export GOPATH=$HOME/go
-export VOLTA_HOME=$HOME/.volta
-export PATH="$VOLTA_HOME/bin:$PATH"
+export PROTO_HOME="$XDG_DATA_HOME/proto";
+export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH";
 
 # bashなら.bashrcを読み込む
 if [ -n "$BASH_VERSION" ]; then
