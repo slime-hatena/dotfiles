@@ -1,10 +1,6 @@
 ZSHHOME="${HOME}/.zsh.d"
 touch $ZSHHOME/.profile.zsh
 
-if [ -f "$HOME/.bash_path" ]; then
-  . "$HOME/.bash_path"
-fi
-
 # brew completions
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh-completions:$FPATH

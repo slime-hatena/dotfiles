@@ -59,8 +59,3 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-# PATH 環境変数の設定を ~/.bash_path という外部ファイルに記述できるようにするための設定です。
-if [ -f "$HOME/.bash_path" ]; then
-  . "$HOME/.bash_path"
-fi

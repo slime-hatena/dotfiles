@@ -32,6 +32,10 @@ export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH";
 # その他の設定
 export HOMEBREW_NO_ENV_HINTS=1
 
+if [ -f "$HOME/.bash_path" ]; then
+  . "$HOME/.bash_path"
+fi
+
 # bashなら.bashrcを読み込む
 if [ -n "$BASH_VERSION" ]; then
     if [ -f "$HOME/.bashrc" ]; then
