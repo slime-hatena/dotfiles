@@ -2,9 +2,12 @@
 set -u
 
 dotfilesDirectory=$HOME/.dotfiles
+envDirectory="$dotfilesDirectory/env"
+
 defaultShell="/bin/bash"
 userName=$(whoami)
 
+# 共通関数の読み込み
 . "$dotfilesDirectory/scripts/_functions.sh"
 
 ###========================================================================================###
@@ -36,28 +39,28 @@ install() {
 
     # .profileが存在しなければ作成 / 存在すれば退避して上書き
     if [ -f "$HOME/.profile" ]; then
-        diff "${dotfilesDirectory}/bash/.profile" "${HOME}/.profile" >/dev/null 2>&1
+        diff "${envDirectory}/bash/.profile" "${HOME}/.profile" >/dev/null 2>&1
         if [ $? -eq 1 ]; then
-            info "$HOME/.profile を ${dotfilesDirectory}/bash/.profile の内容で上書きします。"
+            info "$HOME/.profile を ${envDirectory}/bash/.profile の内容で上書きします。"
             backup "$HOME/.profile"
-            cp "${dotfilesDirectory}/bash/.profile" "${HOME}/.profile"
+            cp "${envDirectory}/bash/.profile" "${HOME}/.profile"
         fi
     else
         info "$HOME/.profile を作成します。"
-        cp "${dotfilesDirectory}/bash/.profile" "${HOME}/.profile"
+        cp "${envDirectory}/bash/.profile" "${HOME}/.profile"
     fi
 
     # .bashrcが存在しなければ作成 / 存在すれば退避して上書き
     if [ -f "$HOME/.bashrc" ]; then
-        diff "${dotfilesDirectory}/bash/.bashrc" "${HOME}/.bashrc" >/dev/null 2>&1
+        diff "${envDirectory}/bash/.bashrc" "${HOME}/.bashrc" >/dev/null 2>&1
         if [ $? -eq 1 ]; then
-            info "$HOME/.bashrc を ${dotfilesDirectory}/bash/.bashrc の内容で上書きします。"
+            info "$HOME/.bashrc を ${envDirectory}/bash/.bashrc の内容で上書きします。"
             backup "$HOME/.bashrc"
-            cp "${dotfilesDirectory}/bash/.bashrc" "${HOME}/.bashrc"
+            cp "${envDirectory}/bash/.bashrc" "${HOME}/.bashrc"
         fi
     else
         info "$HOME/.bashrc を作成します。"
-        cp "${dotfilesDirectory}/bash/.bashrc" "${HOME}/.bashrc"
+        cp "${envDirectory}/bash/.bashrc" "${HOME}/.bashrc"
     fi
 
     # Homebrewのインストール
