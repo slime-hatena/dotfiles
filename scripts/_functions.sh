@@ -16,6 +16,17 @@ isMac(){
     fi
 }
 
+### Apple Silicon Macかどうかを判定します。
+### @return Apple Silicon Mac: 0
+### @return Intel Mac または macOS以外: 1
+isAppleSilicon(){
+    if isMac && [ "$(uname -m)" == 'arm64' ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
 ###========================================================================================###
 ###    Utility                                                                             ###
 ###========================================================================================###
