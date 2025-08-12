@@ -5,6 +5,6 @@
 brew "php"
 brew "composer"
 brew "hugo"
-brew "volta"
 brew "nkf"
 brew "nmap"
+brew "proto"
