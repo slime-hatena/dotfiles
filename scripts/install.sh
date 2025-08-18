@@ -78,7 +78,11 @@ install() {
 
         info "Homebrewにパスを通します。"
         if isMac; then
-            echo 'export PATH="/opt/homebrew/bin:$PATH"' >>$HOME/.bash_path
+            if isAppleSilicon; then
+                echo 'export PATH="/opt/homebrew/bin:$PATH"' >>$HOME/.bash_path
+            else
+                echo 'export PATH="/usr/local/bin:$PATH"' >>$HOME/.bash_path
+            fi
         else # Linux
             echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>$HOME/.bash_path
             eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
