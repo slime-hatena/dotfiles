@@ -36,28 +36,28 @@ install() {
 
     # .profileが存在しなければ作成 / 存在すれば退避して上書き
     if [ -f "$HOME/.profile" ]; then
-        diff "${dotfilesDirectory}/bash/.profile" "${HOME}/.profile" >/dev/null 2>&1
+        diff "${dotfilesDirectory}/env/bash/.profile" "${HOME}/.profile" >/dev/null 2>&1
         if [ $? -eq 1 ]; then
-            info "$HOME/.profile を ${dotfilesDirectory}/bash/.profile の内容で上書きします。"
+            info "$HOME/.profile を ${dotfilesDirectory}/env/bash/.profile の内容で上書きします。"
             backup "$HOME/.profile"
-            cp "${dotfilesDirectory}/bash/.profile" "${HOME}/.profile"
+            cp "${dotfilesDirectory}/env/bash/.profile" "${HOME}/.profile"
         fi
     else
         info "$HOME/.profile を作成します。"
-        cp "${dotfilesDirectory}/bash/.profile" "${HOME}/.profile"
+        cp "${dotfilesDirectory}/env/bash/.profile" "${HOME}/.profile"
     fi
 
     # .bashrcが存在しなければ作成 / 存在すれば退避して上書き
     if [ -f "$HOME/.bashrc" ]; then
-        diff "${dotfilesDirectory}/bash/.bashrc" "${HOME}/.bashrc" >/dev/null 2>&1
+        diff "${dotfilesDirectory}/env/bash/.bashrc" "${HOME}/.bashrc" >/dev/null 2>&1
         if [ $? -eq 1 ]; then
-            info "$HOME/.bashrc を ${dotfilesDirectory}/bash/.bashrc の内容で上書きします。"
+            info "$HOME/.bashrc を ${dotfilesDirectory}/env/bash/.bashrc の内容で上書きします。"
             backup "$HOME/.bashrc"
-            cp "${dotfilesDirectory}/bash/.bashrc" "${HOME}/.bashrc"
+            cp "${dotfilesDirectory}/env/bash/.bashrc" "${HOME}/.bashrc"
         fi
     else
         info "$HOME/.bashrc を作成します。"
-        cp "${dotfilesDirectory}/bash/.bashrc" "${HOME}/.bashrc"
+        cp "${dotfilesDirectory}/env/bash/.bashrc" "${HOME}/.bashrc"
     fi
 
     # Homebrewのインストール
@@ -123,4 +123,10 @@ install() {
 install
 
 cd $HOME
-exec /bin/bash -l
+
+# CI環境では新しいシェルを起動しない
+if [ "$CI" = "true" ] || [ "$GITHUB_ACTIONS" = "true" ] || [ -n "${CI:-}" ]; then
+    info "CI環境のため、新しいシェルの起動をスキップします。"
+else
+    exec /bin/bash -l
+fi

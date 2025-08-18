@@ -61,12 +61,20 @@ create_symbolic() {
 }
 
 ### Yes/Noを尋ねます。未指定の場合はNoになります。
+### CI環境では自動的にYesを返します。
 ### @return yes: 0
 ### @return no: 1
 ask_yes_or_no() {
     message="Are you sure?"
     if [ $# -eq 1 ]; then
         message=$1
+    fi
+
+    # CI環境では自動的にYesを返す
+    if [ "$CI" = "true" ] || [ "$GITHUB_ACTIONS" = "true" ] || [ -n "${CI:-}" ]; then
+        printf '\033[1;37;46m%s\033[m ' "$message [y/N]: y (auto-confirmed in CI)"
+        echo ""
+        return 0
     fi
 
     printf '\033[1;37;46m%s\033[m ' "$message [y/N]:"

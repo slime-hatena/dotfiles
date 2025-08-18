@@ -1,0 +1,157 @@
+name: 'Test dotfiles installation'
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches-ignore:
+      - main
+      - develop
+
+jobs:
+  test-ubuntu:
+    name: 'Test on Ubuntu'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout code'
+        uses: actions/checkout@v4
+        
+      - name: 'Test installation script'
+        run: |
+          # Set up environment
+          mkdir -p $HOME/.config
+          mkdir -p $HOME/Development
+          touch $HOME/.bash_path
+          
+          # Copy dotfiles to expected location
+          cp -r ${{ github.workspace }} $HOME/.dotfiles
+          
+          # Run installation script non-interactively
+          cd $HOME/.dotfiles
+          
+          # Set CI environment variables for non-interactive mode
+          export CI=true
+          export GITHUB_ACTIONS=true
+          
+          # Run the installation script with timeout
+          timeout 1200 bash scripts/install.sh || {
+            echo "Installation script timed out or failed"
+            exit 1
+          }
+          
+      - name: 'Verify installation'
+        run: |
+          # Check if basic tools are available
+          command -v brew >/dev/null 2>&1 || { echo "brew not found"; exit 1; }
+          echo "✅ Homebrew installed successfully"
+          
+          # Check if dotfiles are properly linked
+          [ -f "$HOME/.bashrc" ] || { echo ".bashrc not found"; exit 1; }
+          [ -f "$HOME/.profile" ] || { echo ".profile not found"; exit 1; }
+          echo "✅ Configuration files installed successfully"
+
+  test-macos-intel:
+    name: 'Test on macOS (Intel)'
+    runs-on: macos-13  # Intel-based runner
+    steps:
+      - name: 'Checkout code'
+        uses: actions/checkout@v4
+        
+      - name: 'Test installation script'
+        run: |
+          # Set up environment
+          mkdir -p $HOME/.config
+          mkdir -p $HOME/Development
+          touch $HOME/.bash_path
+          
+          # Copy dotfiles to expected location
+          cp -r ${{ github.workspace }} $HOME/.dotfiles
+          
+          # Run installation script non-interactively
+          cd $HOME/.dotfiles
+          
+          # Set CI environment variables for non-interactive mode
+          export CI=true
+          export GITHUB_ACTIONS=true
+          
+          # Run the installation script with timeout
+          timeout 1200 bash scripts/install.sh || {
+            echo "Installation script timed out or failed"
+            exit 1
+          }
+          
+      - name: 'Verify installation'
+        run: |
+          # Check if basic tools are available
+          command -v brew >/dev/null 2>&1 || { echo "brew not found"; exit 1; }
+          echo "✅ Homebrew installed successfully"
+          
+          # Check if dotfiles are properly linked
+          [ -f "$HOME/.bashrc" ] || { echo ".bashrc not found"; exit 1; }
+          [ -f "$HOME/.profile" ] || { echo ".profile not found"; exit 1; }
+          echo "✅ Configuration files installed successfully"
+          
+          # Verify Intel Mac specific setup
+          if command -v brew >/dev/null 2>&1; then
+            BREW_PREFIX=$(brew --prefix)
+            if [[ "$BREW_PREFIX" == "/usr/local" ]]; then
+              echo "✅ Intel Mac Homebrew path correct"
+            else
+              echo "❌ Expected Intel Mac Homebrew at /usr/local, got $BREW_PREFIX"
+              exit 1
+            fi
+          fi
+
+  test-macos-arm:
+    name: 'Test on macOS (Apple Silicon)'
+    runs-on: macos-latest  # Apple Silicon runner
+    steps:
+      - name: 'Checkout code'
+        uses: actions/checkout@v4
+        
+      - name: 'Test installation script'
+        run: |
+          # Set up environment
+          mkdir -p $HOME/.config
+          mkdir -p $HOME/Development
+          touch $HOME/.bash_path
+          
+          # Copy dotfiles to expected location
+          cp -r ${{ github.workspace }} $HOME/.dotfiles
+          
+          # Run installation script non-interactively
+          cd $HOME/.dotfiles
+          
+          # Set CI environment variables for non-interactive mode
+          export CI=true
+          export GITHUB_ACTIONS=true
+          
+          # Run the installation script with timeout
+          timeout 1200 bash scripts/install.sh || {
+            echo "Installation script timed out or failed"
+            exit 1
+          }
+          
+      - name: 'Verify installation'
+        run: |
+          # Check if basic tools are available
+          command -v brew >/dev/null 2>&1 || { echo "brew not found"; exit 1; }
+          echo "✅ Homebrew installed successfully"
+          
+          # Check if dotfiles are properly linked
+          [ -f "$HOME/.bashrc" ] || { echo ".bashrc not found"; exit 1; }
+          [ -f "$HOME/.profile" ] || { echo ".profile not found"; exit 1; }
+          echo "✅ Configuration files installed successfully"
+          
+          # Verify Apple Silicon specific setup
+          if command -v brew >/dev/null 2>&1; then
+            BREW_PREFIX=$(brew --prefix)
+            if [[ "$BREW_PREFIX" == "/opt/homebrew" ]]; then
+              echo "✅ Apple Silicon Homebrew path correct"
+            else
+              echo "❌ Expected Apple Silicon Homebrew at /opt/homebrew, got $BREW_PREFIX"
+              exit 1
+            fi
+          fi
