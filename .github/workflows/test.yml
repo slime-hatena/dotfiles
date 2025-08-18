@@ -14,144 +14,219 @@ jobs:
   test-ubuntu:
     name: 'Test on Ubuntu'
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: 'Checkout code'
         uses: actions/checkout@v4
-        
-      - name: 'Test installation script'
+
+      - name: 'Set up environment'
         run: |
-          # Set up environment
+          # Set up required directories
           mkdir -p $HOME/.config
           mkdir -p $HOME/Development
           touch $HOME/.bash_path
-          
-          # Copy dotfiles to expected location
+
+      - name: 'Copy dotfiles to expected location'
+        run: |
           cp -r ${{ github.workspace }} $HOME/.dotfiles
-          
-          # Run installation script non-interactively
+
+      - name: 'Test installation script'
+        run: |
           cd $HOME/.dotfiles
-          
+
           # Set CI environment variables for non-interactive mode
           export CI=true
           export GITHUB_ACTIONS=true
-          
-          # Run the installation script with timeout
-          timeout 1200 bash scripts/install.sh || {
-            echo "Installation script timed out or failed"
-            exit 1
+
+          # Test that functions work
+          echo "Testing CI environment detection..."
+          . scripts/_functions.sh
+          ask_yes_or_no "Test question for CI" || {
+            echo "CI detection failed"; exit 1;
           }
-          
+
+          # Run the installation script
+          echo "Running installation script..."
+          bash scripts/install.sh
+
       - name: 'Verify installation'
         run: |
           # Check if basic tools are available
-          command -v brew >/dev/null 2>&1 || { echo "brew not found"; exit 1; }
-          echo "✅ Homebrew installed successfully"
-          
+          if command -v brew >/dev/null 2>&1; then
+            echo "✅ Homebrew installed successfully"
+            brew --version
+          else
+            echo "❌ Homebrew not found"
+            exit 1
+          fi
+
           # Check if dotfiles are properly linked
-          [ -f "$HOME/.bashrc" ] || { echo ".bashrc not found"; exit 1; }
-          [ -f "$HOME/.profile" ] || { echo ".profile not found"; exit 1; }
-          echo "✅ Configuration files installed successfully"
+          if [ -f "$HOME/.bashrc" ]; then
+            echo "✅ .bashrc installed successfully"
+          else
+            echo "❌ .bashrc not found"
+            exit 1
+          fi
+
+          if [ -f "$HOME/.profile" ]; then
+            echo "✅ .profile installed successfully"
+          else
+            echo "❌ .profile not found"
+            exit 1
+          fi
+
+          echo "✅ Ubuntu test completed successfully"
 
   test-macos-intel:
     name: 'Test on macOS (Intel)'
     runs-on: macos-13  # Intel-based runner
+    timeout-minutes: 30
     steps:
       - name: 'Checkout code'
         uses: actions/checkout@v4
-        
-      - name: 'Test installation script'
+
+      - name: 'Set up environment'
         run: |
-          # Set up environment
+          # Set up required directories
           mkdir -p $HOME/.config
           mkdir -p $HOME/Development
           touch $HOME/.bash_path
-          
-          # Copy dotfiles to expected location
+
+      - name: 'Copy dotfiles to expected location'
+        run: |
           cp -r ${{ github.workspace }} $HOME/.dotfiles
-          
-          # Run installation script non-interactively
+
+      - name: 'Test installation script'
+        run: |
           cd $HOME/.dotfiles
-          
+
           # Set CI environment variables for non-interactive mode
           export CI=true
           export GITHUB_ACTIONS=true
-          
-          # Run the installation script with timeout
-          timeout 1200 bash scripts/install.sh || {
-            echo "Installation script timed out or failed"
-            exit 1
+
+          # Test that functions work
+          echo "Testing CI environment detection..."
+          . scripts/_functions.sh
+          ask_yes_or_no "Test question for CI" || {
+            echo "CI detection failed"; exit 1;
           }
-          
+
+          # Run the installation script
+          echo "Running installation script..."
+          bash scripts/install.sh
+
       - name: 'Verify installation'
         run: |
           # Check if basic tools are available
-          command -v brew >/dev/null 2>&1 || { echo "brew not found"; exit 1; }
-          echo "✅ Homebrew installed successfully"
-          
+          if command -v brew >/dev/null 2>&1; then
+            echo "✅ Homebrew installed successfully"
+            brew --version
+          else
+            echo "❌ Homebrew not found"
+            exit 1
+          fi
+
           # Check if dotfiles are properly linked
-          [ -f "$HOME/.bashrc" ] || { echo ".bashrc not found"; exit 1; }
-          [ -f "$HOME/.profile" ] || { echo ".profile not found"; exit 1; }
-          echo "✅ Configuration files installed successfully"
-          
+          if [ -f "$HOME/.bashrc" ]; then
+            echo "✅ .bashrc installed successfully"
+          else
+            echo "❌ .bashrc not found"
+            exit 1
+          fi
+
+          if [ -f "$HOME/.profile" ]; then
+            echo "✅ .profile installed successfully"
+          else
+            echo "❌ .profile not found"
+            exit 1
+          fi
+
           # Verify Intel Mac specific setup
           if command -v brew >/dev/null 2>&1; then
             BREW_PREFIX=$(brew --prefix)
             if [[ "$BREW_PREFIX" == "/usr/local" ]]; then
-              echo "✅ Intel Mac Homebrew path correct"
+              echo "✅ Intel Mac Homebrew path correct: $BREW_PREFIX"
             else
               echo "❌ Expected Intel Mac Homebrew at /usr/local, got $BREW_PREFIX"
               exit 1
             fi
           fi
 
+          echo "✅ macOS Intel test completed successfully"
+
   test-macos-arm:
     name: 'Test on macOS (Apple Silicon)'
     runs-on: macos-latest  # Apple Silicon runner
+    timeout-minutes: 30
     steps:
       - name: 'Checkout code'
         uses: actions/checkout@v4
-        
-      - name: 'Test installation script'
+
+      - name: 'Set up environment'
         run: |
-          # Set up environment
+          # Set up required directories
           mkdir -p $HOME/.config
           mkdir -p $HOME/Development
           touch $HOME/.bash_path
-          
-          # Copy dotfiles to expected location
+
+      - name: 'Copy dotfiles to expected location'
+        run: |
           cp -r ${{ github.workspace }} $HOME/.dotfiles
-          
-          # Run installation script non-interactively
+
+      - name: 'Test installation script'
+        run: |
           cd $HOME/.dotfiles
-          
+
           # Set CI environment variables for non-interactive mode
           export CI=true
           export GITHUB_ACTIONS=true
-          
-          # Run the installation script with timeout
-          timeout 1200 bash scripts/install.sh || {
-            echo "Installation script timed out or failed"
-            exit 1
+
+          # Test that functions work
+          echo "Testing CI environment detection..."
+          . scripts/_functions.sh
+          ask_yes_or_no "Test question for CI" || {
+            echo "CI detection failed"; exit 1;
           }
-          
+
+          # Run the installation script
+          echo "Running installation script..."
+          bash scripts/install.sh
+
       - name: 'Verify installation'
         run: |
           # Check if basic tools are available
-          command -v brew >/dev/null 2>&1 || { echo "brew not found"; exit 1; }
-          echo "✅ Homebrew installed successfully"
-          
+          if command -v brew >/dev/null 2>&1; then
+            echo "✅ Homebrew installed successfully"
+            brew --version
+          else
+            echo "❌ Homebrew not found"
+            exit 1
+          fi
+
           # Check if dotfiles are properly linked
-          [ -f "$HOME/.bashrc" ] || { echo ".bashrc not found"; exit 1; }
-          [ -f "$HOME/.profile" ] || { echo ".profile not found"; exit 1; }
-          echo "✅ Configuration files installed successfully"
-          
+          if [ -f "$HOME/.bashrc" ]; then
+            echo "✅ .bashrc installed successfully"
+          else
+            echo "❌ .bashrc not found"
+            exit 1
+          fi
+
+          if [ -f "$HOME/.profile" ]; then
+            echo "✅ .profile installed successfully"
+          else
+            echo "❌ .profile not found"
+            exit 1
+          fi
+
           # Verify Apple Silicon specific setup
           if command -v brew >/dev/null 2>&1; then
             BREW_PREFIX=$(brew --prefix)
             if [[ "$BREW_PREFIX" == "/opt/homebrew" ]]; then
-              echo "✅ Apple Silicon Homebrew path correct"
+              echo "✅ Apple Silicon Homebrew path correct: $BREW_PREFIX"
             else
               echo "❌ Expected Apple Silicon Homebrew at /opt/homebrew, got $BREW_PREFIX"
               exit 1
             fi
           fi
+
+          echo "✅ macOS Apple Silicon test completed successfully"
