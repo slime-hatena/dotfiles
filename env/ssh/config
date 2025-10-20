@@ -2,9 +2,10 @@
 Include ~/.ssh/conf.d/*
 
 Host *
+  IgnoreUnknown UseKeychain
+  UseKeychain yes
   StrictHostKeyChecking ask
   AddKeysToAgent yes
-  UseKeychain yes
   Compression yes
   ForwardAgent yes
   ServerAliveInterval 60
