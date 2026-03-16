@@ -1,0 +1,15 @@
+name: 'Merge guard for main'
+on:
+  pull_request_target:
+    branches:
+      - main
+      - master
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
+
+jobs:
+  merge_guard:
+    uses: slime-hatena/reusable-workflows/.github/workflows/merge_guard_for_main.yml@main

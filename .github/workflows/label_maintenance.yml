@@ -1,0 +1,15 @@
+name: 'Label maintenance'
+on:
+  issues:
+    types:
+      - opened
+  pull_request:
+    types:
+      - opened
+  workflow_dispatch:
+
+jobs:
+  call-label-maintenance:
+    uses: slime-hatena/reusable-workflows/.github/workflows/label_maintenance.yml@main
+    with:
+      dry_run: false

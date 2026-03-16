@@ -1,0 +1,12 @@
+name: 'Label maintenance (dry-run)'
+on:
+  push:
+    paths:
+      - '.github/labels.json'
+  workflow_dispatch:
+
+jobs:
+  call-label-maintenance:
+    uses: slime-hatena/reusable-workflows/.github/workflows/label_maintenance.yml@main
+    with:
+      dry_run: true
