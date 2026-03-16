@@ -1,7 +1,0 @@
-# ########################
-# extra/Brewfile
-# ########################
-
-brew "ffmpeg"
-tap "yt-dlp/taps"
-brew "yt-dlp/taps/yt-dlp"
