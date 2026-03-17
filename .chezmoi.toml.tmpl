@@ -1,4 +1,4 @@
-{{- $ci := env "CI" | not | not -}}
+{{- $ci := ne (env "CI") "" -}}
 {{- $brewDev := or $ci (promptBoolOnce . "brewDev" "Install dev packages (php, hugo, ...)") -}}
 {{- $brewExtra := or $ci (promptBoolOnce . "brewExtra" "Install extra packages (ffmpeg, yt-dlp, ...)") -}}
 
