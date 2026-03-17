@@ -11,6 +11,15 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install dotfiles
         run: sh -c "$(curl -fsLS get.chezmoi.io)" -- -b /usr/local/bin init --apply --source .
+      - name: Verify dotfiles
+        run: chezmoi verify
+      - name: Check key files exist
+        run: |
+          test -f ~/.zshrc
+          test -f ~/.bashrc
+          test -f ~/.gitconfig
+          test -f ~/.tmux.conf
+          test -f ~/.profile
   test-macos:
     name: test on macOS
     runs-on: macos-latest
@@ -19,3 +28,12 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install dotfiles
         run: sh -c "$(curl -fsLS get.chezmoi.io)" -- -b /usr/local/bin init --apply --source .
+      - name: Verify dotfiles
+        run: chezmoi verify
+      - name: Check key files exist
+        run: |
+          test -f ~/.zshrc
+          test -f ~/.bashrc
+          test -f ~/.gitconfig
+          test -f ~/.tmux.conf
+          test -f ~/.profile
