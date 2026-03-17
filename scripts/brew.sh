@@ -17,6 +17,8 @@ fi
 if [[ -s "$HOME/.config/homebrew/Brewfile" ]]; then
   echo "Installing Homebrew packages from Brewfile..."
   brew bundle --file "$HOME/.config/homebrew/Brewfile"
+  fortune
 else
   echo "No Brewfile found at $HOME/.config/homebrew/Brewfile. Skipping Homebrew package installation."
 fi
+
