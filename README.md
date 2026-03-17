@@ -4,32 +4,10 @@
 
 🍮こんな環境で作業しています
 
-## Install (bash)
+## Install
 
-### main
-
-```sh
-/bin/bash -c "$(curl -fsSL https://git.io/dot-slime-hatena)"
-```
-
-### develop
+chezmoiを使用してセットアップされています。
 
 ```sh
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Slime-hatena/dotfiles/develop/scripts/clone.sh) develop"
-```
-
-## Install (Windows)
-
-### main
-
-```ps1
-Invoke-WebRequest "https://raw.githubusercontent.com/slime-hatena/dotfiles/develop/windows/winget.ps1" -OutFile "C:\Windows\Temp\winget.ps1"
-powershell -NoProfile -ExecutionPolicy Unrestricted "C:\Windows\Temp\winget.ps1"
-```
-
-## test
-
-```bash
-docker build -t dotfiles_test:local -f ./Dockerfile .
-docker run -it dotfiles_test:local
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply slime-hatena
 ```
