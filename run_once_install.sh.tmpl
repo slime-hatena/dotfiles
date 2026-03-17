@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+. "$CHEZMOI_SOURCE_DIR/scripts/ssh.sh"
+. "$CHEZMOI_SOURCE_DIR/scripts/zsh.sh"
+. "$CHEZMOI_SOURCE_DIR/scripts/brew.sh"
+
+# Mac環境でのみ実行されるスクリプト
+{{ if eq .chezmoi.os "darwin" }}
+. "$CHEZMOI_SOURCE_DIR/scripts/darwin/settings.sh"
+{{ end }}

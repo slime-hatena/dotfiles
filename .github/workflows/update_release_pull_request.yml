@@ -1,0 +1,12 @@
+name: 'Update pull request for release'
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
+jobs:
+  update_pull_requests:
+    if: contains(github.event.pull_request.labels.*.name, 'Release')
+    uses: slime-hatena/reusable-workflows/.github/workflows/update_release_pull_request.yml@main

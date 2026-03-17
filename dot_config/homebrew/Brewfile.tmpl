@@ -1,0 +1,113 @@
+brew "fortune"
+
+{{ if not (env "CI") }}
+# =======================
+# min
+# =======================
+
+# Developer tools
+brew "gcc"
+brew "go"
+
+# Security updates
+brew "git"
+brew "openssl@3"
+brew "rsync"
+
+# zsh plugins
+brew "zsh"
+brew "powerlevel10k"
+tap "olets/tap"
+brew "olets/tap/zsh-abbr"
+brew "zsh-autosuggestions"
+brew "zsh-completions"
+brew "zsh-syntax-highlighting"
+
+# tmux plugins
+brew "tmux"
+brew "tpm"
+brew "tmux-mem-cpu-load"
+
+# git tools
+brew "gh"
+brew "ghq"
+brew "gitui"
+brew "lazygit"
+brew "tig"
+
+# commandline tools
+brew "colordiff"
+brew "coreutils"
+brew "fzf"
+brew "gnu-sed"
+brew "jq"
+brew "make"
+brew "neovim"
+brew "pv"
+brew "ripgrep"
+brew "runme"
+brew "trash", link: true
+brew "tree"
+brew "watch"
+
+{{ if eq .chezmoi.os "darwin" }}
+# =======================
+# min (mac)
+# =======================
+
+tap "ryota2357/pleck-jp"
+
+brew "mas"
+brew "switchaudio-osx"
+
+cask "clipy"
+cask "ghostty"
+cask "google-chrome"
+cask "google-drive"
+cask "google-japanese-ime"
+cask "karabiner-elements"
+cask "keyboardcleantool"
+cask "obsidian"
+cask "pleck-jp"
+cask "slack"
+cask "visual-studio-code"
+cask "xbar"
+{{ end }}
+
+{{ if .brewDev }}
+# =======================
+# dev
+# =======================
+
+brew "php"
+brew "composer"
+brew "hugo"
+brew "nkf"
+brew "nmap"
+brew "proto"
+
+{{ if eq .chezmoi.os "darwin" }}
+# dev (mac)
+cask "firefox@developer-edition"
+cask "github"
+cask "google-chrome@beta"
+cask "visual-studio-code@insiders"
+{{ end }}
+{{ end }}
+
+{{ if .brewExtra }}
+# =======================
+# extra
+# =======================
+
+brew "ffmpeg"
+tap "yt-dlp/taps"
+brew "yt-dlp/taps/yt-dlp"
+
+{{ if eq .chezmoi.os "darwin" }}
+# extra (mac)
+mas "Amphetamine", id: 937984704
+mas "RunCat", id: 1429033973
+{{ end }}
+{{ end }}
+{{ end }}

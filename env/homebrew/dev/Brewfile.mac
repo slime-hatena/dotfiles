@@ -1,8 +1,0 @@
-# ########################
-# dev/Brewfile.mac
-# ########################
-
-cask "firefox@developer-edition"
-cask "github"
-cask "google-chrome@beta"
-cask "visual-studio-code@insiders"

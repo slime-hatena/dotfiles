@@ -1,6 +1,0 @@
-# ########################
-# extra/Brewfile.mac
-# ########################
-
-mas "Amphetamine", id: 937984704
-mas "RunCat", id: 1429033973
