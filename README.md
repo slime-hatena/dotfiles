@@ -11,3 +11,9 @@ chezmoiを使用してセットアップされています。
 ```sh
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply slime-hatena
 ```
+
+### brew install packages
+
+```sh
+todo
+```

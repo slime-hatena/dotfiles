@@ -10,4 +10,4 @@ if [[ "$(uname)" == "Linux" ]] && [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]]; 
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
-brew bundle --file "$HOME/.config/homebrew/Brewfile" --no-lock
+brew bundle --file "$HOME/.config/homebrew/Brewfile"
