@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "Executing dotfiles.sh"
+
 # Convert chezmoi git remote from HTTPS to SSH
 if [[ -d "$CHEZMOI_SOURCE_DIR/.git" ]]; then
   CURRENT_REMOTE=$(git -C "$CHEZMOI_SOURCE_DIR" remote get-url origin 2>/dev/null)
@@ -20,3 +22,5 @@ if [[ -d "$CHEZMOI_SOURCE_DIR/.git" ]]; then
 else
   echo "chezmoi source directory not found: $CHEZMOI_SOURCE_DIR"
 fi
+
+echo "Finished executing dotfiles.sh"
