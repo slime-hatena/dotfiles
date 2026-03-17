@@ -1,0 +1,6 @@
+{{- $brewDev := promptBoolOnce . "brewDev" "Install dev packages (php, hugo, ...)" -}}
+{{- $brewExtra := promptBoolOnce . "brewExtra" "Install extra packages (ffmpeg, yt-dlp, ...)" -}}
+
+[data]
+  brewDev = {{ $brewDev }}
+  brewExtra = {{ $brewExtra }}

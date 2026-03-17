@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+. "$(chezmoi source-path)/scripts/ssh.sh"
+. "$(chezmoi source-path)/scripts/zsh.sh"
+
+# Mac環境でのみ実行されるスクリプト
+{{ if eq .chezmoi.os "darwin" }}
+. "$(chezmoi source-path)/scripts/darwin/settings.sh"
+{{ end }}
