@@ -1,3 +1,4 @@
+{{ if not (env "CI") }}
 # =======================
 # min
 # =======================
@@ -105,5 +106,6 @@ brew "yt-dlp/taps/yt-dlp"
 # extra (mac)
 mas "Amphetamine", id: 937984704
 mas "RunCat", id: 1429033973
+{{ end }}
 {{ end }}
 {{ end }}
