@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "Executing brew.sh"
+
 # Install Homebrew if not present
 if ! command -v brew &>/dev/null; then
   echo "Homebrew not found. Installing Homebrew..."
@@ -22,3 +24,4 @@ else
   echo "No Brewfile found at $HOME/.config/homebrew/Brewfile. Skipping Homebrew package installation."
 fi
 
+echo "Finished executing brew.sh"

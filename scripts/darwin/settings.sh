@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "Executing darwin/settings.sh"
+
 # Dock を自動的に隠さない
 defaults write com.apple.dock autohide -bool false
 # Dock の位置を左に移動
@@ -106,3 +108,5 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 defaults write com.apple.terminal StringEncodings -array 4
 
 killall Dock 2>/dev/null || true
+
+echo "Finished executing darwin/settings.sh"
