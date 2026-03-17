@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install dotfiles
-        run: sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply -S .
+        run: sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply -S .
   test-macos:
     name: test on macOS
     runs-on: macos-latest
@@ -18,4 +18,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install dotfiles
-        run: sh -c "$(curl -fsLS chezmoi.io/get)" -- init --apply -S .
+        run: sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply -S .
