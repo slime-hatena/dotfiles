@@ -1,0 +1,25 @@
+name: 'Push main'
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  skip:
+    uses: slime-hatena/reusable-workflows/.github/workflows/check_release_skip.yml@main
+  ci:
+    uses: ./.github/workflows/ci.yml
+    needs: [skip]
+  calc_version:
+    uses: slime-hatena/reusable-workflows/.github/workflows/calc_version.yml@main
+    needs: [ci]
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      version: '${{ needs.calc_version.outputs.version }}'
+    needs: [calc_version]
+  create_release:
+    uses: slime-hatena/reusable-workflows/.github/workflows/create_release.yml@main
+    with:
+      version: '${{ needs.calc_version.outputs.version }}'
+    needs: [calc_version, build]

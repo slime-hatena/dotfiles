@@ -1,0 +1,10 @@
+name: 'Initialize repository'
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  repository_initialize:
+    uses: slime-hatena/reusable-workflows/.github/workflows/initialize_repository.yml@main
