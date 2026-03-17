@@ -8,14 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install dotfiles
-        run: sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply -S .
+        run: sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply --source .
   test-macos:
     name: test on macOS
     runs-on: macos-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install dotfiles
-        run: sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply -S .
+        run: sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply --source .
