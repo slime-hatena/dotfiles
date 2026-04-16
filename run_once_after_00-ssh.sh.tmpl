@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Executing run_once_after_00-ssh.sh"
+
+umask 077
+mkdir -p ~/.ssh ~/.ssh/keys ~/.ssh/keys/public
+chmod 700 ~/.ssh ~/.ssh/keys ~/.ssh/keys/public
+touch ~/.ssh/local_settings
+chmod 600 ~/.ssh/local_settings
+
+echo "Finished executing run_once_after_00-ssh.sh"

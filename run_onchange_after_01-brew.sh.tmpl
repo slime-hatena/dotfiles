@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
+# Re-run when Brewfile content changes.
+# Brewfile hash: {{ include "dot_config/homebrew/Brewfile.tmpl" | sha256sum }}
+set -euo pipefail
 
-echo "Executing brew.sh"
+echo "Executing run_onchange_after_01-brew.sh"
 
 # Install Homebrew if not present
 if ! command -v brew &>/dev/null; then
@@ -19,9 +22,9 @@ fi
 if [[ -s "$HOME/.config/homebrew/Brewfile" ]]; then
   echo "Installing Homebrew packages from Brewfile..."
   brew bundle --file "$HOME/.config/homebrew/Brewfile"
-  fortune
+  command -v fortune >/dev/null 2>&1 && fortune || true
 else
   echo "No Brewfile found at $HOME/.config/homebrew/Brewfile. Skipping Homebrew package installation."
 fi
 
-echo "Finished executing brew.sh"
+echo "Finished executing run_onchange_after_01-brew.sh"

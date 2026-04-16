@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-echo "Executing dotfiles.sh"
+echo "Executing run_once_after_00-dotfiles.sh"
 
 # Convert chezmoi git remote from HTTPS to SSH
 if [[ -d "$CHEZMOI_SOURCE_DIR/.git" ]]; then
-  CURRENT_REMOTE=$(git -C "$CHEZMOI_SOURCE_DIR" remote get-url origin 2>/dev/null)
+  CURRENT_REMOTE=$(git -C "$CHEZMOI_SOURCE_DIR" remote get-url origin 2>/dev/null || true)
 
   if [[ "$CURRENT_REMOTE" =~ ^https://github\.com/(.+)/(.+)$ ]]; then
     USER="${BASH_REMATCH[1]}"
@@ -23,4 +24,4 @@ else
   echo "chezmoi source directory not found: $CHEZMOI_SOURCE_DIR"
 fi
 
-echo "Finished executing dotfiles.sh"
+echo "Finished executing run_once_after_00-dotfiles.sh"

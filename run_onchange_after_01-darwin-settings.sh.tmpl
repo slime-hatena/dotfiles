@@ -1,6 +1,8 @@
+{{- if eq .chezmoi.os "darwin" -}}
 #!/usr/bin/env bash
+set -euo pipefail
 
-echo "Executing darwin/settings.sh"
+echo "Executing run_onchange_after_01-darwin-settings.sh"
 
 # Dock を自動的に隠さない
 defaults write com.apple.dock autohide -bool false
@@ -98,10 +100,7 @@ defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool t
 ## スクロールバーを常時表示する
 defaults write -g AppleShowScrollBars -string "Always"
 
-## 未確認のアプリケーションを実行する際のダイアログを無効にする
-defaults write com.apple.LaunchServices LSQuarantine -bool false
-
-## ダウンロードしたファイルを開くときの警告ダイアログをなくしたい
+## 未確認のアプリケーションを実行する際のダイアログ / ダウンロードファイルを開く際の警告を無効にする
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 
 ## terminalでUTF-8のみを使用する
@@ -109,4 +108,5 @@ defaults write com.apple.terminal StringEncodings -array 4
 
 killall Dock 2>/dev/null || true
 
-echo "Finished executing darwin/settings.sh"
+echo "Finished executing run_onchange_after_01-darwin-settings.sh"
+{{- end -}}
