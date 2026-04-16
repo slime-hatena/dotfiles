@@ -20,6 +20,11 @@ jobs:
           test -f ~/.gitconfig
           test -f ~/.tmux.conf
           test -f ~/.profile
+      - name: Syntax check shell files
+        run: |
+          bash -n ~/.bashrc
+          bash -n ~/.profile
+          command -v zsh >/dev/null 2>&1 && zsh -n ~/.zshrc || echo "zsh not installed, skipping zsh syntax check"
   test-macos:
     name: test on macOS
     runs-on: macos-latest
@@ -37,3 +42,8 @@ jobs:
           test -f ~/.gitconfig
           test -f ~/.tmux.conf
           test -f ~/.profile
+      - name: Syntax check shell files
+        run: |
+          bash -n ~/.bashrc
+          bash -n ~/.profile
+          command -v zsh >/dev/null 2>&1 && zsh -n ~/.zshrc || echo "zsh not installed, skipping zsh syntax check"
