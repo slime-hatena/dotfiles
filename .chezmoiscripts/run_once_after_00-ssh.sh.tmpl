@@ -3,10 +3,11 @@ set -euo pipefail
 
 echo "Executing run_once_after_00-ssh.sh"
 
+# ~/.ssh, ~/.ssh/conf.d, ~/.ssh/config, ~/.ssh/conf.d/github は
+# chezmoi 側 (private_dot_ssh/) が 700 / 600 で管理するので、
+# ここでは chezmoi 管理外の鍵置き場とマシン固有設定ファイルのみ用意する。
 umask 077
-mkdir -p ~/.ssh ~/.ssh/keys ~/.ssh/keys/public
-chmod 700 ~/.ssh ~/.ssh/keys ~/.ssh/keys/public
+mkdir -p ~/.ssh/keys ~/.ssh/keys/public
 touch ~/.ssh/local_settings
-chmod 600 ~/.ssh/local_settings
 
 echo "Finished executing run_once_after_00-ssh.sh"
