@@ -5,6 +5,24 @@ set -euo pipefail
 
 echo "Executing run_onchange_after_01-brew.sh"
 
+# brew bundle は cask インストール等で途中 sudo を要求するため、
+# 対話実行時はここで一度パスワードを取得し、本スクリプトが動いている
+# 間だけバックグラウンドで sudo タイムスタンプを伸ばし続ける。
+# 非対話 (CI 等、stdin が TTY でない) では何もしないので、CI の
+# passwordless sudo / 不要な処理に影響しない。
+if [[ -t 0 ]] && command -v sudo >/dev/null 2>&1; then
+  echo "Caching sudo credentials (you may be prompted once)..."
+  sudo -v
+  PARENT_PID=$$
+  ( while true; do
+      sudo -n true 2>/dev/null || exit
+      sleep 50
+      kill -0 "$PARENT_PID" 2>/dev/null || exit
+    done ) &
+  SUDO_KEEPALIVE_PID=$!
+  trap 'kill "$SUDO_KEEPALIVE_PID" 2>/dev/null || true' EXIT
+fi
+
 # Install Homebrew if not present
 if ! command -v brew &>/dev/null; then
   echo "Homebrew not found. Installing Homebrew..."
