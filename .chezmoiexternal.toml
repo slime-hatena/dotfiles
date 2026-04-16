@@ -1,0 +1,12 @@
+# chezmoi が apply 時に取得する外部ファイル。
+# refreshPeriod を過ぎたら再取得され、上流の変更を自動で取り込む。
+
+[".zsh.d/functions/_fzf_git.zsh"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/junegunn/fzf-git.sh/main/fzf-git.sh"
+    refreshPeriod = "168h"
+
+[".config/ghostty/themes/catppuccin-latte.conf"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/catppuccin/ghostty/main/themes/catppuccin-latte.conf"
+    refreshPeriod = "168h"
