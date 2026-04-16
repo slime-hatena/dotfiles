@@ -1,0 +1,9 @@
+README.md
+.github
+.gitignore
+LICENSE
+
+{{- if ne .chezmoi.os "darwin" }}
+Library
+Library/**
+{{- end }}
