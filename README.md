@@ -14,6 +14,5 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply slime-hatena
 
 ### brew install packages
 
-```sh
-todo
-```
+`chezmoi apply` 実行時に `~/.config/homebrew/Brewfile` の内容が自動的にインストールされます。
+開発用パッケージ (php/hugo 等) や追加パッケージ (ffmpeg/yt-dlp 等) は初回プロンプトで選択します。
