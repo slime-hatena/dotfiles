@@ -5,3 +5,6 @@ abbr --session git\ mfeo="git fetch && git merge --no-edit origin/" 1> /dev/null
 
 abbr --session tt="tmuximum" 1> /dev/null
 abbr --session codi="code-insiders" 1> /dev/null
+
+abbr --session cddotfile="cd ~/.local/share/chezmoi" 1> /dev/null
+abbr --session codedotfile="code ~/.local/share/chezmoi" 1> /dev/null
