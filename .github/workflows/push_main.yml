@@ -13,13 +13,8 @@ jobs:
   calc_version:
     uses: slime-hatena/reusable-workflows/.github/workflows/calc_version.yml@main
     needs: [ci]
-  build:
-    uses: ./.github/workflows/build.yml
-    with:
-      version: '${{ needs.calc_version.outputs.version }}'
-    needs: [calc_version]
   create_release:
     uses: slime-hatena/reusable-workflows/.github/workflows/create_release.yml@main
     with:
       version: '${{ needs.calc_version.outputs.version }}'
-    needs: [calc_version, build]
+    needs: [calc_version]
