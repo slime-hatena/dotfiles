@@ -1,8 +1,8 @@
-function key-gen() {
+function keygen() {
   local name="$1"
 
   if [[ -z "$name" ]]; then
-    echo "Usage: key-gen <name>" >&2
+    echo "Usage: keygen <name>" >&2
     echo "  Generates an ed25519 SSH key pair as:" >&2
     echo "    private: ~/.ssh/keys/<name>" >&2
     echo "    public : ~/.ssh/keys/public/<name>.pub" >&2
