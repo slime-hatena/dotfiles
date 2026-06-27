@@ -11,3 +11,6 @@ abbr --session --quiet codi="code-insiders"
 
 abbr --session --quiet .cd="cd ~/.local/share/chezmoi"
 abbr --session --quiet .code="code ~/.local/share/chezmoi"
+
+abbr --session --quiet ccl="brew upgrade claude-code@latest; claude --dangerously-skip-permissions"
+abbr --session --quiet ccr="brew upgrade claude-code@latest; claude --dangerously-skip-permissions -r"
