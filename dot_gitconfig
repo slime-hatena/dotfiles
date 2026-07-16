@@ -1,5 +1,8 @@
 [include]
   path = .gitconfig_users
+[url "git@github.com:"]
+  insteadOf = https://github.com/
+  insteadOf = ssh://git@github.com/
 [core]
   editor = code --wait
 [diff]
